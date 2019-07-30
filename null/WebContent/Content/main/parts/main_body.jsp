@@ -22,7 +22,7 @@
 $().ready(()=>{
 	//홍보물 이미지 설정
 	//타임 인터벌 저장용
-	var inter;
+	var advertise_animation;
 	//이미지 리스트
 	var list = <c:out value="${file_list}" escapeXml="false"/>;
 	list.unshift("helper"); //배열의 직관성을 위한 인덱스 도움자
@@ -102,13 +102,32 @@ $().ready(()=>{
 	}// end sliding
 	
 	//자동 슬라이딩 설정 
-	function start(){  
-		inter = setInterval(function(){sliding("right")}, 3000);
+	function advertise_trigger(){  
+		advertise_animation = setInterval(function(){sliding("right")}, 3000);
 	}
-	start();
+	advertise_trigger();
+	
+	//interval 제거 함수
+	function clearAnimation(animation){
+		clearInterval(animation);
+		advertise_animation = null;
+	}
+	
+	//탭전환시 animation  제거
+	$("html").on("mouseenter",function(){
+						if(advertise_animation==null){
+							advertise_trigger();
+						}
+					})
+					.on("mouseleave",function(){
+						if(advertise_animation!=null){
+							clearAnimation(advertise_animation);
+						}
+					})
+	
 	//버튼 이벤트 설정
 		$(".main>.button").on("click",function(){
-								if(inter!=null){clearInterval(inter);}
+								if(advertise_trigger!=null){clearInterval(advertise_trigger);}
 								if($(this).hasClass("right")){
 									if(animation_status=="end"){
 										sliding("right");
@@ -121,10 +140,11 @@ $().ready(()=>{
 						 });
 		$(".body.main.advertise").on("mouseover",function(){
 									event.stopPropagation(); //이벤트 전파 방지
-									clearInterval(inter); //타임 인터벌 제거
+									if(advertise_animation!=null)clearAnimation(advertise_animation); //타임 인터벌 제거
 								 })
 								 .on("mouseout",function(){
-									setTimeout(start(),1);//타임 인터벌 재셋팅
+									 console.log(advertise_animation);
+									 if(advertise_animation==null)advertise_trigger();//타임 인터벌 재셋팅
 								 });
 								  
 	});
