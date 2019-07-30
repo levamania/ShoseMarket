@@ -34,7 +34,7 @@ public class WordInspector {
 			
 		//file loading
 		File dictionary = 
-				new File("C:/htmlStudy/apache-tomcat-8.5.40/wtpwebapps/null/Content/configuration/subsitution_dictionary.txt");
+				new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt");
 		BufferedReader buff = new BufferedReader(new FileReader(dictionary));
 		
 		//collection copy
