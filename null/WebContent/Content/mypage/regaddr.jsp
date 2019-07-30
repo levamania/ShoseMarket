@@ -59,7 +59,7 @@ userid - 회원 아이디
 	<span class="top_content" style="left:700px;"> * 필수 입력항목</span>
 </div>
 <div style="position: absolute; top: 90px;">
-<form action="../AddrAddServlet" id="regAddrForm" method="get">
+<form action="../../AddrAddServlet" id="regAddrForm" method="get">
 	<table style="font-size: 14px; border-top: 1px solid red; width: 900px;" >
 	<tr height="30px" >
 		<td width="200px" height="35px"class="table_title" > &nbsp;* 배송지명 </td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="40" id="delivname"></td>
@@ -124,7 +124,7 @@ userid - 회원 아이디
 	</tr>
 	<tr>
 		<td colspan="2" align="center" height="60px" style="border-top: 1px solid red;">
-			<input class="btns" type="submit" value="등록" style="background-color: red;" id="submitbtn">
+			<input class="btns" type="button" value="등록" style="background-color: red;" id="submitbtn">
 			<input class="btns" type="reset" value="취소" style="background-color: #F6F6F6;">
 		</td>
 	</tr>

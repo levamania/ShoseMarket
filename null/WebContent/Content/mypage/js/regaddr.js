@@ -32,71 +32,92 @@ $(document).ready(function(){
 	var address1 = $('#sample4_roadAddress');
 	var address2 = $('#sample4_jibunAddress');
 	
+	
 	//정규식
 	//한글영문숫자만 가능 
 	var regDelivname = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,10}$/;
 	var regDelivperson  = /^[가-힣]{2,4}$/;
 	var regNumber = /^\d{3,4}$/;
 	
-	$("form").on("submit",function(event){
-		event.preventDefault();
-		if(!delivname.val()){
+	$("#submitbtn").on("click",function(event){
+		if(delivname.val().length==0){
 			alert("배송지명 입력!!!");
 			delivname.focus();
 			return false;
-		}else if(!delivperson.val()){
-			alert("수취인 입력!!!");
+		}
+		if(delivperson.val().length==0){
+			alert("수령인 입력!!!");
 			delivperson.focus();
 			return false;
-		}else if(!phone22.val()){
-			alert("휴대폰 입력!!!");
-			phone22.focus();
-			return false;
-		}else if(!phone23.val()){
-			alert("휴대폰 입력!!!");
-			phone23.focus();
-			return false;
-		}else if(!post.val()){
-			alert("우편번호 검색!!!");
-			delivperson.focus();
-			return false;
-		}else if(phone12.val()){
-			if(!phone13.val()){
+		}
+		if(!phone12.val().length==0){
+			if(phone13.val().length==0){
 				alert("전화번호 입력!!!");
 				phone13.focus();
 				return false;
 			}
-		}else if(phone13.val()){
-			if(!phone12.val()){
+		}
+		if(!phone13.val().length==0){
+			if(phone12.val().length==0){
 				alert("전화번호 입력!!!");
 				phone12.focus();
 				return false;
 			}
 		}
+		if(phone22.val().length==0){
+			alert("휴대폰 입력!!!");
+			phone22.focus();
+			return false;
+		}
+		if(phone23.val().length==0){
+			alert("휴대폰 입력!!!");
+			phone23.focus();
+			return false;
+		}
+		if(post.val().length==0){
+			alert("우편번호 검색!!!");
+			delivperson.focus();
+			return false;
+		}
 		if(!regDelivname.test(delivname.val())){
 			alert("2~10의 한글,영문, 숫자만 가능합니다.");
 			delivname.focus();
 			return false;
-		}else if(!regDelivperson.test(delivperson.val())){
+		}
+		if(!regDelivperson.test(delivperson.val())){
 			alert("2~4의 한글만 가능 합니다.");
 			delivperson.focus();
 			return false;
-		}else if(!regNumber.test(phone22.val())){
+		}
+		if(phone12.val().length!=0&&!regNumber.test(phone12.val())){
+			alert("3~4의 숫자만 가능 합니다.");
+			phone12.focus();
+			return false;
+		}
+		if(phone13.val().length!=0&&!regNumber.test(phone13.val())){
+			alert("3~4의 숫자만 가능 합니다.");
+			phone13.focus();
+			return false;
+		}
+		if(!regNumber.test(phone22.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone22.focus();
 			return false;
-		}else if(!regNumber.test(phone23.val())){
+		}
+		if(!regNumber.test(phone23.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone23.focus();
 			return false;
-		}else if(phone12.val()){
+		}
+		if(!phone12.val().length==0){
 			if(!regNumber.test(phone12.val())){
 				alert("3~4의 숫자만 가능 합니다.");
 				phone12.focus();
 				return false;
 			}
 			return false;
-		}else if(phone13.val()){
+		}
+		if(phone13.val()){
 			if(!regNumber.test(phone13.val())){
 				alert("3~4의 숫자만 가능 합니다.");
 				phone13.focus();
@@ -112,7 +133,5 @@ $(document).ready(function(){
 		queryString+="&post="+post.val()+"&address1="+address1.val()+"&address2="+address2.val();
 		console.log(queryString);
 		$(location).attr("href",queryString);
-		
-		
 	});
 });

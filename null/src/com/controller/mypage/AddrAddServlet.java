@@ -21,6 +21,9 @@ public class AddrAddServlet extends HttpServlet {
 		String delivname = request.getParameter("delivname");
 		String delivperson = request.getParameter("delivperson");
 		String phone1 = request.getParameter("phone1");
+		if(phone1.length()<5) {
+			phone1="없음";
+		}
 		String phone2 = request.getParameter("phone2");
 		String post = request.getParameter("post");
 		String address1 = request.getParameter("address1");
@@ -35,6 +38,7 @@ public class AddrAddServlet extends HttpServlet {
 		System.out.println(phone2);
 		System.out.println(address1);
 		System.out.println(address2);
+		response.sendRedirect("AddrListServlet");
 	}
 
 }

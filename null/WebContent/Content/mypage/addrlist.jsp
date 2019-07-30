@@ -57,7 +57,7 @@
 <table >
 	<tr align="center">   
 		<td width="50px;"></td> <td width="100px;">${addr.delivname}</td><td width="100px;">${addr.delivperson}</td>
-		<td width="150px;">${addr.phone1}</td><td width="150px;">${addr.phone2}</td><td width="200px;">${addr.address1}</td><td width="100px;"><input type="button" value="수정"></td>
+		<td width="150px;">${addr.phone1}</td><td width="150px;">${addr.phone2}</td><td width="200px;">${addr.address1}</td><td width="100px;"><input type="hidden"  value="${addr.delivno}"><input  class="modifybtns" type="button" value="수정"></td>
 	</tr>
 </table>
 <div style="display: inline-block; border-bottom: 1px solid #F6F6F6; width: 900px;"></div>
@@ -71,5 +71,6 @@
 		$(location).attr("href","regaddr.jsp");
 	});
 </script>
+<script src="js/addrlist.js"></script>
 </body>
 </html>
