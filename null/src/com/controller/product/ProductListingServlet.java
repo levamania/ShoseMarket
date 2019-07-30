@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dto.ProductDTO;
 import com.exception.CustomException;
@@ -27,25 +28,16 @@ import ch.qos.logback.core.subst.Tokenizer;
 public class ProductListingServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//쿠키 처리
-		String listing_setup = null;
-		String prev_stack = null;
-		HashMap<String, String> cookied_setup = new HashMap<String, String>();
-		Cookie[] cookies =  request.getCookies();
-		for(Cookie cookie :cookies) {
-			if(cookie.getName().equals("listing_setup")) {
-				listing_setup = cookie.getValue();
-				cookie.setMaxAge(0); //쿠키 삭제
-				String[] entries = listing_setup.split(",");
-				for(String entry : entries) {
-					String key = entry.split(":")[0], value = entry.split(":")[1];
-					cookied_setup.put(entry, value);
-				}
-			}
-			if(cookie.getName().equals("prev_stack")) {
-				prev_stack = cookie.getValue();
-			}
-		}
+		//세션 처리
+		HttpSession session = request.getSession();
+		HashMap<String, Object> prev_stack = 
+				(HashMap<String,Object>)session.getAttribute("prev_stack");
+			//info from 현재 페이지 정보
+		HashMap<String, String> listing_setup = 
+				(HashMap<String, String>)prev_stack.get("listing_setup");
+	
+			//매 페이지 마다 갱신
+		session.removeAttribute("prev_stack");
 				
 		//쿼리 스트링 수용
 		String searchedWord = request.getParameter("searchedWord");
@@ -105,7 +97,6 @@ public class ProductListingServlet extends HttpServlet {
 				request.setAttribute("searchedWord", searchedWord);
 			}
 			request.setAttribute("pList", pList);
-			cookies.
 			//shooting
 			dis.forward(request, response);
 		
