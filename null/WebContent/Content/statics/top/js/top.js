@@ -45,11 +45,27 @@
 				}
 			});
 		// 시간에 따라 검색어 변경
-		setInterval(() => {
-			$("#search>#searched>span").text((ranking+1)+" "+ranking_list[ranking]);
-				ranking++;
-				if(ranking==10||ranking==ranking_list.length)ranking = 0;
-			}, setting);
+			var ranking_animation;	
+			function ranking_trigger(){	
+			 	ranking_animation = setInterval(() => {
+														$("#search>#searched>span").text((ranking+1)+" "+ranking_list[ranking]);
+														ranking++;
+														if(ranking==10||ranking==ranking_list.length)ranking = 0;
+								   				}, setting);
+			}
+			ranking_trigger();
+		//탭전환시 animation  제거
+		$("html").on("mouseenter",function(){
+							if(ranking_animation==null)ranking_trigger();
+						})
+						.on("mouseleave",function(){
+							if(ranking_animation!=null){
+								clearInterval(ranking_animation);
+								ranking_animation=null;
+							}
+						})
+		
+		
 		// 검색어 확장
 		$("#search>#searched").on("mouseenter",function(event){
 													event.stopPropagation();
@@ -63,7 +79,7 @@
 													for(var idx in ranking_list){
 														var rank = Number.parseInt(idx)+1;
 														string += "<div style='margin:0 0 0 10px;'>"+
-																			"<a href='/null/ProductListing?searchedWord="+ranking_list[idx]+"' style='font-size:12px;color:gray;text-decoration:none'>"+
+																			"<a href='/null/ProductListingServlet?searchedWord="+ranking_list[idx]+"' style='font-size:12px;color:gray;text-decoration:none'>"+
 																				rank+"  "+ranking_list[idx]+
 																			"</a>" +
 																		"</div>"

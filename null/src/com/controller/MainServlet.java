@@ -23,7 +23,6 @@ public class MainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//with model
 		ProductService service = new ProductService();
-		System.out.println("main");
 		//with jsp
 		RequestDispatcher dis = request.getRequestDispatcher("/Content/main/main.jsp");
 			//stacking data

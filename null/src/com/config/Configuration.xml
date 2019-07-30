@@ -6,6 +6,7 @@
 	<properties resource="com/config/Data.properties"></properties>
 	<typeAliases>
 		<typeAlias type="com.dto.ProductDTO" alias="product"/>
+		<typeAlias type="com.dto.StockDTO" alias="stock"/>
 		<typeAlias type="com.dto.RegAddrDTO" alias="RegAddr"/>
 	</typeAliases>
 	<environments default="development">
