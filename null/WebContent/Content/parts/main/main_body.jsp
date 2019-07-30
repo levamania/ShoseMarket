@@ -77,7 +77,7 @@ $().ready(()=>{
 		imgs.animate({left:animation},1000, implicit);
 		
 		//이미지 덮어쓰기
-		function change(){
+		function implicit(){
 			cover_img.attr({"src":"/null/Content/img/advertise/"+list[second]});
 			delay(100);
 		
