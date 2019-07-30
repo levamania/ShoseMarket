@@ -3,7 +3,7 @@
   <display-name>null</display-name>
   <filter>
     <filter-name>CharEncoder</filter-name>
-    <filter-class>org.filter.CharEncoder</filter-class>
+    <filter-class>com.filter.CharEncoder</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CharEncoder</filter-name>
