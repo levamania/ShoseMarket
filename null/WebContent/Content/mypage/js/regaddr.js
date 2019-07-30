@@ -81,17 +81,7 @@ $(document).ready(function(){
 			alert("2~4의 한글만 가능 합니다.");
 			delivperson.focus();
 			return false;
-		}else if(!regNumber.test(phone12.val())){
-			alert("3~4의 숫자만 가능 합니다.");
-			phone12.focus();
-			return false;
-		}
-		else if(!regNumber.test(phone13.val())){
-			alert("3~4의 숫자만 가능 합니다.");
-			phone13.focus();
-			return false;
-		}
-		else if(!regNumber.test(phone22.val())){
+		}else if(!regNumber.test(phone22.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone22.focus();
 			return false;
@@ -105,6 +95,7 @@ $(document).ready(function(){
 				phone12.focus();
 				return false;
 			}
+			return false;
 		}else if(phone13.val()){
 			if(!regNumber.test(phone13.val())){
 				alert("3~4의 숫자만 가능 합니다.");
@@ -117,7 +108,7 @@ $(document).ready(function(){
 			phone1 = phone11.val()+"-"+phone12.val()+"-"+phone13.val();
 		}
 		var phone2 = phone21.val()+"-"+phone22.val()+"-"+phone23.val();
-		var queryString = "../AddrAddServlet?delivname="+delivname.val()+"&delivperson="+delivperson.val()+"&phone1="+phone1+"&phone2="+phone2;
+		var queryString = "../../AddrAddServlet?delivname="+delivname.val()+"&delivperson="+delivperson.val()+"&phone1="+phone1+"&phone2="+phone2;
 		queryString+="&post="+post.val()+"&address1="+address1.val()+"&address2="+address2.val();
 		console.log(queryString);
 		$(location).attr("href",queryString);

@@ -50,14 +50,15 @@ userid - 회원 아이디
 </style>
 </head>
 <body>
+<script src="jquery-3.4.1.js"></script>
 <jsp:include page="top.jsp" ></jsp:include>
-<div style="display: inline-block; vertical-align: top">
+<div style="display: inline-block; vertical-align: top; position: relative; ">
 <div id="top_title">
 <p style="font-weight:bolder; font-size: 20px;" id="head_title">배송주소록관리</p>
 	<span class="top_content" style="font-weight: bold; font-size: 14px; ">배송지정보</span>
 	<span class="top_content" style="left:700px;"> * 필수 입력항목</span>
 </div>
-<div style="position: absolute; top: 430px;">
+<div style="position: absolute; top: 90px;">
 <form action="../AddrAddServlet" id="regAddrForm" method="get">
 	<table style="font-size: 14px; border-top: 1px solid red; width: 900px;" >
 	<tr height="30px" >

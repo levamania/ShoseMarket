@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +30,11 @@
 		width:900px;
 		height: 30px;
 		font-size: 14px;
-		border-bottom: 1px solid #FAE0D4;
 	}
 </style>
 </head>
 <body>
+<script src="jquery-3.4.1.js"></script>
 <jsp:include page="top.jsp"></jsp:include>
 <div id="top_title">
 <p style="font-weight:bolder; font-size: 20px;" id="head_title">배송주소록관리<input id="goaddradd" type="button" value="배송지 등록" style="position: absolute;left: 800px;"></p>
@@ -46,6 +47,12 @@
 </table>
 </div>
 <div id="addr_list">
+<c:set var="listSize" value="${fn:length(addrList)}"></c:set>
+<c:choose>
+<c:when test="${listSize==0}">
+<div style="display: inline-block; width: 900px; height: 200px; padding-top: 70px;" align="center">등록된 주소가 없습니다.</div>
+</c:when>
+<c:when test="${listSize>0}">
 <c:forEach var="addr" items="${addrList}">
 <table >
 	<tr align="center">   
@@ -53,7 +60,10 @@
 		<td width="150px;">${addr.phone1}</td><td width="150px;">${addr.phone2}</td><td width="200px;">${addr.address1}</td><td width="100px;"><input type="button" value="수정"></td>
 	</tr>
 </table>
+<div style="display: inline-block; border-bottom: 1px solid #F6F6F6; width: 900px;"></div>
 </c:forEach>
+</c:when>
+</c:choose>
 </div>
 </div>
 <script type="text/javascript">

@@ -16,8 +16,9 @@ public class MyPageService {
 	public void addAddr(RegAddrDTO dto) {
 		SqlSession session = MySqlSessionFactory.getSession();
 		try {
-			int num = mypageDAO.regAddrTotal(session)+1;
-			dto.setDelivno(num);
+			/*
+			 * int num = mypageDAO.regAddrTotal(session)+1; dto.setDelivno(num);
+			 */
 			mypageDAO.insertAddr(session,dto);
 			session.commit();
 		} catch (Exception e) {
