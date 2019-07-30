@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.shoes.ProductMapper">
+	
+	<!-- Product_info list-->
+	<select id="selectProduct_info" parameterType="hashmap" resultType="string">
+		select
+		<choose>
+			<when test="style!=null">
+				distinct
+				<choose>
+					<when test="style=='styleMid'">
+					 styleMid 
+					</when>
+					<when test="style=='styleBot'">
+					 styleBot
+					</when>
+				</choose>
+				from product
+			</when>
+			<when test="pName!=null">
+				pName from product
+			</when>
+			<when test="size">
+				psize||':'||pamount
+				from product p,stock s
+				where p.pcode = s.pcode
+				and p.pcode = #{pCode}
+				order by psize
+			</when>
+		</choose>
+	</select>
+
+	<!-- 단어검색 상품 리스트 -->
+	<select id="selectProductList" parameterType="hashmap" resultType="product">
+		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, s.pPrice
+		from product p, (select pCode,min(pPrice) pPrice
+								   from stock
+								   group by pCode) s
+		where p.pcode = s.pcode
+			<if test="styleMid!=null">and styleMid = #{styleMid}</if>
+			<if test="styleBot!=null">and styleBot = #{styleBot}</if>
+			<if test="pName!=null">and pName like '%'||#{pName}||'%'</if>
+	</select>
+	
+</mapper>

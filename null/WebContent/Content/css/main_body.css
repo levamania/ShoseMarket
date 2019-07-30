@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/* main 물품 홍보창 */
+.body.main.advertise{
+	position:relative;
+	widht:100%;
+	height: 500px;
+}
+	/*홍보물 이미지 설정*/
+	.main>#ad_img{
+		position:relative;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+        overflow:hidden;
+	}
+	/* 이미지리스트 */
+	.main>#ad_img ul{
+        position: absolute;
+        width:3000px;
+        padding:0;
+        top:0;
+        left:-1000px;
+        font-size: 0;
+        
+        z-index: -9;
+      }
+	/*개별 이미지 */
+      .main>#ad_img ul li{
+        display: inline-block;
+      }
+	/* 덮어쓸 이미지  */
+      .main>#ad_img>img{
+     	position: absolute;
+     	left: 0;
+     	top: 0;
+     	
+       	padding:0;
+       	
+     	z-index: -10;
+      }
+      
+	/* 이벤트 버튼 설정 */
+	.main>.button.right{
+		position:absolute;
+		height: 50%;
+		top:25%;
+		width:10%;
+		right:-10%;
+		background-color: red;	
+	}
+	.main>.button.left{
+		position:absolute;
+		height: 50%;
+		top:25%;
+		width:10%;
+		left:-10%;
+		background-color: green;	
+	}

@@ -1,0 +1,12 @@
+tennis=운동화
+sports=스포츠화
+shoe=구두
+boots=부츠
+sneakers=스니커즈
+canvas=캔버스화
+running=런닝화
+hiking=등산화
+high_heel=하이힐
+oxfurd=옥스퍼드
+fur=털부츠
+work=작업화
