@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dto.ProductDTO;
+import com.dto.StockDTO;
 import com.model.dao.ProductDAO;
 
 public class ProductService {
@@ -30,8 +31,8 @@ public class ProductService {
 		return list;
 	}
 	// a product info - size, price, color 
-		public List<String> getProduct_info(HashMap<String, String> map) {
-			List<String> list = null;
+		public List<StockDTO> getProduct_info(HashMap<String, String> map) {
+			List<StockDTO> list = null;
 			SqlSession session = null;
 			try {
 				session = MySqlSessionFactory.getSession();

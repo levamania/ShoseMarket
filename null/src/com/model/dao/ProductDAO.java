@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.ProductDTO;
+import com.dto.StockDTO;
 
 public class ProductDAO {
 	//products info
@@ -14,7 +15,7 @@ public class ProductDAO {
 		return session.selectList("selectProducts_info", map);
 	}
 	//product info
-	public List<String> selectProduct_info(SqlSession session, HashMap<String, String> map) {
+	public List<StockDTO> selectProduct_info(SqlSession session, HashMap<String, String> map) {
 		return session.selectList("selectProduct_info",map);
 	}
 
