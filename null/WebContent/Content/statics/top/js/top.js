@@ -79,7 +79,7 @@
 													for(var idx in ranking_list){
 														var rank = Number.parseInt(idx)+1;
 														string += "<div style='margin:0 0 0 10px;'>"+
-																			"<a href='/null/ProductListing?searchedWord="+ranking_list[idx]+"' style='font-size:12px;color:gray;text-decoration:none'>"+
+																			"<a href='/null/ProductListingServlet?searchedWord="+ranking_list[idx]+"' style='font-size:12px;color:gray;text-decoration:none'>"+
 																				rank+"  "+ranking_list[idx]+
 																			"</a>" +
 																		"</div>"
