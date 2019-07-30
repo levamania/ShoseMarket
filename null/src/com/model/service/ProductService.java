@@ -16,19 +16,34 @@ public class ProductService {
 		dao = new ProductDAO();
 	}
 	
-	//product info - style, size, 
-	public List<String> getProduct_info(HashMap<String, String> map) {
+	//products info - style, name 
+	public List<String> getProducts_info(HashMap<String, String> map) {
 		List<String> list = null;
 		SqlSession session = null;
 		try {
 			session = MySqlSessionFactory.getSession();
-			list = dao.selectProduct_info(session,map);
+			list = dao.selectProducts_info(session,map);
 			session.commit();
 		}finally {
 			if(session!=null)session.close();
 		}
 		return list;
 	}
+	// a product info - size, price, color 
+		public List<String> getProduct_info(HashMap<String, String> map) {
+			List<String> list = null;
+			SqlSession session = null;
+			try {
+				session = MySqlSessionFactory.getSession();
+				list = dao.selectProduct_info(session,map);
+				session.commit();
+			}finally {
+				if(session!=null)session.close();
+			}
+			return list;
+		}
+	
+	
 
 	//product list - searching
 	public List<ProductDTO> selectProductList(HashMap<String, String> reposit) {

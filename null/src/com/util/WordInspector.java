@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,22 +42,28 @@ public class WordInspector {
 		
 		//collection copy
 		ArrayList<String>copy = new ArrayList<String>();
-		for(String atom: list) {copy.add(atom);}
-		
+		ArrayList<String>forRank = new ArrayList<String>();
+		for(String atom: list) {copy.add(atom); forRank.add(atom);}
+
 		String reposit = "";
 		while((reposit=buff.readLine())!=null) {
 			String[] dic_entry = reposit.split("="); //포맷팅
-			String eng = dic_entry[0]; String kor = dic_entry[1];
+			String eng = dic_entry[0];
+			List<String> kor_list = Arrays.asList(dic_entry[1].split(","));
 			//copy list iterating
-			for(String word:copy) {
-				if(word.equals(kor)) {
-					list.remove(word); //국문단어 삭제
-					list.add(eng);	//영단어로 치환
+			for(String word:copy) {	
+				for(String kor:kor_list) {
+					if(word.equals(kor)) {
+						list.remove(word); list.add(eng);
+						forRank.remove(word); 
+						forRank.add(kor_list.get(0)); //완성된 단어로 변경						
+					}
 				}
 			}
-		}
+		}//end translating
+		
 		//lists 저장, copy = 랭킹 저장용 | list = 검색용	
-		return MapParamInputer.set("searching", list, "ranking", copy);
+		return MapParamInputer.set("searching", list, "ranking", forRank);
 	}//end method
 
 }//end class

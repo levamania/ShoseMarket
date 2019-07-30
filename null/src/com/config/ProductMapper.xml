@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shoes.ProductMapper">
 	
-	<!-- Product_info list-->
-	<select id="selectProduct_info" parameterType="hashmap" resultType="string">
+	<!-- Products_info list-->
+	<select id="selectProducts_info" parameterType="hashmap" resultType="string">
 		select
 		<choose>
 			<when test="style!=null">
@@ -23,18 +23,22 @@
 			<when test="pName!=null">
 				pName from product
 			</when>
-			
-			
-			<!-- 개별 상품 정보 -->
-			<when test="size">
-				psize||':'||pamount
-				from product p,stock s
-				where p.pcode = s.pcode
-				and p.pcode = #{pCode}
-				order by psize
-			</when>
 		</choose>
 	</select>
+	
+	<!-- 	개별 상품 정보 -->
+	<select id="" parameterType="hashmap" resultType="stock">
+		select
+		<if test="size">psize</if> 
+		<if test="color">pcolor</if> 
+		<if test="price">pprice</if> 
+		<if test="amount">pamount</if> 
+		<if test="deliverfee">deliverfee_yn</if> 
+		from product p,stock s
+		where p.pcode = s.pcode
+		and p.pcode = #{pCode}
+	</select>
+	
 
 	<!-- 단어검색 상품 리스트 -->
 	<select id="selectProductList" parameterType="hashmap" resultType="product">

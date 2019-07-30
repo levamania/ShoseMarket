@@ -38,9 +38,9 @@ public class ProductListingServlet extends HttpServlet {
 	
 			//data for comparison
 			ProductService service = new ProductService();
-			List<String> stylemid = service.getProduct_info(MapParamInputer.set("style","styleMid"));
-			List<String> stylebot = service.getProduct_info(MapParamInputer.set("style","styleBot"));
-			List<String> pname = service.getProduct_info(MapParamInputer.set("pName","pName"));			
+			List<String> stylemid = service.getProducts_info(MapParamInputer.set("style","styleMid"));
+			List<String> stylebot = service.getProducts_info(MapParamInputer.set("style","styleBot"));
+			List<String> pname = service.getProducts_info(MapParamInputer.set("pName","pName"));			
 			//repository of category or name
 			HashMap<String,String> reposit = new HashMap<String, String>(); 
 			//comparing to figure out category
