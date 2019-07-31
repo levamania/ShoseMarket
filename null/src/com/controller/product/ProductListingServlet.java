@@ -119,7 +119,9 @@ public class ProductListingServlet extends HttpServlet {
 				}
 				//페이징 처리
 				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-			
+				//리스트 갯수 저장
+				request.setAttribute("list_size", temp.size());
+				
 				//inserting keyword to ranking
 				if(source.equals("input")) {
 					RankingService ser = new RankingService();
