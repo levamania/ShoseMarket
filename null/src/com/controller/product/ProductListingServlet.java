@@ -36,17 +36,13 @@ public class ProductListingServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		HashMap<String, Object> prev_stack = 
 				(HashMap<String,Object>)session.getAttribute("prev_stack");
-		System.out.println(prev_stack);
 			//info from 현재 페이지 정보
 		HashMap<String, Object> listing_setup = null;
 		String back_word = "default";
 		
 		if(prev_stack!=null) {
 			back_word = (String)prev_stack.get("back_word");
-			System.out.println(back_word);
 			listing_setup = (HashMap<String, Object>)prev_stack.get("listing_setup");
-			System.out.print("listing_setup:");
-			System.out.print(listing_setup);
 			session.removeAttribute("prev_stack");
 		}
 			//매 페이지 마다 갱신
@@ -75,7 +71,7 @@ public class ProductListingServlet extends HttpServlet {
 		try {
 			ProductService service = new ProductService();
 			
-			if(source.equals("input")||(source.equals("menu")&&listing_setup==null)) {
+			if(source.equals("input")||source.equals("menu")||!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
 				words_map = WordInspector.inspect(searchedWord);
 				//repository of category or name
@@ -100,10 +96,10 @@ public class ProductListingServlet extends HttpServlet {
 			
 			}else {
 				reposit = listing_setup;
-				System.out.println("work");
 			}
 			//list searching through category
-			if(reposit.keySet().size()!=0) {
+			if(reposit.values().size()!=0) {
+				System.out.println(reposit.values());
 				List<ProductDTO> raw_list = service.selectProductList(reposit);
 				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";
@@ -117,7 +113,6 @@ public class ProductListingServlet extends HttpServlet {
 				}
 				//페이징 처리
 				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-				System.out.println(pList);
 			
 				//inserting keyword to ranking
 				if(source.equals("input")) {
@@ -142,7 +137,6 @@ public class ProductListingServlet extends HttpServlet {
 				//세션 처리용
 			session.setAttribute("prev_stack", 
 					MapParamInputer.setOb("listing_setup", (reposit==listing_setup)?listing_setup:reposit ,"back_word",searchedWord)  );
-					System.out.println(reposit==listing_setup);
 				//화면 구현용
 			if(!source.equals("menu")) {
 				request.setAttribute("searchedWord", searchedWord);

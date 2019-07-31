@@ -42,7 +42,7 @@
 	</select>
 	
 	
-	<!-- 단어검색 상품 리스트 -->
+	<!-- 상품 검색 리스트 -->
 	<select id="selectProductList" parameterType="hashmap" resultType="product">
 		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice
 		from product p, stock s , (select pCode,min(pPrice) pPrice
