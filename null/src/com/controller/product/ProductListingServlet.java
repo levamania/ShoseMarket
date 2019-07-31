@@ -2,9 +2,13 @@ package com.controller.product;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,18 +35,20 @@ public class ProductListingServlet extends HttpServlet {
 		//세션 처리
 		HttpSession session = request.getSession();
 		HashMap<String, Object> prev_stack = 
-				(HashMap<String,Object>)session.getAttribute("prev_stack");	
+				(HashMap<String,Object>)session.getAttribute("prev_stack");
+		System.out.println(prev_stack);
 			//info from 현재 페이지 정보
-		HashMap<String, String> listing_setup = null;
-			//검색했던 단어
+		HashMap<String, Object> listing_setup = null;
 		String back_word = "default";
 		
 		if(prev_stack!=null) {
-			back_word = prev_stack.get("back_word").toString();
-			listing_setup = (HashMap<String, String>)prev_stack.get("listing_setup");
+			back_word = (String)prev_stack.get("back_word");
+			System.out.println(back_word);
+			listing_setup = (HashMap<String, Object>)prev_stack.get("listing_setup");
+			System.out.print("listing_setup:");
+			System.out.print(listing_setup);
 			session.removeAttribute("prev_stack");
 		}
-	
 			//매 페이지 마다 갱신
 		session.removeAttribute("prev_stack");
 				
@@ -50,7 +56,14 @@ public class ProductListingServlet extends HttpServlet {
 		String searchedWord = request.getParameter("searchedWord");
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
-			//상세 검색 옵션
+			//페이징 정보
+		String p_temp1 = request.getParameter("cur_page");
+		String p_temp2 = request.getParameter("paging_quantity");
+		if(p_temp1==null)p_temp1="1";
+		if(p_temp2==null)p_temp2="30";
+		int cur_page = Integer.parseInt(p_temp1);
+		int paging_quantity = Integer.parseInt(p_temp2);
+		
 		
 		
 		//setting
@@ -58,33 +71,56 @@ public class ProductListingServlet extends HttpServlet {
 		Map<String, ArrayList<String>> words_map = null;
 		List<ProductDTO> pList = null;
 		
-		HashMap<String,String> reposit = null;
+		HashMap<String,Object> reposit = null;	
 		try {
 			ProductService service = new ProductService();
 			
-			if(listing_setup==null && !back_word.equals(searchedWord)) {
-				//검증되고 변환된 단어얻기
+			if(source.equals("input")||(source.equals("menu")&&listing_setup==null)) {
+				//검증되고 번역된 단어얻기
 				words_map = WordInspector.inspect(searchedWord);
 				//repository of category or name
-				reposit = new HashMap<String, String>(); 
+				reposit = new HashMap<String, Object>(); 
 				//data for comparison
 				List<String> stylemid = service.getProducts_info(MapParamInputer.set("style","styleMid"));
 				List<String> stylebot = service.getProducts_info(MapParamInputer.set("style","styleBot"));
 				List<String> pname = service.getProducts_info(MapParamInputer.set("pName","pName"));			
 				//comparing to figure out category
+				List<String> styleMid = (List<String>)new ArrayList<String>();
+				List<String> styleBot = (List<String>)new ArrayList<String>();
+				List<String> pName = (List<String>)new ArrayList<String>();
+				
 				for(String word: words_map.get("searching")) {
-					for(String mid: stylemid) {if(mid.contains(word))reposit.put("styleMid",word);}
-					for(String bot: stylebot)  {if(bot.contains(word))reposit.put("styleBot",word);}
-					for(String name: pname) {	if(name.contains(word))reposit.put("pName",word);}
+					for(String mid: stylemid) {if(mid.contains(word))styleMid.add(word);}
+					for(String bot: stylebot) {if(bot.contains(word))styleBot.add(word);	}
+					for(String name: pname) {	if(name.contains(word))pName.add(word);}
 				}
+				reposit.put("styleMid",(styleMid.size()!=0)?styleMid:null);
+				reposit.put("styleBot",(styleBot.size()!=0)?styleBot:null);
+				reposit.put("pName",(pName.size()!=0)?pName:null);
+			
 			}else {
 				reposit = listing_setup;
+				System.out.println("work");
 			}
 			//list searching through category
 			if(reposit.keySet().size()!=0) {
-				pList =  service.selectProductList(reposit);
+				List<ProductDTO> raw_list = service.selectProductList(reposit);
+				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
+				String prev_pcode = "inital";
+				//중복 제거
+				for(ProductDTO product : raw_list) {
+					String curr_pcode = product.getpCode();
+					if(!prev_pcode.equals(curr_pcode)) {
+						prev_pcode = curr_pcode;
+						temp.add(product);
+					}
+				}
+				//페이징 처리
+				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
+				System.out.println(pList);
+			
 				//inserting keyword to ranking
-				if(!source.equals("main")) {
+				if(source.equals("input")) {
 					RankingService ser = new RankingService();
 					for(String word: words_map.get("ranking")) {
 						if(ser.updateRanking(word)==0)ser.insertRanking(word); 
@@ -98,15 +134,17 @@ public class ProductListingServlet extends HttpServlet {
 			System.out.println("경고: 파일이 없데요!");
 		} catch (Exception e) {
 			System.out.println("너 또 왜!");
+			e.printStackTrace();
 		}
 		//with jsp
 		dis = request.getRequestDispatcher("/Content/product_list/productList.jsp");
 			//statcking 
 				//세션 처리용
-			session.setAttribute("prev_stack", MapParamInputer.setOb("listing_setup", (reposit==null)?listing_setup:reposit ) );
-		
+			session.setAttribute("prev_stack", 
+					MapParamInputer.setOb("listing_setup", (reposit==listing_setup)?listing_setup:reposit ,"back_word",searchedWord)  );
+					System.out.println(reposit==listing_setup);
 				//화면 구현용
-			if(!source.equals("main")) {
+			if(!source.equals("menu")) {
 				request.setAttribute("searchedWord", searchedWord);
 			}
 			request.setAttribute("pList", pList);

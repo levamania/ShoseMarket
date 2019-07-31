@@ -47,7 +47,7 @@ public class ProductService {
 	
 
 	//product list - searching
-	public List<ProductDTO> selectProductList(HashMap<String, String> reposit) {
+	public List<ProductDTO> selectProductList(HashMap<String, Object> reposit) {
 		List<ProductDTO> list = null;
 		SqlSession session = null;
 		try {
