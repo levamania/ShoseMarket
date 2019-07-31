@@ -42,16 +42,41 @@
 	</select>
 	
 	
-	<!-- 단어검색 상품 리스트 -->
+	<!-- 상품 검색 리스트 -->
 	<select id="selectProductList" parameterType="hashmap" resultType="product">
-		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, s.pPrice
-		from product p, (select pCode,min(pPrice) pPrice
-								   from stock
-								   group by pCode) s
-		where p.pcode = s.pcode
-			<if test="styleMid!=null">and styleMid = #{styleMid}</if>
-			<if test="styleBot!=null">and styleBot = #{styleBot}</if>
-			<if test="pName!=null">and pName like '%'||#{pName}||'%'</if>
+		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice
+		from product p, stock s , (select pCode,min(pPrice) pPrice
+								   				from stock
+								   				group by pCode) m 
+		where p.pcode = s.pcode and s.pcode = m.pcode
+			<if test="styleMid!=null">and styleMid in
+			 	<foreach collection="styleMid" item="item" open="(" close=")"  separator=",">
+			 		#{item}	
+			 	</foreach>
+			 </if>
+			<if test="styleBot!=null">and styleBot in
+			 	<foreach collection="styleBot" item="item" open="(" close=")"  separator=",">
+			 		#{item}	
+			 	</foreach>
+			 </if>
+			<if test="pName!=null">and 
+				<foreach collection="pName" item="item"  separator="or">
+			 		pName like '%'||#{item}||'%'	
+			 	</foreach>
+			</if>
+			<if test="pSize!=null">and pSize in
+			 	<foreach collection="pSize" item="item" open="(" close=")"  separator=",">
+			 		#{item}	
+			 	</foreach>
+			</if>
+			<if test="pColor!=null">and pColor in 
+				 <foreach collection="pColor" item="item" open="(" close=")"  separator=",">
+			 		#{item}	
+			 	</foreach>
+			</if>
+			<if test="pPrice!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
+			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
+		order by to_number(p.pcode)
 	</select>
 	
 </mapper>

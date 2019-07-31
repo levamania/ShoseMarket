@@ -20,6 +20,21 @@ regAddrForm - form id
 userid - 회원 아이디*/
 
 $(document).ready(function(){
+	
+	var addrphone1 = $("#addrphone11").val();
+	var addrphone2= $("#addrphone21").val();
+	$("#phone11").children().each(function(){
+		if(addrphone1==$(this).val()){
+			$(this).attr("selected","selected");
+		}
+	});
+	$("#phone21").children().each(function(){
+		if(addrphone2==$(this).val()){
+			$(this).attr("selected","selected");
+		}
+	});
+	
+	var delivno = $("#delivno");
 	var delivname = $('#delivname');
 	var delivperson = $("#delivperson");
 	var phone11 = $('#phone11');
@@ -31,8 +46,7 @@ $(document).ready(function(){
 	var post = $('#sample4_postcode');
 	var address1 = $('#sample4_roadAddress');
 	var address2 = $('#sample4_jibunAddress');
-	
-	
+	var userid = $("#userid");
 	//정규식
 	//한글영문숫자만 가능 
 	var regDelivname = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,10}$/;
@@ -40,6 +54,8 @@ $(document).ready(function(){
 	var regNumber = /^\d{3,4}$/;
 	
 	$("#submitbtn").on("click",function(event){
+		
+		
 		if(delivname.val().length==0){
 			alert("배송지명 입력!!!");
 			delivname.focus();
@@ -79,6 +95,7 @@ $(document).ready(function(){
 			delivperson.focus();
 			return false;
 		}
+		
 		if(!regDelivname.test(delivname.val())){
 			alert("2~10의 한글,영문, 숫자만 가능합니다.");
 			delivname.focus();
@@ -89,11 +106,13 @@ $(document).ready(function(){
 			delivperson.focus();
 			return false;
 		}
+		
 		if(phone12.val().length!=0&&!regNumber.test(phone12.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone12.focus();
 			return false;
 		}
+		
 		if(phone13.val().length!=0&&!regNumber.test(phone13.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone13.focus();
@@ -104,11 +123,14 @@ $(document).ready(function(){
 			phone22.focus();
 			return false;
 		}
+		
 		if(!regNumber.test(phone23.val())){
 			alert("3~4의 숫자만 가능 합니다.");
 			phone23.focus();
 			return false;
 		}
+		console.log(1);
+		console.log(phone12.val());
 		if(!phone12.val().length==0){
 			if(!regNumber.test(phone12.val())){
 				alert("3~4의 숫자만 가능 합니다.");
@@ -116,6 +138,7 @@ $(document).ready(function(){
 				return false;
 			}
 		}
+		
 		if(phone13.val()){
 			if(!regNumber.test(phone13.val())){
 				alert("3~4의 숫자만 가능 합니다.");
@@ -127,9 +150,11 @@ $(document).ready(function(){
 		if(phone11.val().length+phone12.val().length+phone13.val().length){
 			phone1 = phone11.val()+"-"+phone12.val()+"-"+phone13.val();
 		}
+		
+		
 		var phone2 = phone21.val()+"-"+phone22.val()+"-"+phone23.val();
-		var queryString = "../../AddrAddServlet?delivname="+delivname.val()+"&delivperson="+delivperson.val()+"&phone1="+phone1+"&phone2="+phone2;
-		queryString+="&post="+post.val()+"&address1="+address1.val()+"&address2="+address2.val();
+		var queryString = "/null/ModifyAddrConfirmSerlvet?delivno="+delivno.val()+"&delivname="+delivname.val()+"&delivperson="+delivperson.val()+"&phone1="+phone1+"&phone2="+phone2;
+		queryString+="&post="+post.val()+"&address1="+address1.val()+"&address2="+address2.val()+"&userid="+userid.val();
 		console.log(queryString);
 		$(location).attr("href",queryString);
 	});

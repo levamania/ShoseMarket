@@ -21,7 +21,7 @@
 			  var searchedWord = $("#search input").val().trim();
 			  var regEx = /^\S{2,15}/;
 			  if(regEx.test(searchedWord)){
-				  location.href = "/null/ProductListingServlet?searchedWord="+searchedWord;
+				  location.href = "/null/ProductListingServlet?source=input&searchedWord="+searchedWord;
 			  }else{
 					  alert("2글자 이상 입력해주세요");
 			  }
@@ -132,7 +132,7 @@
 		//style mid - anchor setting
 		
 		$("#horizentalBar a").each(function(){
-											var href = "/null/ProductListingServlet?source=main&searchedWord=" + $(this).text();  
+											var href = "/null/ProductListingServlet?source=menu&searchedWord=" + $(this).text();  
 											$(this).attr("href",href);
 										})
 });

@@ -20,4 +20,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where userid = #{userid}
 		order by delivno
 	</select>
+	
+	<select id="searchByNo" parameterType="string" resultType="RegAddr">
+		select delivno, delivname, delivperson, phone1, phone2,
+		post, address1, address2, userid
+		from delivinfo
+		where delivno=#{delivno}
+	</select>
+	
+	<insert id="modifyAddr" parameterType="RegAddr">
+		update delivinfo set delivname=#{delivname}, delivperson=#{delivperson},
+		phone1 = #{phone1}, phone2 = #{phone2}, address1 = #{address1}, address2 = #{address2}
+		where delivno = #{delivno}
+	</insert>
 </mapper>

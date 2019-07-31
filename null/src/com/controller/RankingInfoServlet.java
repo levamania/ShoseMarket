@@ -33,7 +33,6 @@ public class RankingInfoServlet extends HttpServlet {
 		response.setContentType("text/plain;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(string);
-		System.out.println(string);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

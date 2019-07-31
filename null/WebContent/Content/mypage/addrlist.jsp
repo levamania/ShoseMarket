@@ -35,7 +35,7 @@
 </style>
 </head>
 <body>
-<script src="jquery-3.4.1.js"></script>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <jsp:include page="top.jsp"></jsp:include>
 <div id="top_title">
 <p style="font-weight:bolder; font-size: 20px;" id="head_title">배송주소록관리<input id="goaddradd" type="button" value="배송지 등록" style="position: absolute;left: 800px;"></p>

@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-<script src="jquery-3.4.1.js"></script>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <jsp:include page="top.jsp"></jsp:include>
 <div id="top_box" >
 	<p style="font-weight:bolder; font-size: 20px;">주문현황 조회</p>
@@ -36,6 +36,6 @@
 	</div>
 </div>
 
-<script src="js/orderinfo.js"></script>
+<script src="/null/Content/mypage/js/orderinfo.js"></script>
 </body>
 </html>
