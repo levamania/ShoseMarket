@@ -70,18 +70,18 @@ html, body {
 <table  align="center" class="align-center vi" border=0 cellSpacing=1 cellPadding=0 bgColor="darkgray" style="color:black"  >
 
 <tr>
-<th colspan="2" bgColor=#ffffff width=1400 height=50><img src="../img/signup(addmember).PNG" width="30" height="auto;" ><b> 온라인 회원</b></th>
+<th colspan="2" bgColor=#ffffff width=1400 height=50><img src="../img/account/signup(addmember).PNG" width="30" height="auto;" ><b> 온라인 회원</b></th>
 </tr>
 <tr>
 <td bgColor=#ffffff width=400 height=70 id="table" >회원가입 절차</td>
-<td bgColor=#ffffff width=1000 height=70> &nbsp;<img src="../img/signup(check).PNG"style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">약관동의  &nbsp;</a><a style="color:#ffbaba">-></a>
-<img src="../img/signup(userinfo).PNG" style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">회원정보 입력 &nbsp;</a><a style="color:#ffbaba">-></a>
-<img src="../img/Signup(complite).PNG" style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">회원가입 완료  &nbsp;</a>
+<td bgColor=#ffffff width=1000 height=70> &nbsp;<img src="../img/account/signup(check).PNG"style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">약관동의  &nbsp;</a><a style="color:#ffbaba">-></a>
+<img src="../img/account/signup(userinfo).PNG" style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">회원정보 입력 &nbsp;</a><a style="color:#ffbaba">-></a>
+<img src="../img/account/Signup(complite).PNG" style="max-width: 20px; height: auto;" > &nbsp;<a style="color:#696969">회원가입 완료  &nbsp;</a>
 </td>
 </tr>
 <tr>
 <td bgColor=#ffffff width=400 height=210 id="table" >혜택</td>
-<td bgColor=#ffffff width=1000 height=210 background="../img/signup(background).png" style="color:red;" id="table" ><b>있을것 같은데 없음</b></td>
+<td bgColor=#ffffff width=1000 height=210 background="../img/account/signup(background).png" style="color:red;" id="table" ><b>있을것 같은데 없음</b></td>
 
 </tr>
 </table>

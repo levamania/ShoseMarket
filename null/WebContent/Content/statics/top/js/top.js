@@ -4,7 +4,7 @@
 	$().ready(function(){
 		$("#login").on("click",()=>location.href="/null/LoginServlet");
 		$("#logout").on("click",()=>location.href="/null/LogOutServlet");
-		$("#signup").on("click",()=>location.href="/null/SignUpServlet");
+		$("#signup").on("click",()=>location.href="/null/Content/account/signup_first.jsp");
 		$("#mypage").on("click",()=>location.href="/null/MypageServlet");
 		$("#cart").on("click",()=>location.href="/null/CartServlet");
 		$("#order").on("click",()=>location.href="/null/CartServlet");

@@ -125,9 +125,9 @@ html, body {
 <b   style="color:black">NULL-MART 온라인 회원가입</b><br>
 
 <b> </b><br>
-<img src="../img/signup(check)2.PNG" width="50" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 약관동의 &nbsp;&nbsp;&nbsp;</a> 
-<img src="../img/Signup(complite).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 회원정보입력&nbsp;&nbsp;&nbsp;</a> 
-<img src="../img/signup(userinfo).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 가입완료&nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/signup(check)2.PNG" width="50" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 약관동의 &nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/Signup(complite).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 회원정보입력&nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/signup(userinfo).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 가입완료&nbsp;&nbsp;&nbsp;</a> 
 <hr style="color:red">
 </div> 
 <input type="checkbox" name="info1" id="info1" class="group"><a style="font-size: 50%;color:gray">NULL-MART 구매이용약관</a><a style="font-size: 50%;color:lightgray">(필수)</a>
