@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <!-- script -->
 <script type="text/javascript" src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="/null/Content/product_list/js/productList.js"></script>
+<jsp:include page="/Content/product_list/js/productList.jsp"/>
 <!-- style -->
 <link rel="stylesheet" type="text/css" href="/null/Content/product_list/css/productList.css">
 </head>
