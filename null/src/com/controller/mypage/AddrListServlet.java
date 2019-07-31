@@ -26,7 +26,7 @@ public class AddrListServlet extends HttpServlet {
 		List<RegAddrDTO> regAddrDTOs = service.getAddrList(userid);
 		HttpSession session = request.getSession();
 		session.setAttribute("addrList", regAddrDTOs);
-		response.sendRedirect("Content/mypage/addrlist.jsp");
+		response.sendRedirect("/null/Content/mypage/addrlist.jsp");
 	}
 
 }

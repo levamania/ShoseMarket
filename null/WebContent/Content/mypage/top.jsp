@@ -127,3 +127,4 @@ a{
 	<p><a href="/null/Content/mypage/modifyaccountcheck.jsp">개인정보수정</a></p>
 </div>
 	<!-- <script src="/null/Content/mypage/js/top.js"></script> -->
+	<script src="/null/Content/mypage/js/toppage.js"></script>
