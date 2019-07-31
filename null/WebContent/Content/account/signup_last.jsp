@@ -77,7 +77,7 @@ html, body {
 
 </head>
 <body >
-<form action="signup_first.jsp">
+<form action="/null/MainServlet">
 
 <div id="" class="align-center vi" style="font-size:25px">
 <b> </b><br>

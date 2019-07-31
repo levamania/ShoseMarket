@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dto.MemberDTO;
-import com.service.MemberService;
+import com.model.service.MemberService;
+
 
 
 @WebServlet("/SignUpServlet")
