@@ -61,8 +61,6 @@ public class ProductListingServlet extends HttpServlet {
 		int cur_page = Integer.parseInt(p_temp1);
 		int paging_quantity = Integer.parseInt(p_temp2);
 		
-		
-		
 		//setting
 		RequestDispatcher dis = null;
 		Map<String, ArrayList<String>> words_map = null;
@@ -119,8 +117,9 @@ public class ProductListingServlet extends HttpServlet {
 				}
 				//페이징 처리
 				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-				//리스트 갯수 저장
-				request.setAttribute("list_size", temp.size());
+				//페이지 갯수 저장
+				request.setAttribute("page_size", (temp.size()!=0)?Math.round((temp.size()/paging_quantity)+1):null);
+				request.setAttribute("whole_size", (temp.size()!=0)?temp.size():0);
 				
 				//inserting keyword to ranking
 				if(source.equals("input")) {
@@ -146,10 +145,11 @@ public class ProductListingServlet extends HttpServlet {
 			session.setAttribute("prev_stack", 
 					MapParamInputer.setOb("listing_setup", (reposit==listing_setup)?listing_setup:reposit ,"back_word",searchedWord)  );
 				//화면 구현용
-			if(!source.equals("menu")) {
-				request.setAttribute("searchedWord", searchedWord);
-			}
+			request.setAttribute("searchedWord", searchedWord);
+			request.setAttribute("source", source);
 			request.setAttribute("pList", pList);
+			request.setAttribute("cur_page", cur_page);
+			request.setAttribute("paging_quantity", paging_quantity);
 			//shooting
 			dis.forward(request, response);
 		
