@@ -44,7 +44,7 @@
 
 </head>
 <body>
-<script src="jquery-3.4.1.js"></script>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <jsp:include page="top.jsp"></jsp:include>
 <div class="mid_box">
 <p style="font-weight:bolder; font-size: 20px;" id="head_title">반품/교환/AS</p>

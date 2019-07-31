@@ -57,18 +57,18 @@ a{
 		<div class="topbtn_box" style="border: 1px solid red; position: absolute; left: 100px; ">
 
 			<div style="display: inline-block ;">
-				<img src="../img/mypage/Signup(checked).PNG">
+				<img src="/null/Content/img/mypage/Signup(checked).PNG">
 			</div>
 			<div style="display: inline-block;">
 				<p>
 					<span id="username"><b>~ 회원님 반갑습니다.</b></span>
 				</p>
 				<p style="font-size: 14px;">
-					<img src="../img/mypage/mypage_arrow.PNG" height="15" width="15">
+					<img src="/null/Content/img/mypage/mypage_arrow.PNG" height="15" width="15">
 					아이디:<span id="userid"></span>atoro
 				</p>
 				<p style="font-size: 14px;">
-					<img src="../img/mypage/mypage_arrow.PNG" height="15" width="15">
+					<img src="/null/Content/img/mypage/mypage_arrow.PNG" height="15" width="15">
 					이메일:<span id="userpassword"></span>atoro@daum.net
 				</p>
 				<p style="font-size: 12px;">
@@ -87,7 +87,7 @@ a{
 			<div style="text-align: center">현황~~</div>
 			<div  class="topbtn_right" style=";">
 				<p style="margin-left: 12px;">
-					<img src="../img/mypage/signup(userinfo)2.PNG" height="50" width="50">
+					<img src="/null/Content/img/mypage/signup(userinfo)2.PNG" height="50" width="50">
 				</p>
 				<p>
 					<input type="button" value="상품후기 " id="goordereval">
@@ -95,7 +95,7 @@ a{
 			</div>
 			<div class="topbtn_right" style="">
 				<p style="margin-left: 12px;">
-					<img src="../img/mypage/truck.PNG" height="50" width="50">
+					<img src="/null/Content/img/mypage/truck.PNG" height="50" width="50">
 				</p>
 				<p>
 					<input type="button" value="배송지 관리" id="goaddrinfo">
@@ -104,7 +104,7 @@ a{
 			<div class="topbtn_right" style="">
 
 				<p style="margin-left: 12px;">
-					<img src="../img/mypage/product.PNG" height="50" width="50">
+					<img src="/null/Content/img/mypage/product.PNG" height="50" width="50">
 				</p>
 				<p>
 					<input type="button" value="주문현황" id="goorderlist">
@@ -122,8 +122,8 @@ a{
 	<p style="font-weight: bolder; font-size: 20px;">쇼핑수첩</p>
 	<p><a href="ordereval.jsp">나의 상품후기</a></p><br>
 	<p style="font-weight: bolder; font-size: 20px;">개인정보</p>
-	<p><a href="../../AddrListServlet">배송주소록관리</a></p>
-	<p><a href="modifyinfo.jsp">개인정보수정</a></p>
+	<p><a href="/null/AddrListServlet">배송주소록관리</a></p>
+	<p><a href="modifyaccountinfo.jsp">개인정보수정</a></p>
 </div>
-	<script src="jquery-3.4.1.js"></script>
-	<script src="js/top.js"></script>
+	<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
+	<script src="/null/Content/mypage/js/top.js"></script>
