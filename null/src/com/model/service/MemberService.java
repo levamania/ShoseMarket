@@ -12,7 +12,7 @@ public class MemberService {
 
 	public void memberAdd(MemberDTO dto) {
 		SqlSession session = MySqlSessionFactory.getSession();
-		MemberDAO dao = new MemberDAO();
+		MemberDAO dao = new MemberDAO();  
 		try {
 			dao.memberAdd(session,dto);
 			session.commit();
