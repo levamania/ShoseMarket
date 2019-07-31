@@ -50,6 +50,7 @@ public class ProductListingServlet extends HttpServlet {
 				
 		//쿼리 스트링 수용
 		String searchedWord = request.getParameter("searchedWord");
+		if(searchedWord==null)searchedWord="default";
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
 			//페이징 정보
@@ -71,7 +72,7 @@ public class ProductListingServlet extends HttpServlet {
 		try {
 			ProductService service = new ProductService();
 			
-			if(source.equals("input")||source.equals("menu")||!back_word.equals(searchedWord)) {
+			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
 				words_map = WordInspector.inspect(searchedWord);
 				//repository of category or name
@@ -97,9 +98,14 @@ public class ProductListingServlet extends HttpServlet {
 			}else {
 				reposit = listing_setup;
 			}
+	
 			//list searching through category
-			if(reposit.values().size()!=0) {
-				System.out.println(reposit.values());
+			boolean empty_locator = false;
+			for(Object obj  :reposit.values()) {
+				if(obj!=null)empty_locator = true;
+			}
+			
+			if(empty_locator) {
 				List<ProductDTO> raw_list = service.selectProductList(reposit);
 				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";
@@ -113,7 +119,9 @@ public class ProductListingServlet extends HttpServlet {
 				}
 				//페이징 처리
 				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-			
+				//리스트 갯수 저장
+				request.setAttribute("list_size", temp.size());
+				
 				//inserting keyword to ranking
 				if(source.equals("input")) {
 					RankingService ser = new RankingService();
