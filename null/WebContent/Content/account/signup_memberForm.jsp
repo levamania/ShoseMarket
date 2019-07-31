@@ -5,16 +5,155 @@
 <head>
 <meta charset="UTF-8">
 <title>memberForm</title>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js" ></script>
 <script type="text/javascript">
-</script>
-<script>
+	$(document).ready(function(){
+		function check(re, what, message) {
+			if (re.test(what.val())) {
+				return true;
+			}
+			alert(message);
+			what.value = "";
+			what.focus();
+			return false;
+		}
+		
+		
+		$("#btn").on("click",function(event){
+			event.preventDefault();
+				var re = /^[a-zA-Z0-9]{4,12}$/ 
+				var re1 = /^[a-zA-Z0-9~!;:]{4,12}$/ 
+				var re2 = /^[0-9]{0,12}$/
+				var re3 = /^[a-zA-Z가-힝]{0,10}$/
+				var re4 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
 
+				var id = $("#userid");
+				var pw = $("#passwd");
+				var pw2 =$("#passwd2");
+			
+				if (!check(re, id, "아이디는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+					return false;
+
+				}
+				
+
+				if (!check(re1, pw, "패스워드는 4~12자의 영문 대소문자, 숫자, 특수문자(~,!,;,:)로 입력")) {
+					return false;
+				}
+
+				if (pw.value != pw2.value) {
+					alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+					pw2.value = "";
+					pw2.focus();
+					return false;
+				}
+				var username = $("#username");
+
+				if(username.value==""){
+					alert("이름을 입력하지 않았습니다.")
+					username.focus();
+					return false;
+				}
+				if (!check(re3, username, "한글 또는 영문만 입력 가능합니다.")) {
+					return false;
+				}
+				
+				var radio = $(".radio");
+				console.log(radio);
+				if(radio.val()==""){
+					alert("성별을 입력하지 않았습니다.")
+					radio.focus();
+					return false;
+				}
+				
+
+				var email1 = $("#email1");
+				var email2 = $("#email2");
+				
+				if (email1.val()=="") {
+					alert("이메일을 입력해 주세요");
+					email1.focus();
+					return false;
+				}
+				if (email2.val()=="") {
+					alert("이메일을 입력해 주세요");
+					email2.focus();
+					return false;
+				}
+				 if (!check(re4,email2, "email 형식에 맞게 작성해주세요")) {
+					return false;
+
+				 }
+				var po = $("#sample4_postcode");
+				var ad1 = $("#sample4_roadAddress");
+				var ad2 = $("#sample4_jibunAddress");
+				var ad3 = $("#addr3");
+				if (po.val() == "") {
+					alert("우편번호 상실했습니다");
+					po.focus();
+					return false;
+				}
+				if (ad1.val() == "") {
+					alert("정확한 주소를 입력해주세요");
+					ad1.focus();
+					return false;
+				}
+				if (ad2.val() == "") {
+					alert("정확한 주소를 입력해주세요");
+					ad2.focus();
+					return false;
+				}
+				if (ad3.val() == "") {
+					alert("상세주소를 입력하세요. ");
+					ad3.focus();
+					return false;
+				}
+				var phone1 = $('#phone1');
+				
+				var phone2 = $("#phone2");
+				var phone3 = $("#phone3");
+				if (phone1.val()=="") {
+					alert("전화번호 입력하시오");
+					phone1.focus();
+					return false;
+				}
+				if (phone2.val()=="") {
+					alert("전화번호 입력하시오");
+					phone2.focus();
+					return false;
+				}
+				if (phone3.val()=="") {
+					alert("전화번호 입력하시오");
+					phone3.focus();
+					return false;
+				}
+				
+				if (!check(re2, phone2, "숫자만 입력가능합니다.")) {
+					return false;
+
+				}
+				if (!check(re2, phone3, "숫자만 입력가능합니다.")) {
+					return false;
+
+				} 
+			
+			
+		});
+		
+		
+	});
+</script>
+<!-- <script>
+
+$(document).ready(function(){
+	
 function validate() {
 	var re = /^[a-zA-Z0-9]{4,12}$/ 
+	var re1 = /^[a-zA-Z0-9~!;:]{4,12}$/ 
 	var re2 = /^[0-9]{0,12}$/
 	var re3 = /^[a-zA-Z가-힝]{0,10}$/
 	var re4 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
-
+	
 
 	var id = document.getElementById("userid");
 	var pw = document.getElementById("passwd");
@@ -25,7 +164,7 @@ function validate() {
 	}
 	
 
-	if (!check(re, pw, "패스워드는 4~12자의 영문 대소문자, 숫자, 특수문자로만 입력")) {
+	if (!check(re1, pw, "패스워드는 4~12자의 영문 대소문자, 숫자, 특수문자(~,!,;,:)로 입력")) {
 		return false;
 	}
 
@@ -138,6 +277,15 @@ function check(re, what, message) {
 	what.focus();
 	//return false;
 }
+function check(re1, what, message) {
+	if (re1.test(what.value)) {
+		return true;
+	}
+	alert(message);
+	what.value = "";
+	what.focus();
+	//return false;
+}
 function check(re2, what, message) {
 	if (re2.test(what.value)) {
 		return true;
@@ -165,6 +313,8 @@ function check(re3, what, message) {
 	what.focus(); 
 	//return false;
  }
+
+});
  
  </script>
  <script>
@@ -296,7 +446,7 @@ function check(re3, what, message) {
 
 
 
-</script>
+</script> -->
 <style type="text/css">
 html, body {
 	max-width: 80%; height: 100%;
@@ -370,7 +520,7 @@ html, body {
 
 </head>
 <body >
-<form action="/null/SignUpServlet" onsubmit="return validate()"method="get">
+<form action="/null/SignUpServlet" method="get" onsubmit="return validate()">
 
 <div id="" class="align-center vi" style="font-size:25px">
 <b> </b><br>
@@ -428,18 +578,19 @@ html, body {
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">주소</a></td>
 <td width="200" height="35"><input style="width: 80%;height:50%;font-size:60%" type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소"></td>
-<td width="200" height="35"><input style="width: 80%;height:50%;font-size:60%" type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소" ></td></tr>
+<td width="200" height="35"><input style="width: 80%;height:50%;font-size:60%" type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소" >
+<span id="guide" style="color:#999"></span></td></tr>
 <tr>
 <td width="100" height="35"></td>
 <td width="200" height="35"><input style="width: 80%;height:50%;font-size:60%" type="text" name="addr3" id="sample4_jibunAddress" placeholder="상세주소"></td>
 </tr>
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">전화번호</a></td>
-<td width="200" height="35"><select name="phone1" >
+<td width="200" height="35"><select name="phone1" id="phone1">
   <option style="width: 20%;height:50%;font-size:80%" value="010" id="010">010</option>
   <option style="width: 20%;height:50%;font-size:80%" value="011" id="011">011</option>
 </select>-
-<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone2" >-<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone3" > </td>
+<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone2"  id="phone2">-<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone3"id="phone3" > </td>
 </tr>
 </table>
 <br>
@@ -447,7 +598,7 @@ html, body {
 <hr>
 <br>
 <div id="btn_group" class="align-center vi">
-<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="submit">회원가입</button>
+<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="button" id="btn">회원가입</button>
 <button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: white;color: red;font-weight:600" onclick="location.href='main.jsp'">취소</button>
 </div>
 </form>
