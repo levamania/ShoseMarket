@@ -14,7 +14,7 @@
 	#body_content{
 		display: inline-block;
 		position: absolute;
-		width: 900px;
+		width:890px;
 		height: 140px;
 		background-color: #F6F6F6;
 		border-top: 1px solid #FFD9FA;
@@ -22,7 +22,15 @@
 		padding-top: 18px;
 		padding-left: 20px;
 	}
-	
+	#body_bottom{
+		display: inline-block;
+		position: absolute;
+		width:890px;
+		height: 100px;
+		top: 210px;
+		//background-color: #F6F6F6;
+		padding-top: 20px;
+	}
 </style>
 </head>
 <body>
@@ -42,7 +50,12 @@
 	</tr>
 </table>
 </div>
-
+<form action="">
+<div id="body_bottom" align="center">
+<span style="font-size: 14px; font-weight: bold;">비밀번호</span><input type="password" style="margin: 20px;">
+<input type="submit" value="확인" style="30pt; width: 60pt; font-size: 18px; font-weight: bold; background-color: red;">
+</div>
+</form>
 </div>
 </body>
 </html>
