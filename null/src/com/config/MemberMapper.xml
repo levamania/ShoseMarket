@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 where userid =#{userid} and passwd=#{passwd}
 	</select> -->
 
-	<insert id="memberAdd" parameterType="member">
+	<insert id="memberAdd" parameterType="MemberDTO">
 	insert into account(userid,passwd,username,sex,email1,email2,post,addr1,addr2,addr3,
 					   phone1,phone2,phone3)
 	values( #{userid},#{passwd},#{username},#{sex},#{email1},#{email2},#{post},#{addr1},#{addr2},#{addr3},
