@@ -11,8 +11,11 @@
 								
 								$.ajax({
 									type: "post", 
-									url: "/null/SizeGetterServlet",
-									data: {pCode: pCode},
+									url: "/null/StockInfoGetterServlet",
+									data: {
+										pCode: pCode,
+										source: "item_size"
+									},
 									dataType: "json" ,
 									success: function(data, status, xhr){
 										var arr = data;

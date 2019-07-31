@@ -16,16 +16,21 @@
 		$("#search>#logo").on("click",()=>{
 										location.href = "/null/MainServlet"
 									  });
+
+		function inspector(){
+			  var searchedWord = $("#search input").val().trim();
+			  var regEx = /^\S{2,15}/;
+			  if(regEx.test(searchedWord)){
+				  location.href = "/null/ProductListingServlet?searchedWord="+searchedWord;
+			  }else{
+					  alert("2글자 이상 입력해주세요");
+			  }
+		}
+		
+		//input event -> searching
+		$("#search input").on("keyup",()=>{if(event.keyCode==13)inspector()})
 		// icon evnet -> searching
-		$("#search #icon").on("click",function(){
-									  var searchedWord = $("#search input").val().trim();
-									  var regEx = /^\S{2,15}/;
-									  if(regEx.test(searchedWord)){
-										  location.href = "/null/ProductListingServlet?searchedWord="+searchedWord;
-									  }else{
-											  alert("2글자 이상 입력해주세요");
-									  }
-								   });
+		$("#search #icon").on("click",()=>inspector());
 		
 		// searched word ranking
 		var ranking = 1;
