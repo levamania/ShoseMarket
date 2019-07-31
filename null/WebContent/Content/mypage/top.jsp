@@ -48,7 +48,8 @@ a{
 </style>
 
 <!-- <div style="padding-left: 50px; padding-right: 50px;"> -->
-<jsp:include page="../statics/top/top.jsp" flush="true" ></jsp:include>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
+<jsp:include page="/Content/statics/top/top.jsp" flush="true" ></jsp:include>
 <div >
 	<div id="top_mypage"
 		style="width: 1050px; text-align: center; font-size: 20px; font-weight: bolder; margin-bottom: 20px;">마이페이지</div>
@@ -123,7 +124,6 @@ a{
 	<p><a href="ordereval.jsp">나의 상품후기</a></p><br>
 	<p style="font-weight: bolder; font-size: 20px;">개인정보</p>
 	<p><a href="/null/AddrListServlet">배송주소록관리</a></p>
-	<p><a href="modifyaccountinfo.jsp">개인정보수정</a></p>
+	<p><a href="/null/Content/mypage/modifyaccountcheck.jsp">개인정보수정</a></p>
 </div>
-	<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
-	<script src="/null/Content/mypage/js/top.js"></script>
+	<!-- <script src="/null/Content/mypage/js/top.js"></script> -->

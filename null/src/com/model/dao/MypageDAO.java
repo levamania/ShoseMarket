@@ -28,6 +28,10 @@ public class MypageDAO {
 	public void modifyAddr(SqlSession session, RegAddrDTO dto) {
 		session.insert("myPage.modifyAddr", dto);
 	}
+
+	public void deleteDelivnos(SqlSession session, List<String> delivnos) {
+		session.delete("myPage.deleteDelivnos",delivnos);
+	}
 	
 
 }

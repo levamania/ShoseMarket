@@ -33,4 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		phone1 = #{phone1}, phone2 = #{phone2}, address1 = #{address1}, address2 = #{address2}
 		where delivno = #{delivno}
 	</insert>
+	
+	<delete id="deleteDelivnos" parameterType="list">
+		delete from delivinfo 
+		where delivno in 
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>

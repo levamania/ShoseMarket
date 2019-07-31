@@ -60,5 +60,17 @@ public class MyPageService {
 			session.close();
 		}
 	}
+	public void deleteDelivnos(List<String> delivnos) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			mypageDAO.deleteDelivnos(session,delivnos);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			session.rollback();
+		}finally {
+			session.close();
+		}
+	}
 	
 }
