@@ -36,6 +36,7 @@ public class ProductListingServlet extends HttpServlet {
 		HashMap<String, String> listing_setup = null;
 			//검색했던 단어
 		String back_word = "default";
+		
 		if(prev_stack!=null) {
 			back_word = prev_stack.get("back_word").toString();
 			listing_setup = (HashMap<String, String>)prev_stack.get("listing_setup");
@@ -49,7 +50,7 @@ public class ProductListingServlet extends HttpServlet {
 		String searchedWord = request.getParameter("searchedWord");
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
-			//상세검색옵션
+			//상세 검색 옵션
 		
 		
 		//setting
