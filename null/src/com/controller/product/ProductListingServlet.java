@@ -31,10 +31,16 @@ public class ProductListingServlet extends HttpServlet {
 		//세션 처리
 		HttpSession session = request.getSession();
 		HashMap<String, Object> prev_stack = 
-				(HashMap<String,Object>)session.getAttribute("prev_stack");
+				(HashMap<String,Object>)session.getAttribute("prev_stack");	
 			//info from 현재 페이지 정보
-		HashMap<String, String> listing_setup = 
-				(HashMap<String, String>)prev_stack.get("listing_setup");
+		HashMap<String, String> listing_setup = null;
+			//검색했던 단어
+		String back_word = "default";
+		if(prev_stack!=null) {
+			back_word = prev_stack.get("back_word").toString();
+			listing_setup = (HashMap<String, String>)prev_stack.get("listing_setup");
+			session.removeAttribute("prev_stack");
+		}
 	
 			//매 페이지 마다 갱신
 		session.removeAttribute("prev_stack");
@@ -43,17 +49,19 @@ public class ProductListingServlet extends HttpServlet {
 		String searchedWord = request.getParameter("searchedWord");
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
+			//상세검색옵션
+		
 		
 		//setting
 		RequestDispatcher dis = null;
 		Map<String, ArrayList<String>> words_map = null;
 		List<ProductDTO> pList = null;
 		
+		HashMap<String,String> reposit = null;
 		try {
-			HashMap<String,String> reposit = null;
 			ProductService service = new ProductService();
 			
-			if(listing_setup==null) {
+			if(listing_setup==null && !back_word.equals(searchedWord)) {
 				//검증되고 변환된 단어얻기
 				words_map = WordInspector.inspect(searchedWord);
 				//repository of category or name
@@ -69,7 +77,7 @@ public class ProductListingServlet extends HttpServlet {
 					for(String name: pname) {	if(name.contains(word))reposit.put("pName",word);}
 				}
 			}else {
-				reposit = cookied_setup;
+				reposit = listing_setup;
 			}
 			//list searching through category
 			if(reposit.keySet().size()!=0) {
@@ -93,6 +101,10 @@ public class ProductListingServlet extends HttpServlet {
 		//with jsp
 		dis = request.getRequestDispatcher("/Content/product_list/productList.jsp");
 			//statcking 
+				//세션 처리용
+			session.setAttribute("prev_stack", MapParamInputer.setOb("listing_setup", (reposit==null)?listing_setup:reposit ) );
+		
+				//화면 구현용
 			if(!source.equals("main")) {
 				request.setAttribute("searchedWord", searchedWord);
 			}
