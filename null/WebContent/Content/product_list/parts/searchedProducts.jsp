@@ -8,11 +8,11 @@
 <!-- 검색됨 -->
 <div class="body searched_product">
 	<div id="order_info">
-		<span>신상품순</span>
-		<span>베스트 상품순</span>
-		<span>낮은 가격순</span>
-		<span>높은 가격순</span>
-		<select id="paging_quantity">
+		<span class="order">신상품순<span>new_date</span></span>
+		<span class="order">베스트 상품순<span>higher_populaty</span></span>
+		<span class="order">낮은 가격순<span>lower_price</span></span>
+		<span class="order">높은 가격순<span>higher_price</span></span>
+		<select id="paging_quantity" name="paging_quantity">
 			<option value="20">20개씩 보기</option>
 			<option value="40">40개씩 보기</option>
 			<option value="60">60개씩 보기</option>
@@ -53,10 +53,10 @@
 		<c:forEach var="num" begin="1" end="${page_size}">
 			<c:choose>
 				<c:when test="${num==cur_page}">
-					<div class="page disabled" id="page${num}">${num}</div>	
+					<div class="page active" id="page${num}">${num}</div>	
 				</c:when>
 				<c:otherwise>
-					<div class="page ative" id="page${num}">${num}</div>
+					<div class="page" id="page${num}">${num}</div>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>

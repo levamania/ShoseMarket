@@ -39,7 +39,7 @@ body{margin: 0;}
 
 
 /* 상세검색 옵션 */
-
+#order_info>.order
 
 
 
@@ -47,6 +47,7 @@ body{margin: 0;}
 /* 상품 리스트 */
 
 	/* 정렬 옵션 바 */
+	
 	.body.searched_product>#order_info{
 		position:relative;
 		width:100%;
@@ -65,6 +66,14 @@ body{margin: 0;}
 		margin-right: 20px; 
 		background-color: red;
 	}
+	
+	/* 	히든 밸류	 */
+	#order_info>.order span{display:none;}
+	#order_info>.order.active{
+		color: red;
+		font-weight: bolder;
+	}
+	
 	.body.searched_product>	#order_info>select{
     -webkit-appearance: none; /*기본 외형 바꾸기, default:menulist*/
 	
@@ -137,7 +146,7 @@ body{margin: 0;}
 			/*사이즈 팝업*/
 			
 			
-		/* 	페이징 */
+		/* 페이징  */
 		.body.searched_product>#paging{
 			position: relative;
 			line-height: 30px; width:100%;
@@ -147,23 +156,19 @@ body{margin: 0;}
 			font-size: 12px;
 			font-family: Maplestory;
 		}
-		#paging .page.active{
+		
+		#paging .page{
 			display: inline-block;
 			line-height:15px; width: 15px;
 			padding:4px;
+		
+			cursor:pointer;			
 			border: 1px solid black;
-			
-			cursor:pointer;
 			background-color: white;	
 			color:black;
-		}
-		#paging .page.disabled{
-			display: inline-block;
-			line-height:15px; width: 15px;
-			padding:4px;
+		}	
+		#paging .page.active{
 			border: 1px solid red;
-
-			cursor:pointer;			
 			background-color: red;
 			color: white;
 		}
