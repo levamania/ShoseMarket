@@ -9,6 +9,5 @@
 <body>
 <jsp:include page="top.jsp"></jsp:include>
 개인정보수정
-개인정보수정
 </body>
 </html>

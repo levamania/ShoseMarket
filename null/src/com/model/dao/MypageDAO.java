@@ -20,6 +20,14 @@ public class MypageDAO {
 	public List<RegAddrDTO> getAddrList(SqlSession session, String userid) {
 		return session.selectList("myPage.getAddrList", userid);
 	}
+
+	public RegAddrDTO searchByNo(SqlSession session, String delivno) {
+		return session.selectOne("myPage.searchByNo", delivno);
+	}
+
+	public void modifyAddr(SqlSession session, RegAddrDTO dto) {
+		session.insert("myPage.modifyAddr", dto);
+	}
 	
 
 }
