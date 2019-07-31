@@ -17,7 +17,7 @@ html, body {
         border-style: solid;
         border-color: #5d5d5d;
         border-width: 2px;
-        color: #FFFFFF;
+        color: #FFFFFF; 
         margin-bottom: 5px;
         padding:15px;
         width:400px */
