@@ -50,6 +50,7 @@ public class ProductListingServlet extends HttpServlet {
 				
 		//쿼리 스트링 수용
 		String searchedWord = request.getParameter("searchedWord");
+		if(searchedWord==null)searchedWord="default";
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
 			//페이징 정보
@@ -60,8 +61,6 @@ public class ProductListingServlet extends HttpServlet {
 		int cur_page = Integer.parseInt(p_temp1);
 		int paging_quantity = Integer.parseInt(p_temp2);
 		
-		
-		
 		//setting
 		RequestDispatcher dis = null;
 		Map<String, ArrayList<String>> words_map = null;
@@ -71,7 +70,7 @@ public class ProductListingServlet extends HttpServlet {
 		try {
 			ProductService service = new ProductService();
 			
-			if(source.equals("input")||source.equals("menu")||!back_word.equals(searchedWord)) {
+			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
 				words_map = WordInspector.inspect(searchedWord);
 				//repository of category or name
@@ -97,9 +96,14 @@ public class ProductListingServlet extends HttpServlet {
 			}else {
 				reposit = listing_setup;
 			}
+	
 			//list searching through category
-			if(reposit.values().size()!=0) {
-				System.out.println(reposit.values());
+			boolean empty_locator = false;
+			for(Object obj  :reposit.values()) {
+				if(obj!=null)empty_locator = true;
+			}
+			
+			if(empty_locator) {
 				List<ProductDTO> raw_list = service.selectProductList(reposit);
 				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";
@@ -113,7 +117,10 @@ public class ProductListingServlet extends HttpServlet {
 				}
 				//페이징 처리
 				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-			
+				//페이지 갯수 저장
+				request.setAttribute("page_size", (temp.size()!=0)?Math.round((temp.size()/paging_quantity)+1):null);
+				request.setAttribute("whole_size", (temp.size()!=0)?temp.size():0);
+				
 				//inserting keyword to ranking
 				if(source.equals("input")) {
 					RankingService ser = new RankingService();
@@ -138,10 +145,11 @@ public class ProductListingServlet extends HttpServlet {
 			session.setAttribute("prev_stack", 
 					MapParamInputer.setOb("listing_setup", (reposit==listing_setup)?listing_setup:reposit ,"back_word",searchedWord)  );
 				//화면 구현용
-			if(!source.equals("menu")) {
-				request.setAttribute("searchedWord", searchedWord);
-			}
+			request.setAttribute("searchedWord", searchedWord);
+			request.setAttribute("source", source);
 			request.setAttribute("pList", pList);
+			request.setAttribute("cur_page", cur_page);
+			request.setAttribute("paging_quantity", paging_quantity);
 			//shooting
 			dis.forward(request, response);
 		

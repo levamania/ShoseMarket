@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$().ready(()=>{
+	console.log($("span"));
+	console.log($("span::after"));
+	});
+	</script>
+<style type="text/css">
+span::after {
+	content:' d' ;
+	width: 10px;
+	height:10px;
+	background-color: red;
+}
+
+span {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<span id="loc">안녕</span><br>
+	<span>하세요</span>
+	<div>dffd</div>
+</body>
+</html>
