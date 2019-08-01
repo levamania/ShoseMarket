@@ -7,6 +7,108 @@
 <title>login</title>
 </head>
 <body>
+<script src="/null/Content/api/jquery/jquery-3.4.1.js" ></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	function check(re, what, message) {
+		if (re.test(what.val())) {
+			return true;
+		}
+		alert(message);
+		what.value = "";
+		what.focus();
+		return false;
+		console.log("작동 테스트");
+	}
+	//id중복체크
+	$('#idcheck').on("click",function(){
+		var id = $("#userid");
+		$.ajax({
+			type : "get",
+			url : "/null/IdCheckServlet",
+			data : {userid:id.val()},
+			dataType : "text",
+			success : function (data,status,xhr){
+				console.log('확인');
+				console.log(data);
+				if(data==1){
+					alert("사용불가능입니다.");
+					/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+
+					$("#userid").focus();
+					return false;
+				}else{
+					/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+                    alert("사용가능입니다.");
+					$("#userid").focus();
+					return false;
+					
+				}
+			},
+			error:function(xhr,status,e){
+				console.log("error",e);
+				console.log("status",status);
+			}
+		});
+				
+		
+	});
+	
+	//이메일 change
+	$('#emailSelect').change(function(){
+$("#emailSelect option:selected").each(function () {
+	
+	if($(this).val()== '1'){ //직접입력일 경우
+		 $("#email2").val('');                        //값 초기화
+		 $("#email2").attr("disabled",false); //활성화
+	}else{ //직접입력이 아닐경우
+		 $("#email2").val($(this).text());      //선택값 입력
+		 $("#email2").attr("disabled",true); //비활성화
+	}
+});
+});
+
+	
+	
+	//기본 유효성검사
+	
+	$("form").on("submit",function(event){
+
+			var re = /^[a-zA-Z0-9]{4,12}$/ 
+			var re1 = /^[a-zA-Z0-9~!;:]{4,12}$/ 
+		
+
+			var id = $("#userid");
+			var pw = $("#passwd");
+			var pw2 =$("#passwd2");
+		
+			if (!check(re, id, "아이디는 4~12자의 영문 대소문자와 숫자로만 입력하시오")) {
+				return false;
+
+			}
+			
+
+			if (!check(re1, pw, "패스워드는 4~12자로 입력하시오)) {
+				return false;
+			}
+
+			
+		
+		
+	});
+	
+	
+});
+
+
+
+
+
+
+
+
+</script>
+
 <style type="text/css">
 html, body {
 	max-width: 80%; height: 100%;
