@@ -3,3 +3,11 @@
 	font-family : 'Maplestroy';
 	src: url("/null/Content/configuration/font/Maplestroy/Maplestory_Light.ttf"); format("ttf");
 }
+@font-face{
+	font-family : 'Makdae';
+	src: url("/null/Content/configuration/font/Makdae/HoonMakdaeyunpilR.ttf"); format("ttf");
+}
+@font-face{
+	font-family : 'DXN';
+	src: url("/null/Content/configuration/font/DXN/DXNPeriod-KSCpc-EUC-H.ttf"); format("ttf");
+}

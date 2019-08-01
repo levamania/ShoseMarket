@@ -4,29 +4,60 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
+*{
+	box-sizing: border-box;
+}
 
 .first{
 	position:relative;
 	top:20px;left:20px;
+	display:flex;
 
-	height:200px;
-	width:200px;
+	height:300px;
+	width:500px;
 	
-	border: 1px solid red;
-	
-	text-align: center;
+	border: 1px solid red;	
+	font-size: 0;
 }
 .second{
-	position: relative;
-	top:50%;
-	transform: translateY(-50%);
-	float:left;
+	position: inherit;
+ 	display:inline-flex; 
+ 	flex-direction: row;
+ 	align-self:flex-start;	
+	top:0%;
 	box-sizing: border-box;
-	width:33%;
-	border: 2px dashed black;
+	width:50%;
+	border:2px dashed black;
 	
-	height:20%;
+	font-size: 0;
+	
+}
+
+.third{
+	position: inherit;
+	display: inherit;
+	flex-direction: inherit;
+	flex-wrap:wrap;
+	
+	justify-content:center;
+	align-items: center;
+		
+	height:50%;
+	width:25%;
+	border:1px dotted blue;
+	
+	font-size:15px;
+}
+.third.content{
+	width:75%;
+}
+.third.content>div:nth-child(1){flex: 1}
+.third.content>div:nth-child(2){flex: 1}
+.third.content>div:nth-child(3){flex: 1}
+
+.third>div{
+	border: 1px red ridge;
+	
 }
 
 </style>
@@ -35,13 +66,20 @@
 
 <div class="first">
 	<div class="second">
-		아서스
+		<div class="third">
+			<div>아서스</div>
+		</div>
+		<div class="third content">
+			<div>아서스</div>
+			<div>아서스</div>
+			<div>아서스</div><br>
+			<div>아서스</div>
+			<div>아서스</div>
+		</div>
 	</div>
 	<div class="second">
-		아서스
-	</div>
-	<div class="second">
-		아서스
+		<div class="third">아서스</div>
+		<div class="third">아서스</div>
 	</div>
 </div>
 
