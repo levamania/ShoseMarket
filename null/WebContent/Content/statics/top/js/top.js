@@ -2,7 +2,7 @@
 
 // top - menu
 	$().ready(function(){
-		$("#login").on("click",()=>location.href="/null/LoginServlet");
+		$("#login").on("click",()=>location.href="/null/Content/account/loginForm.jsp");
 		$("#logout").on("click",()=>location.href="/null/LogOutServlet");
 		$("#signup").on("click",()=>location.href="/null/Content/account/signup_first.jsp");
 		$("#mypage").on("click",()=>location.href="/null/MypageServlet");

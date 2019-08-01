@@ -1,9 +1,11 @@
 package com.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.MemberDTO;
 import com.dto.RegAddrDTO;
 
 public class MypageDAO {
@@ -28,6 +30,17 @@ public class MypageDAO {
 	public void modifyAddr(SqlSession session, RegAddrDTO dto) {
 		session.insert("myPage.modifyAddr", dto);
 	}
+
+	public void deleteDelivnos(SqlSession session, List<String> delivnos) {
+		session.delete("myPage.deleteDelivnos",delivnos);
+	}
+
+	public int searchPwdById(SqlSession session, HashMap<String, String> map) {
+		return session.selectOne("myPage.searchPwdById", map);
+	}
 	
+	public MemberDTO searchMemberById(SqlSession session,String userid) {
+		return session.selectOne("myPage.searchMemberById", userid);
+	}
 
 }

@@ -33,4 +33,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		phone1 = #{phone1}, phone2 = #{phone2}, address1 = #{address1}, address2 = #{address2}
 		where delivno = #{delivno}
 	</insert>
+	
+	<delete id="deleteDelivnos" parameterType="list">
+		delete from delivinfo 
+		where delivno in 
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<select id="searchPwdById" parameterType="hashmap" resultType="int">
+		select count(*) from account
+		where userid = #{userid}
+		and passwd = #{password}
+	</select>
+	
+	<select id="searchMemberById" resultType="MemberDTO">
+		select * from account where userid = #{userid}
+	</select>
 </mapper>

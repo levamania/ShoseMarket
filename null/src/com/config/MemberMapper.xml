@@ -4,36 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberMapper">
 
- <!--<update id="memberUpdate" parameterType="MemberDTO">
- 	 update member
- 	set  post=#{post},
- 	  username=#{username},
- 	  addr1=#{addr1},
- 	  addr2=#{addr2},
- 	  phone1=#{phone1},
- 	  phone2=#{phone2},
- 	  phone3=#{phone3},
- 	  email1=#{email1},
- 	  email2=#{email2}
- 	where userid=#{userid}
- 	
- </update>
-
-  <select id="mypage" parameterType="string" 
-	resultType="MemberDTO">
-	 select userid,passwd,username,post,addr1,addr2,
-					   phone1,phone2,phone3,email1,email2
-	 from member
-	 where userid =#{userid} 
-	</select>
-	
-	<select id="login" parameterType="hashmap" 
-	resultType="MemberDTO">
-	 select userid,passwd,username,post,addr1,addr2,
-					   phone1,phone2,phone3,email1,email2
-	 from member
-	 where userid =#{userid} and passwd=#{passwd}
-	</select> -->
 
 	<insert id="memberAdd" parameterType="MemberDTO">
 	insert into account(userid,passwd,username,sex,email1,email2,post,addr1,addr2,addr3,
@@ -42,5 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        #{phone1},#{phone2},#{phone3})
 	
 	</insert>
+	
+	
+	<select id="idCheck" parameterType="string" resultType="int">
+	select count(*) from account where userid=#{userid}
+	</select>
 
+<select id="login" parameterType="map" resultType="MemberDTO">
+select * from account where userid=#{userid} and passwd=#{passwd}
+
+</select>
 </mapper>
