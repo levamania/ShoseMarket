@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +30,6 @@
 		width:890px;
 		height: 100px;
 		top: 210px;
-		//background-color: #F6F6F6;
 		padding-top: 20px;
 	}
 </style>
@@ -50,12 +51,14 @@
 	</tr>
 </table>
 </div>
-<form action="">
+<form action="/null/ModifyAccountInfo">
 <div id="body_bottom" align="center">
-<span style="font-size: 14px; font-weight: bold;">비밀번호</span><input type="password" style="margin: 20px;">
+<input type="hidden" value="asd123" id="id">
+<span style="font-size: 14px; font-weight: bold;">비밀번호</span><input type="password" style="margin: 20px;" id="passwordvalue">
 <input type="submit" value="확인" style="30pt; width: 60pt; font-size: 18px; font-weight: bold; background-color: red;">
 </div>
 </form>
 </div>
+<script src="/null/Content/mypage/js/modifyaccountcheck.js"></script>
 </body>
 </html>

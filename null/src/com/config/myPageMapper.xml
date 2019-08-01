@@ -41,4 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{item}
 		</foreach>
 	</delete>
+	
+	<select id="searchPwdById" parameterType="hashmap" resultType="int">
+		select count(*) from account
+		where userid = #{userid}
+		and passwd = #{password}
+	</select>
+	
+	<select id="searchMemberById" resultType="MemberDTO">
+		select * from account where userid = #{userid}
+	</select>
 </mapper>
