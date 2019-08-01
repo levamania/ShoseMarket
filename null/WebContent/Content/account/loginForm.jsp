@@ -80,7 +80,17 @@ $("#emailSelect option:selected").each(function () {
 
 			var id = $("#userid");
 			var pw = $("#passwd");
-			var pw2 =$("#passwd2");
+			
+			if(id.val()==""){
+				alert("아이디를 입력하시오")
+				username.focus();
+				return false;
+			}
+			if(pw.val()==""){
+				alert("패스워드를 입력하시오")
+				username.focus();
+				return false;
+			}
 		
 			if (!check(re, id, "아이디는 4~12자의 영문 대소문자와 숫자로만 입력하시오")) {
 				return false;
@@ -88,10 +98,9 @@ $("#emailSelect option:selected").each(function () {
 			}
 			
 
-			if (!check(re1, pw, "패스워드는 4~12자로 입력하시오)) {
+			if (!check(re1, pw, "패스워드는 4~12자로 입력하시오")) {
 				return false;
 			}
-
 			
 		
 		
