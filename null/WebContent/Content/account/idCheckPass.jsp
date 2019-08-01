@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<b style="color:red;align-content: center;" >ID값이 중복입니다.</b><br>
+<b style="color:red;align-content: center;" >사용가능합니다.</b><br>
 <button style="align-content: center;align-self: center" value=" 창닫기" onClick='window.close()'>닫기</button>
 </body>
 </html>

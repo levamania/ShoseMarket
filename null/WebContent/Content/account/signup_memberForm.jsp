@@ -19,15 +19,38 @@
 			console.log("작동 테스트");
 		}
 		//id중복체크
-		function idcheck(){
-			 var id = document.form.id.value;
-			 if(id.length<1 || id==null){
-			  alert("중복체크할 아이디를 입력하십시오");
-			  return false;
-			 }
-			 var url = "idCheck.jsp?id=" + id;
-			 window.open(url, "get", "height = 180, width = 300");
-			}
+		$('#idcheck').on("click",function(){
+			var id = $("#userid");
+			$.ajax({
+				type : "get",
+				url : "/null/IdCheckServlet",
+				data : {userid:id.val()},
+				dataType : "text",
+				success : function (data,status,xhr){
+					console.log('확인');
+					console.log(data);
+					if(data==1){
+						
+						window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no");
+
+						$("#userid").focus();
+						return false;
+					}else{
+						window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no");
+
+						$("#userid").focus();
+						return false;
+						
+					}
+				},
+				error:function(xhr,status,e){
+					console.log("error",e);
+					console.log("status",status);
+				}
+			});
+					
+			
+		});
 		
 		//이메일 change
 		$('#emailSelect').change(function(){
@@ -43,8 +66,6 @@
    });
 });
 
-
-출처: https://start0.tistory.com/98 [아는 것이 좋은 것이다.]
 		
 		
 		//기본 유효성검사
@@ -581,7 +602,7 @@ html, body {
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">아이디</a></td>
 <td  width="200" height="35" ><input type="text" style="width:200px;height:50%;font-size:60%" id="userid" placeholder="영문,숫자사용 4~20자" name="userid"></td>
-<td  width="100" height="35"><button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="idcheck" onclick="idcheck()">중복확인</button></td>
+<td  width="100" height="35"><button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="idcheck" type="button">중복확인</button></td>
 </tr>
  <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">비밀번호</a></td>
@@ -609,7 +630,7 @@ html, body {
 <option value="softbank.jp" id="softbank">softbank.jp</option>
 <option value="daum.net" id="daum">daum.net</option>
 </select>
-<button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="emailcheck">중복확인</button></td>
+<!-- <button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="emailcheck">중복확인</button> --></td>
 </tr>
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">우편번호</a></td>
