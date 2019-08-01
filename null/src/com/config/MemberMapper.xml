@@ -18,4 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select count(*) from account where userid=#{userid}
 	</select>
 
+<select id="login" parameterType="map" resultType="string">
+select userid,passwd from account where userid=#{userid} and passwd=#{passwd}
+
+</select>
 </mapper>

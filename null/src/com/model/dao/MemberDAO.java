@@ -1,5 +1,7 @@
 package com.model.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.MemberDTO;
@@ -14,6 +16,11 @@ public class MemberDAO {
 	public int idCheck(SqlSession session, String userid) {
 		int num = session.selectOne("MemberMapper.idCheck",userid);
 		return num;
+	}
+
+	public MemberDTO login(SqlSession session, HashMap<String, String> map) {
+		MemberDTO dto = session.selectOne("MemberMapper.login", map);
+		return dto;
 	}
 
 
