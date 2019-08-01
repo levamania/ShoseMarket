@@ -16,6 +16,7 @@
 			what.value = "";
 			what.focus();
 			return false;
+			console.log("작동 테스트");
 		}
 		//id중복체크
 		function idcheck(){
