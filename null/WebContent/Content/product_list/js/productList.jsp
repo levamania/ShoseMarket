@@ -30,8 +30,8 @@
 	  function form_generator(destination,scope){
   		 var html = ""; var data;
   		 //form 태그 생성
-  		  if(scope==undefined)scope = $(".searched_product");
-	  	  scope.wrap("<form name='product_form' action=' ' method='post' onsubmit='return false'>"+
+   		  if(scope==undefined)scope = $(".searched_product");
+	  	  scope.wrap("<form name='product_form' action=' ' method='get' onsubmit='return false'>"+
 	  					    "</form>");
   		 
 	  	  switch(destination){
@@ -42,7 +42,9 @@
 					 "ordering_info" : $("#order_info>.order.active").children().text()
 			     };break;
 	  	  	 }  	  	 
-			 default: data = {};
+			 default: data = {
+// 					 		"min_price": ${pPrice}
+			 }			  ;
 	  	  }
 	  	  
   		  $.each(data,function(key, value){
@@ -91,7 +93,7 @@
 
   	//개별 상품 셋팅
   		//상세 페이지 이동
-  	$(".product>div.item.name").on("click",function(){	form_generator("EachProductServlet",$(this).parent());});
+  	$(".product>div.item.name").on("click",function(){	form_generator("ProductServlet",$(this).parent());});
   	
   	
 	//재고 있는 사이즈 정보
@@ -101,7 +103,7 @@
 								
 								$.ajax({
 									type: "post", 
-									url: "/null/StockInfoGetterServlet",
+									url: "/null/ProductServlet",
 									data: {
 										pCode: pCode,
 										source: "item_size"

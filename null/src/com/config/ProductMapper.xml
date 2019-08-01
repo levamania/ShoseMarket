@@ -27,15 +27,8 @@
 	</select>
 	
 	<!-- 	개별 상품 정보 -->
-	<select id="selectProduct_info" parameterType="hashmap" resultType="stock">
-		select
-		<trim prefix=" " prefixOverrides=","> 
-			<if test="size">,psize</if> 
-			<if test="color">,pcolor</if> 
-			<if test="price">,pprice</if> 
-			<if test="amount">,pamount</if> 
-			<if test="deliverfee">,deliverfee_yn</if> 
-		</trim>
+	<select id="selectProduct_info" parameterType="hashmap" resultType="hashmap">
+		select scode, s.pcode pcode, psize, pcolor, pprice, pamount, deliverfee_yn
 		from product p,stock s
 		where p.pcode = s.pcode
 		and p.pcode = #{pCode}
@@ -77,6 +70,11 @@
 			<if test="pPrice!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
 			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
 		order by to_number(p.pcode)
+	</select>
+	<select id="selectOne" parameterType="hashmap" resultType="product">
+		select pcode, stylemid, stylebot, pname, pimage, pregitdate
+		from product
+		where pcode = #{pCode}
 	</select>
 	
 </mapper>

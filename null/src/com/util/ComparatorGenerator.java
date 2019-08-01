@@ -24,7 +24,6 @@ public class ComparatorGenerator {
 		switch(temp) {
 			case "asc": this.reversal=1;break;
 			case "desc": this.reversal=-1;break;
-			default: this.reversal=1;
 		}
 		logger.debug("mesg{reversal: "+reversal+"}", "debug");
 		Comparator<ProductDTO> comparator = null;
@@ -44,6 +43,7 @@ public class ComparatorGenerator {
 			};break;
 		case "popularity": comparator = (p1,p2)->Integer.compare(p1.getPopularity(),p2.getPopularity())*reversal; break;
 		case "price": 	comparator = (p1,p2)-> Integer.compare(p1.getpPrice(),p2.getpPrice())*reversal; break;
+
 	}
 		return comparator;
 	}

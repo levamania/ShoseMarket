@@ -113,7 +113,7 @@ public class ProductListingServlet extends HttpServlet {
 				if(obj!=null)empty_locator = true;
 			}
 			
-			if(empty_locator) {
+			if(empty_locator) { //리스트가 없을시동작안함
 				List<ProductDTO> raw_list = service.selectProductList(reposit);
 				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";

@@ -69,9 +69,11 @@ body{margin: 0;}
 	
 	/* 	히든 밸류	 */
 	#order_info>.order span{display:none;}
+	#order_info>.order{cursor:pointer;}
 	#order_info>.order.active{
 		color: red;
 		font-weight: bolder;
+		cursor: default;
 	}
 	
 	.body.searched_product>	#order_info>select{
@@ -83,6 +85,8 @@ body{margin: 0;}
 	border-radius:3px;
     color: black;
     text-indent: 15%;
+    
+    cursor:pointer;
     
 /*     letter-spacing: normal; */
 /*     word-spacing: normal; */
@@ -183,6 +187,7 @@ body{margin: 0;}
 			color:black;
 		}	
 		#paging .page.active{
+			cursor:default;
 			border: 1px solid red;
 			background-color: red;
 			color: white;

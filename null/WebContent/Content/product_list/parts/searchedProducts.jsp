@@ -26,7 +26,8 @@
 	<div id="searched_list">
 		<c:forEach var="item" items="${pList}" varStatus="stat">
 			<div class="product">
-				<input type="hidden" name="pCode" value="${item.pCode}">		
+				<input type="hidden" name="pCode" value="${item.pCode}">
+				<input type="hidden" name="min_price" value="${item.pPrice}">		
 				<img src="/null/Content/img/shoes/${item.styleMid}/${item.styleBot}/${item.pImage}.jpg">
 				<br>	
 				<div class="item name">
