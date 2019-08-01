@@ -99,16 +99,16 @@
 	<div class="info_line">
 		<span class="info_title">휴대번호</span>
 		<span class="info_content">
-		 <select id="phone1_selected" style="width: 70pt;">
+		 <select id="phone1_selected" style="width: 70pt;" name="phone1">
 		 	<option>010</option>
 			<option>011</option>
 			<option>016</option>
 			<option>017</option>
 			<option>018</option>
-			<option selected="selected">019</option>
+			<option>019</option>
 		 </select>&nbsp;-
-		 <input type="text" value="${member.phone2}">&nbsp;-
-		 <input type="text" value="${member.phone3}">
+		 <input type="text" value="${member.phone2}" id="phone2" name="phone2">&nbsp;-
+		 <input type="text" value="${member.phone3}" id="phone3" name="phone3">
 		 </span>
 	</div>
 	<div class="info_line" >
@@ -116,10 +116,10 @@
 			<span style="font-size: 12px; font-weight: bold;">배송지주소</span>
 		</div>
 		<div id="address_body">
-				&nbsp;<input type="text" name="post" id="sample4_postcode" placeholder="우편번호" size="20" value="${member.post}">
+				&nbsp;<input type="text" name="post" id="sample4_postcode" placeholder="우편번호" size="20" value="${member.post}" readonly="readonly">
 				&nbsp;<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ><br>
-				&nbsp;<input type="text" name="addr" id="sample4_roadAddress" placeholder="도로명주소" size="20" value="${member.addr1}">
-				&nbsp;<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소" size="20" value="${member.addr2}">
+				&nbsp;<input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소" size="20" value="${member.addr1}" readonly="readonly">
+				&nbsp;<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소" size="20" value="${member.addr2}" readonly="readonly">
 				&nbsp;<input type="text" name="addr3" id="addr3" placeholder="세부주소" size="20" value="${member.addr3}">
 				<span id="guide" style="color:#999"></span>
 		</div>
