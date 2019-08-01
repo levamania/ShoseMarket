@@ -17,10 +17,39 @@
 			what.focus();
 			return false;
 		}
+		//id중복체크
+		function idcheck(){
+			 var id = document.form.id.value;
+			 if(id.length<1 || id==null){
+			  alert("중복체크할 아이디를 입력하십시오");
+			  return false;
+			 }
+			 var url = "idCheck.jsp?id=" + id;
+			 window.open(url, "get", "height = 180, width = 300");
+			}
+		
+		//이메일 change
+		$('#emailSelect').change(function(){
+   $("#emailSelect option:selected").each(function () {
+		
+		if($(this).val()== '1'){ //직접입력일 경우
+			 $("#email2").val('');                        //값 초기화
+			 $("#email2").attr("disabled",false); //활성화
+		}else{ //직접입력이 아닐경우
+			 $("#email2").val($(this).text());      //선택값 입력
+			 $("#email2").attr("disabled",true); //비활성화
+		}
+   });
+});
+
+
+출처: https://start0.tistory.com/98 [아는 것이 좋은 것이다.]
 		
 		
-		$("#btn").on("click",function(event){
-			event.preventDefault();
+		//기본 유효성검사
+		
+		$("form").on("submit",function(event){
+		/* event.preventDefault(); */
 				var re = /^[a-zA-Z0-9]{4,12}$/ 
 				var re1 = /^[a-zA-Z0-9~!;:]{4,12}$/ 
 				var re2 = /^[0-9]{0,12}$/
@@ -41,15 +70,16 @@
 					return false;
 				}
 
-				if (pw.value != pw2.value) {
+				if (pw.val() != pw2.val()) {
 					alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
-					pw2.value = "";
+					
 					pw2.focus();
 					return false;
+					 
 				}
 				var username = $("#username");
 
-				if(username.value==""){
+				if(username.val()==""){
 					alert("이름을 입력하지 않았습니다.")
 					username.focus();
 					return false;
@@ -58,10 +88,10 @@
 					return false;
 				}
 				
-				var radio = $(".radio");
-				console.log(radio);
-				if(radio.val()==""){
-					alert("성별을 입력하지 않았습니다.")
+				
+				 var radio = $(".radio");
+				if($(':radio[name="sex"]:checked').length<1){
+					alert('성별을 선택해주세요');
 					radio.focus();
 					return false;
 				}
@@ -124,6 +154,16 @@
 				}
 				if (phone3.val()=="") {
 					alert("전화번호 입력하시오");
+					phone3.focus();
+					return false;
+				}
+				if(phone2.val().length<3){
+					alert("4자리로 입력하시오")
+					phone2.focus();
+					return false;
+				}
+				if(phone3.val().length<3){
+					alert("4자리로 입력하시오")
 					phone3.focus();
 					return false;
 				}
@@ -520,7 +560,7 @@ html, body {
 
 </head>
 <body >
-<form action="/null/SignUpServlet" method="get" onsubmit="return validate()">
+<form action="/null/SignUpServlet" method="get" >
 
 <div id="" class="align-center vi" style="font-size:25px">
 <b> </b><br>
@@ -540,7 +580,7 @@ html, body {
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">아이디</a></td>
 <td  width="200" height="35" ><input type="text" style="width:200px;height:50%;font-size:60%" id="userid" placeholder="영문,숫자사용 4~20자" name="userid"></td>
-<td  width="100" height="35"><button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="idcheck">중복확인</button></td>
+<td  width="100" height="35"><button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="idcheck" onclick="idcheck()">중복확인</button></td>
 </tr>
  <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">비밀번호</a></td>
@@ -590,7 +630,7 @@ html, body {
   <option style="width: 20%;height:50%;font-size:80%" value="010" id="010">010</option>
   <option style="width: 20%;height:50%;font-size:80%" value="011" id="011">011</option>
 </select>-
-<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone2"  id="phone2">-<input style="width: 30%;height:50%;font-size:60%" type="text" name="phone3"id="phone3" > </td>
+<input style="width: 30%;height:50%;font-size:60%" type="tel" name="phone2"  id="phone2">-<input style="width: 30%;height:50%;font-size:60%" type="tel" name="phone3"id="phone3" > </td>
 </tr>
 </table>
 <br>
@@ -598,7 +638,7 @@ html, body {
 <hr>
 <br>
 <div id="btn_group" class="align-center vi">
-<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="button" id="btn">회원가입</button>
+<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="submit" id="btn">회원가입</button>
 <button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: white;color: red;font-weight:600" onclick="location.href='main.jsp'">취소</button>
 </div>
 </form>
