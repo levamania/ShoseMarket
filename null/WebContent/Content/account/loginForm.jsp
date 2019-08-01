@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>login</title>
+<script src="/null/Content/account/jquery-3.4.1.js"></script>
 <jsp:include page="/Content/statics/top/top.jsp" flush="true"/>
 </head>
 <body>

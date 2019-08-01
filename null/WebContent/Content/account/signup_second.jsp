@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<script src="/null/Content/account/jquery-3.4.1.js"></script>
 <jsp:include page="/Content/statics/top/top.jsp" flush="true"/>
 <script src="jquery-3.4.1.js"></script>
 <script type="text/javascript">
