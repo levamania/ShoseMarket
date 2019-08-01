@@ -39,15 +39,17 @@ public class SignUpServlet extends HttpServlet {
 		service.memberAdd(dto);
 		
 		
-		String nextpage = null;
-		nextpage ="signup/signup_last.jsp";
-		response.sendRedirect(nextpage);
-				
 		/*
-		 * RequestDispatcher dis =
-		 * request.getRequestDispatcher("signup/signup_last.jsp"); dis.forward(request,
-		 * response);
+		 * String nextpage = null; nextpage ="/null/Content/account/signup_last.jsp";
+		 * response.sendRedirect(nextpage);
 		 */
+				
+		
+		
+		  RequestDispatcher dis =
+		  request.getRequestDispatcher("/Content/account/signup_last.jsp");
+		  dis.forward(request,response);
+		 
 		
 		
 	}

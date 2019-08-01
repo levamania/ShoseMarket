@@ -57,7 +57,7 @@
 <c:forEach var="addr" items="${addrList}">
 <table >
 	<tr align="center">   
-		<td width="50px;"></td> <td width="100px;">${addr.delivname}</td><td width="100px;">${addr.delivperson}</td>
+		<td width="50px;"><input type="checkbox" id=""></td><td width="100px;">${addr.delivname}</td><td width="100px;">${addr.delivperson}</td>
 		<td width="150px;">${addr.phone1}</td><td width="150px;">${addr.phone2}</td><td width="200px;">${addr.address1}</td><td width="100px;"><input type="hidden"  value="${addr.delivno}"><input  class="modifybtns" type="button" value="수정"></td>
 	</tr>
 </table>

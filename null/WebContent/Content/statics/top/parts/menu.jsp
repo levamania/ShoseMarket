@@ -4,7 +4,7 @@
 <div class="top menu">
 	<c:if test="${empty login}">
 		<span class="static_menu" id="login">로그인</span>
-		<span class="static_menu" id="signup">회원가입</span>
+		<span class="static_menu" id="signup" >회원가입</span>
 	</c:if>
 	<c:if test="${!empty login}">
 		<span class="static_menu" id="logout">로그아웃</span>

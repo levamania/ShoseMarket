@@ -5,12 +5,172 @@
 <head>
 <meta charset="UTF-8">
 <title>memberForm</title>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+</script>
 <script>
 
-function Check(){
+function validate() {
+	var re = /^[a-zA-Z0-9]{4,12}$/ 
+	var re2 = /^[0-9]{0,12}$/
+	var re3 = /^[a-zA-Z가-힝]{0,10}$/
+	var re4 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
+
+
+	var id = document.getElementById("userid");
+	var pw = document.getElementById("passwd");
+
+	if (!check(re, id, "아이디는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+		return false;
+
+	}
+	
+
+	if (!check(re, pw, "패스워드는 4~12자의 영문 대소문자, 숫자, 특수문자로만 입력")) {
+		return false;
+	}
+
+	if (join.passwd.value != join.passwd2.value) {
+		alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+		join.passwd2.value = "";
+		join.passwd2.focus();
+		return false;
+	}
+	var username = document.getElementById("username");
+
+	if(join.username.value==""){
+		alert("이름을 입력하지 않았습니다.")
+		join.username.focus();
+		return false;
+	}
+	if (!check(re3, username, "한글 또는 영문만 입력 가능합니다.")) {
+		return false;
+	}
+	
+	var radio = document.getElementByClass("radio");
+	if(join.radio.value==""){
+		alert("성별을 입력하지 않았습니다.")
+		join.radio.focus();
+		return false;
+	}
+	
+
+	var email1 = document.getElementById("email1");
+	var email2 = document.getElementById("email2");
+	
+	if (join.email1.value=="") {
+		alert("이메일을 입력해 주세요");
+		join.email1.focus();
+		return false;
+	}
+	if (join.email2.value=="") {
+		alert("이메일을 입력해 주세요");
+		join.email2.focus();
+		return false;
+	}
+	 if (!check(re4,email2, "email 형식에 맞게 작성해주세요")) {
+		return false;
+
+	 }
+	var po = document.getElementById("sample4_postcode");
+	var ad1 = document.getElementById("sample4_roadAddress");
+	var ad2 = document.getElementById("sample4_jibunAddress");
+	var ad3 = document.getElementById("addr3");
+	if (join.sample4_postcode.value == "") {
+		alert("우편번호 상실했습니다");
+		join.sample4_postcode.focus();
+		return false;
+	}
+	if (join.sample4_roadAddress.value == "") {
+		alert("정확한 주소를 입력해주세요");
+		join.sample4_roadAddress.focus();
+		return false;
+	}
+	if (join.sample4_jibunAddress.value == "") {
+		alert("정확한 주소를 입력해주세요");
+		join.sample4_jibunAddress.focus();
+		return false;
+	}
+	if (join.addr3.value == "") {
+		alert("상세주소를 입력하세요. ");
+		join.addr3.focus();
+		return false;
+	}
+	var phone1 = document.getElementById("phone1");
+	var phone2 = document.getElementById("phone2");
+	var phone3 = document.getElementById("phone3");
+	if (join.phone1.value=="") {
+		alert("전화번호 입력하시오");
+		join.phone1.focus();
+		return false;
+	}
+	if (join.phone2.value=="") {
+		alert("전화번호 입력하시오");
+		join.phone2.focus();
+		return false;
+	}
+	if (join.phone3.value=="") {
+		alert("전화번호 입력하시오");
+		join.phone3.focus();
+		return false;
+	}
+	if (!check(re2, phone1, "숫자만 입력가능합니다.")) {
+		return false;
+
+	}
+	if (!check(re2, phone2, "숫자만 입력가능합니다.")) {
+		return false;
+
+	}
+	if (!check(re2, phone3, "숫자만 입력가능합니다.")) {
+		return false;
+
+	}
+
+
+}
+
+function check(re, what, message) {
+	if (re.test(what.value)) {
+		return true;
+	}
+	alert(message);
+	what.value = "";
+	what.focus();
+	//return false;
+}
+function check(re2, what, message) {
+	if (re2.test(what.value)) {
+		return true;
+	}
+	alert(message);
+	what.value = "";
+	what.focus();
+	//return false;
+}
+function check(re3, what, message) {
+	if (re3.test(what.value)) {
+		return true;
+	}
+	alert(message);
+	what.value = "";
+	what.focus();
+	//return false;
+}
+ function check(re4, what, message) {
+	if (re4.test(what.value)) {
+		return true;
+	}
+	alert(message);
+	what.value = "";
+	what.focus(); 
+	//return false;
+ }
+ 
+ </script>
+ <script>
+ /*
+ function Check(){
     var tmp = $("#context").val().replace(/\s|　/gi, '');
-    var hobbyCheck = false;
 
     var email = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/)
     var id= RegExp(/^[a-zA-Z0-9]{4,12}$/)
@@ -127,74 +287,13 @@ function Check(){
     }
 
 
-    //취미 유효성 검사
-    for(var i=0;i<$('[name="hobby[]"]').length;i++){
-         if($('input:checkbox[name="hobby[]"]').eq(i).is(":checked") == true) {
-            hobbyCheck = true;
-              break;
-         }
-     }
-     if(!hobbyCheck){
-         alert("하나이상 관심분야를 체크해 주세요");
-         return false;
-     }
+} 
+*/
 
 
-    //자기소개란 공백 검사
-    if(tmp== ""){
-         alert("자기소개를 입력해주세요")
-         $("#context").val("");
-         $("#context").focus();
-         return false;
-    }
-
-    return true;
-}
-
-function aaa(){
-  
-    var jumins3 = $("#jumin1").val() + $("#jumin2").val();
-    //주민등록번호 생년월일 전달
-
-    var fmt = RegExp(/^\d{6}[1234]\d{6}$/)  //포멧 설정
-    var buf = new Array(13);
 
 
-    //주민번호 유효성 검사
-    if (!fmt.test(jumins3)) {
-          alert("주민등록번호 형식에 맞게 입력해주세요");
-          $("#jumin1").focus();
-          return false;
-      }
 
-      //주민번호 존재 검사
-       for (var i = 0; i < buf.length; i++){
-         buf[i] = parseInt(jumins3.charAt(i));
-    }
-         var multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];// 밑에 더해주는 12자리 숫자들 
-         var sum = 0;
-
-          for (var i = 0; i < 12; i++){
-              sum += (buf[i] *= multipliers[i]);// 배열끼리12번 돌면서 
-         }
-           if ((11 - (sum % 11)) % 10 != buf[12]) {
-              alert("잘못된 주민등록번호 입니다.");
-              $("#jumin1").focus();
-                return false;
-                }
-
-    var birthYear = (jumins3.charAt(6) <= "2") ? "19" : "20";
-    birthYear += $("#jumin1").val().substr(0, 2);
-    var birthMonth = $("#jumin1").val().substr(2, 2);
-    var birthDate = $("#jumin1").val().substr(4, 2);
-    var birth = new Date(birthYear, birthMonth, birthDate);
-                   
-  
-     $("#years").val(birthYear);
-     $("#months").val(birthMonth);
-     $("#dates").val(birthDate);
-    
-}
 
 
 </script>
@@ -271,7 +370,7 @@ html, body {
 
 </head>
 <body >
-<form action="../SignUpServlet" method="get">
+<form action="/null/SignUpServlet" onsubmit="return validate()"method="get">
 
 <div id="" class="align-center vi" style="font-size:25px">
 <b> </b><br>
@@ -279,9 +378,9 @@ html, body {
 <b   style="color:black">NULL-MART 온라인 회원가입</b><br>
 
 <b> </b><br>
-<img src="../img/signup(check).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 약관동의 &nbsp;&nbsp;&nbsp;</a> 
-<img src="../img/Signup(complite)2.PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 회원정보입력&nbsp;&nbsp;&nbsp;</a> 
-<img src="../img/signup(userinfo).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 가입완료&nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/signup(check).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 약관동의 &nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/Signup(complite)2.PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 회원정보입력&nbsp;&nbsp;&nbsp;</a> 
+<img src="../img/account/signup(userinfo).PNG" width="45" height="auto;" id="ver4">&nbsp;&nbsp;&nbsp;<a style="font-size:50%;" > 가입완료&nbsp;&nbsp;&nbsp;</a> 
 </div> <br>
 <br>
 <b style="font-size:80%">회원기본정보</b><div align="right"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">필수 입력정보</a></div>
@@ -308,8 +407,8 @@ html, body {
 </tr>
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:white" >*  </a><a  style="font-size:60%">성별</a></td>
-<td width="100" height="35"><a style="font-size:60%">남</a><input type="checkbox" id="check1"style="height: 15px" name="sex" value="XY">
-<a style="font-size:60%">여</a><input type="checkbox" id="check2" style="height: 15px;"name="sex" value="XX"></td>
+<td width="100" height="35"><a style="font-size:60%">남</a><input type="radio" id="check1"style="height: 15px" name="sex" value="XY" class="radio">
+<a style="font-size:60%">여</a><input type="radio" id="check2" style="height: 15px;"name="sex" value="XX" class="radio"></td>
 </tr>
  <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">이메일</a></td>
