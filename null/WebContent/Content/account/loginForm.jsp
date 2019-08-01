@@ -74,19 +74,19 @@ html, body {
 
 
 
- <form name="login" action="LoginServlet" method="get">
+ <form name="login" action="/null/LoginServlet" method="get">
 
 <table border="0" id="btn_group" style="text-align: left;align-self: left" >
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">아이디</a></td>
-<td  width="200" height="35" ><input type="text" style="width:150px;height:80%;font-size:70%" id="userid" placeholder="영문,숫자사용 4~20자" name="userid"></td><br>
+<td  width="200" height="35" ><input type="text" style="width:150px;height:80%;font-size:70%" id="userid" placeholder="영문,숫자사용 4~12자" name="userid"></td><br>
 </tr>
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">패스워드</a></td>
-<td  width="200" height="35" ><input type="text" style="width:150px;height:80%;font-size:70%" id="passwd" placeholder="영문,숫자사용 4~20자" name="passwd"></td><br>
+<td  width="200" height="35" ><input type="text" style="width:150px;height:80%;font-size:70%" id="passwd" placeholder="영문,숫자,특수문자사용 4~12자" name="passwd"></td><br>
 </tr>
 </table>
-<input type="submit" value="  로그인 " onclick="Login();"class="test_btn1" style="width:53pt;height:15pt;font-size:76%;background-color: red;border-color: red;color: white;border-style: hidden;" />
+<input type="submit" value="  로그인 " class="test_btn1" style="width:53pt;height:15pt;font-size:76%;background-color: red;border-color: red;color: white;border-style: hidden;" />
 <input type="reset" value="취소" class="test_btn1" style="width:53pt;height:15pt;font-size:76%;background-color: red;border-color: red;color: white;border-style: hidden;">
       </form>
 </body>
