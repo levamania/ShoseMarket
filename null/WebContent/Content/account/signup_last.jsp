@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/Content/statics/top/top.jsp" flush="true"/>
 <meta charset="UTF-8">
 <title>second</title>
 <style type="text/css">
-html, body {
+ body {
 	max-width: 80%; height: 100%;
 	margin: auto;
 	

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>memberForm</title>
+<jsp:include page="/Content/statics/top/top.jsp" flush="true"/>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js" ></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -510,7 +511,7 @@ function check(re3, what, message) {
 
 </script> -->
 <style type="text/css">
-html, body {
+ body {
 	max-width: 80%; height: 100%;
 	margin: auto;
 	
