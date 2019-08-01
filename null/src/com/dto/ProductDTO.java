@@ -10,12 +10,13 @@ public class ProductDTO {
 	private String pImage;
 	private String pRegitDate;
 	private int pPrice;
+	private int popularity;
 
 	public ProductDTO() {
 	}
 
 	public ProductDTO(String pCode, String styleTop, String styleMid, String styleBot, String pName, String pImage,
-			String pRegitDate, int pPrice) {
+			String pRegitDate, int pPrice, int popularity) {
 		super();
 		this.pCode = pCode;
 		this.styleTop = styleTop;
@@ -25,6 +26,7 @@ public class ProductDTO {
 		this.pImage = pImage;
 		this.pRegitDate = pRegitDate;
 		this.pPrice = pPrice;
+		this.popularity = popularity;
 	}
 
 	public String getpCode() {
@@ -89,6 +91,14 @@ public class ProductDTO {
 
 	public void setpRegitDate(String pRegitDate) {
 		this.pRegitDate = pRegitDate;
+	}
+
+	public int getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(int popularity) {
+		this.popularity = popularity;
 	}
 
 	@Override

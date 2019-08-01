@@ -27,34 +27,45 @@
 
   		
   	 //검색 셋팅 저자용 히든 인풋 태그 생성
-	  function form_generator(destination){
-  		  //form 태그 생성
-  		  $("searched_product").prepend("<form name='product_form' action=' '>")
-  		  					   .append("</form>");
-  		  //input 설정	 
-	  	  var searched_word = "${searchedWord}";
-		  var cur_page = $("#paging .page.active").val();
-		  var order_criteria = $("#order_info>.order.active").children().text();
-	 	  $("searched_product").append(
-	 			  			      "<input type='hidden' name='searchedWord' value='"+searched_word+"' >" +
-	 			  			      "<input type='hideen' name='cur_page' value='"+cur_page+"' >" +
-	 			  			      "<input type='hideen' name='order_criteria' value='"+order_criteria+"' >"
-	 	  					   );
+	  function form_generator(destination,scope){
+  		 var html = ""; var data;
+  		 //form 태그 생성
+  		  if(scope==undefined)scope = $(".searched_product");
+	  	  scope.wrap("<form name='product_form' action=' ' method='post' onsubmit='return false'>"+
+	  					    "</form>");
+  		 
+	  	  switch(destination){
+	  	  	 case "ProductListingServlet":{ 
+	  	  		 data ={
+			  	  	 "searchedWord" : "${searchedWord}",
+			    	 "cur_page" : $("#paging>.page.active").text(),
+					 "ordering_info" : $("#order_info>.order.active").children().text()
+			     };break;
+	  	  	 }  	  	 
+			 default: data = {};
+	  	  }
+	  	  
+  		  $.each(data,function(key, value){
+				html += "<input type='hidden' name='"+key+"' value='"+value+"' >";
+		  });  	
 	 	  //form 설정
+		  scope.append(html);
+	 	  
 	 	  var product_form = document.product_form;
 	 	  product_form.action = "/null/"+destination;
-	 	  product_form.submit();
+ 	 	  product_form.submit();
+	
   	}
   							  			
   	//정렬 옵션 셋팅
-  	$("#order_info").childern("span").each(function(){
-  										  if("${order_criteria}"==$(this).children().text()){
+  	$("#order_info").children("span").each(function(){
+  										  if("${ordering_info}"==$(this).children().text()){
   											  $(this).toggleClass("active");
   										  }else{
   											  $(this).on("click",function(){
   												$(this).toggleClass("active");  
   												$(this).siblings(".active").toggleClass("active");  
-  												form_generator(destination);
+  												form_generator("ProductListingServlet");
   											  });
   										  }
   								   	  })
@@ -78,6 +89,11 @@
 	    						  }
   							  });
 
+  	//개별 상품 셋팅
+  		//상세 페이지 이동
+  	$(".product>div.item.name").on("click",function(){	form_generator("EachProductServlet",$(this).parent());});
+  	
+  	
 	//재고 있는 사이즈 정보
 	$("div.size_info").on("mouseenter",function(){
 								var pCode = $(this).children().text();

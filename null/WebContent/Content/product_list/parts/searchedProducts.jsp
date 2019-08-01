@@ -8,10 +8,10 @@
 <!-- 검색됨 -->
 <div class="body searched_product">
 	<div id="order_info">
-		<span class="order">신상품순<span>new_date</span></span>
-		<span class="order">베스트 상품순<span>higher_populaty</span></span>
-		<span class="order">낮은 가격순<span>lower_price</span></span>
-		<span class="order">높은 가격순<span>higher_price</span></span>
+		<span class="order">신상품순<span>date_desc</span></span>
+		<span class="order">베스트 상품순<span>popularity_desc</span></span>
+		<span class="order">낮은 가격순<span>price_asc</span></span>
+		<span class="order">높은 가격순<span>price_desc</span></span>
 		<select id="paging_quantity" name="paging_quantity">
 			<option value="20">20개씩 보기</option>
 			<option value="40">40개씩 보기</option>
@@ -26,12 +26,13 @@
 	<div id="searched_list">
 		<c:forEach var="item" items="${pList}" varStatus="stat">
 			<div class="product">
+				<input type="hidden" name="pCode" value="${item.pCode}">		
 				<img src="/null/Content/img/shoes/${item.styleMid}/${item.styleBot}/${item.pImage}.jpg">
 				<br>	
-				<div class="string name">
+				<div class="item name">
 				${item.pName}
 				</div><br>
-				<div class="string price">
+				<div class="item price">
 				<!-- 가격 원화 표시 -->
 				<%
 					NumberFormat nbf = NumberFormat.getCurrencyInstance();
