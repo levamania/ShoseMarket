@@ -11,4 +11,11 @@ public class MemberDAO {
 		
 	}
 
+	public int idCheck(SqlSession session, String userid) {
+		int num = session.selectOne("MemberMapper.idCheck",userid);
+		return num;
+	}
+
+
+
 }
