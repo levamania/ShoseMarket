@@ -30,14 +30,14 @@
 					console.log('확인');
 					console.log(data);
 					if(data==1){
-						
-						window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no");
+						alert("사용불가능입니다.");
+						/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
 
 						$("#userid").focus();
 						return false;
 					}else{
-						window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no");
-
+						/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+                        alert("사용가능입니다.");
 						$("#userid").focus();
 						return false;
 						
