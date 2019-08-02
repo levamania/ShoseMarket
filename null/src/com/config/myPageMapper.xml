@@ -51,4 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchMemberById" resultType="MemberDTO">
 		select * from account where userid = #{userid}
 	</select>
+	
+	<update id="modifyAccountInfo" parameterType="hashmap">
+		update account set phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3},
+		email1=#{email1}, email2=#{email2}, addr1=#{addr1},addr2=#{addr2},addr3=#{addr3}
+		where userid = #{userid}
+		
+	</update>
 </mapper>

@@ -68,7 +68,7 @@
 <jsp:include page="top.jsp"></jsp:include>
 <div id="body">
 <div style="height: 30px; margin-top: 4px; font-weight: bold;">개인정보수정<p>기본정보</p></div>
-<form action="">
+<form action="/null/ModifyAccountConfirmServlet" method="post">
 <div id="body_content">
 	<input type="hidden" id="phone1_selected" value="${member.phone1}">
 	<div class="info_line"><span class="info_title">이름</span><span class="info_content">${member.username}</span></div>
@@ -127,8 +127,8 @@
 </div>
 
 <div id="body_bottom" align="center">
-<input type="hidden" value="${member.userid}" id="userid" name="userid">
-<input type="hidden" value="${member.username}" id="username" name="username">
+<input type="hidden" value="${member.userid}" id="id" name="userid">
+<input type="hidden" value="${member.username}"  id="name" name="username">
 <input type="submit" value="저장" style="30pt; width: 60pt; font-size: 18px; font-weight: bold; background-color: red;">
 </div>
 </form>

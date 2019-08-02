@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.config.MySqlSessionFactory;
 import com.dto.MemberDTO;
 import com.dto.RegAddrDTO;
+import com.exception.ModifyUserInfoException;
 import com.model.dao.MypageDAO;
 
 public class MyPageService {
@@ -93,6 +94,20 @@ public class MyPageService {
 			session.close();
 		}
 		return member;
+	}
+	public void modifyAccountInfo(HashMap<String, String> member) throws ModifyUserInfoException {
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			mypageDAO.modifyAccountInfo(session,member);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			session.rollback();
+			String errorMesg = getClass().getSimpleName()+": "+"modifyAccountInfo method Error";
+			throw new ModifyUserInfoException(errorMesg);
+		}finally {
+			session.close();
+		}
 	}
 	
 }

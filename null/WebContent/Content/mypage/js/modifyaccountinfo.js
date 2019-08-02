@@ -48,9 +48,10 @@ $(document).ready(function() {
 	} 
 	
 	
+	
+	var userid = $("#id");
 	var email1 = $("#email1");
 	var email2 = $("#email2");
-	var phone1 = $("#phone1");
 	var phone2 = $("#phone2");
 	var phone3 = $("#phone3");
 	var post = $("#sample4_postcode");
@@ -60,10 +61,17 @@ $(document).ready(function() {
 	
 	var phone2Reg = /^\d{3,4}$/;
 	var phone3Reg = /^\d{4}$/;
-	var addr3Reg = /^[가-힝a-zA-Z-_]{2,12}$/;
+	var addr3Reg = /^[0-9가-힝a-zA-Z-_]{2,12}$/;
 	
 	$("form").on("submit",function(event){
-		
+		var phone1 = null;
+		var options = $("#phone1_selected option");
+		options.each(function(i, element) {
+			if($(this).prop("selected")){
+				phone1=$(this);
+			}
+		});
+		event.preventDefault();
 		if(emptyCheck(email1, "이메일 입력 필요")){
 			return false;
 		}
@@ -96,6 +104,32 @@ $(document).ready(function() {
 			return false;
 		}
 		
+		console.log(phone1.val());
+		accountInfo={
+				userid: userid.val(),
+				email1: email1.val(),
+				email2: email2.val(),
+				phone1: phone1.val(),
+				phone2: phone2.val(),
+				phone3: phone3.val(),
+				post: 	post.val(),
+				addr1:	addr1.val(),
+				addr2:	addr2.val(),
+				addr3: 	addr3.val()
+		}
+		
+		$.post("/null/ModifyAccountConfirmServlet",accountInfo,function(data,textStatus,req){
+			if(data==0){
+				alert("변경이 완료 되었습니다.");
+				$(location).attr("href","/null/MainServlet");
+			}else{
+				alert("변경 실패");
+				$(location).attr("href","/null/ModifyAccountInfo?userid="+userid.val());
+			}
+		}).fail(function(xhr,status,e) {
+			console.log("erorr",e);
+			console.log("status",status);
+		});
 		
 	});
 	

@@ -43,4 +43,8 @@ public class MypageDAO {
 		return session.selectOne("myPage.searchMemberById", userid);
 	}
 
+	public void modifyAccountInfo(SqlSession session, HashMap<String, String> member) {
+		session.update("myPage.modifyAccountInfo", member);
+	}
+
 }
