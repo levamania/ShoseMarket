@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.product;
 
 import java.io.IOException;
 
@@ -37,33 +37,39 @@ public class ProductServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		//propriating
-		String pCode = request.getParameter("pCode");
+		String min_price = request.getParameter("min_price");
 		String source = request.getParameter("source");
 		if(source==null)source = "item_text";
-		String min_price = request.getParameter("min_price");
-		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode);
+		String pCode = request.getParameter("pCode");
+		String pSize = request.getParameter("pSize");
+		String pColor = request.getParameter("pColor");
+				
+		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode,"pSize",pSize,"pColor",pColor);
+		if(pColor!=null)reposit.put("pColor", pColor);
 		//with model
 		ProductService service = new ProductService();				
 		List<HashMap<String, Object>> stock_list = service.getProduct_info(reposit);
 	
+		
+		
 		if(source.equals("item_size")) {
 			List<String> temp =  (List<String>)new ArrayList<String>();
 			logger.debug("mesg: stock_list"+stock_list+"","debug");
 			stock_list = stock_list.stream().
 							  sorted((o1,o2)->o1.get("PSIZE").toString().compareTo(o2.get("PSIZE").toString())).collect(Collectors.toList());
 			for(HashMap<String, Object> stock :stock_list) {
-				temp.add(stock.get("PSIZE")+":"+stock.get("PAMOUNT"));
+				temp.add(stock.get("PSIZE")+":"+((Integer.parseInt(stock.get("PAMOUNT").toString())!=0)?"O":"X" ));
 			}
+			
 			temp = temp.stream().map((atom)->"\""+atom+"\"").collect(Collectors.toList());								
 			//print
 			out.print(temp);
-		}else {
+		}else if(source.equals("item_text")){
 			//정렬된 컬럼 리스트 
-			ComparatorGenerator generator = new ComparatorGenerator();
 			Set<String> column_set =  stock_list.get(0).keySet();
 			for(String temp_key: column_set) {
 				this.key = temp_key;
-				List<Object> temp_list = stock_list.stream().map(m->m.get(this.key))
+				List<Object> temp_list = stock_list.stream().map(m->m.get(this.key)).distinct()
 													   .sorted((o1,o2)->o1.toString().compareTo(o2.toString())).collect(Collectors.toList());
 				String key = temp_key.toString().toLowerCase();
 				logger.debug("mesg: key"+key,"debug");
@@ -78,6 +84,9 @@ public class ProductServlet extends HttpServlet {
 				//사출
 				dis.forward(request, response);
 				//하나의 프로덕트 디티오, 해당 피코드를 가지고 있는 정렬된 사이즈, 색상, 가격
+		}else if(source.equals("item_selection")) {
+			String price = stock_list.get(0).get("PPRICE").toString();
+			out.print(price);	
 		}
 		
 	}

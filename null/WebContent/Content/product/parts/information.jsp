@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css"
 	href="/null/Content/product/css/information.css">
+<form action="" method="post" onsubmit="return false">
 <div class="body" id="product_info">
 	<div id="product_img">
 		<img
@@ -27,24 +28,30 @@
 			<div>색상</div>
 			<div id="colors">
 				<c:forEach var="item" items="${pcolor}">
-					<div style="background-color:${item}"></div>
+					<div class="color" style="background-color:${item}"></div>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="content" id="sizes">
+		<div class="content" >
 			<div>사이즈</div>
 			<div id="sizes">
 				<c:forEach var="item" items="${psize}">
-					<div>${item}</div>
+					<div class="size">${item}</div>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="content reposit"></div>
 	</div>
 	<div id="payment">
-		<div id="total">총 결제 금액 <span id="total_price" style="color:red;font-size:25px;"></span>원</div>
+		<div id="total">총 결제 금액&nbsp;<span id="total_price" style="color:red;font-size:25px;">0</span>&nbsp;원</div>
 		<div>찜하기</div>
 		<div>장바구니</div>
 		<div>바로구매</div>
 	</div>
+	<div class="content	 reposit">
+		<div style="flex:30"></div>
+		<div style="flex:25; text-align: center"></div>
+		<div style="flex:30"><div></div></div>
+		<div style="flex:10"></div>
+	</div>
 </div>
+</form>

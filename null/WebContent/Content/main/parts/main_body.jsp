@@ -79,17 +79,16 @@ $().ready(()=>{
 		//이미지 덮어쓰기
 		function implicit(){
 			cover_img.attr({"src":"/null/Content/img/advertise/"+list[second]});
-			delay(100);
+
 		
 			cover_img.attr({"z-index":"-9"})
 			imgs.css({'z-index':'-10',left:'-1000px'}); //이미지 뒤로 이동	
-			delay(100);
 		
 			//로테이션 이미지 변경
 			imgs_temp.first().children().attr({"src":"/null/Content/img/advertise/"+list[first]});
 			imgs_temp.eq(1).children().attr({"src":"/null/Content/img/advertise/"+list[second]});
 			imgs_temp.last().children().attr({"src":"/null/Content/img/advertise/"+list[third]});
-			delay(100);
+
 		
 			//이미지 재설정
 			$(".main>#ad_img>img").css({"z-index":-10});
