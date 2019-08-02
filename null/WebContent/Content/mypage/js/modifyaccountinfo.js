@@ -23,4 +23,80 @@ $(document).ready(function() {
 			email2.val($(this).val());
 		}
 	});
+	
+});
+
+$(document).ready(function() {
+	function emptyCheck(tag,mesg) {
+		if(tag.val().length==0){
+			alert(mesg);
+			tag.focus();
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	function regCheck(tag,reg,mesg){
+		if(!reg.test(tag.val())){
+			alert(mesg);
+			tag.focus();
+			return true;
+		}else{
+			return false;
+		}
+	} 
+	
+	
+	var email1 = $("#email1");
+	var email2 = $("#email2");
+	var phone1 = $("#phone1");
+	var phone2 = $("#phone2");
+	var phone3 = $("#phone3");
+	var post = $("#sample4_postcode");
+	var addr1 = $("#sample4_roadAddress");
+	var addr2 = $("#sample4_jibunAddress");
+	var addr3 = $("#addr3");
+	
+	var phone2Reg = /^\d{3,4}$/;
+	var phone3Reg = /^\d{4}$/;
+	var addr3Reg = /^[가-힝a-zA-Z-_]{2,12}$/;
+	
+	$("form").on("submit",function(event){
+		
+		if(emptyCheck(email1, "이메일 입력 필요")){
+			return false;
+		}
+		
+		
+		if(emptyCheck(email2, "이메일 입력 필요")){
+			return false;
+		}
+		if(emptyCheck(phone2, "전화번호 입력")){
+			return false;
+		}
+		
+		if(regCheck(phone2,phone2Reg,"숫자 3~4만 가능")){
+			return false;
+		}
+		
+		if(emptyCheck(phone3, "전화번호 입력")){
+			return false;
+		}
+		if(regCheck(phone3,phone3Reg,"숫자 4자리만 가능")){
+			return false;
+		}
+		if(emptyCheck(post, "우편번호입력")){
+			return false;
+		}
+		if(emptyCheck(addr3, "세부주소 입력")){
+			return false;
+		}
+		if(regCheck(addr3,addr3Reg,"영문,숫자,한글-_2에서 12글자 가능")){
+			return false;
+		}
+		
+		
+	});
+	
 });
