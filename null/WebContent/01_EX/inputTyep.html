@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function keyup(th){
+	console.log(Number.parseInt(th.value));
+	if(!Number.parseInt(th.value)){
+		console.log("success")
+	}
+}
+</script>
+</head>
+<body>
+<input id="i" onkeyup="keyup(this)" value="1">
+</body>
+</html>

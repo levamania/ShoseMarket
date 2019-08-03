@@ -46,11 +46,29 @@
 		<div>장바구니</div>
 		<div>바로구매</div>
 	</div>
+	
+	<!-- 리소스 -->
 	<div class="content	 reposit">
 		<div style="flex:30"></div>
 		<div style="flex:25; text-align: center"></div>
-		<div style="flex:30"><div></div></div>
+		<div style="flex:30"></div>
 		<div style="flex:10"></div>
 	</div>
+	
+	<div class="layout style"></div>
+	<div class="layout position">
+	<div id="pop_up">
+		<div id="close"></div>	
+		<div id="content">
+			<div></div>
+			<div>상품을 담았습니다</div>
+		</div>
+		<div id="redirector">
+			<div>쇼핑 계속하기</div>
+			<div>장바구니 보러가기</div>
+		</div>
+	</div>
+	</div>
+	
 </div>
 </form>

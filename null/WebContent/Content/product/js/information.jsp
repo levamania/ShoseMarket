@@ -4,7 +4,6 @@
 <Script>
 	//원화로 바꾸는 함수
 	function toWon(price){
-		console.log(typeof price)
 		if(typeof price=="number"){
 			price = price.toString();
 		}
@@ -14,7 +13,6 @@
 			arr.push(price.charAt(i));
 		}
 		for(var i=1;price.length-i*3>0;i++){
-			console.log(arr);
 			arr.splice(price.length-i*3,1,","+arr[price.length-i*3]);
 		}
 		var string ="";
@@ -68,15 +66,31 @@ $().ready(()=>{
 								confirm = false;
 							}
 						});
+						//reposit 생성
 						if(confirm){			
 		                    ele.children("div:eq(0)").text(code)//size.text())
-		                        .end().children("div:eq(1)").html("<div>+</div><input value='1' ><div>-</div>")
-		                        .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
-// 		                        	     .children.text((parseInt(price)-${min_price})).end()                    
-		                        .end().children("div:eq(3)").html("<div id='delete'></div>");
+		                        .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
+//  		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
+// 		                        	  .append("<div id="for_calc"><div>").children().text(price).end()                    
+		                        .end().children("div:eq(3)").html("<div class='delete'></div>");
 							$("#option").append(ele);
 						}
-							$(".content #sizes>div.active.pushed").removeClass("pushed");
+						//reposit delete 기능 추가
+						setDelete_reposit($(ele));
+						//reposit input 유효성 검사
+						setInput_corrector($(ele));
+						//reposit input couter 추가
+						setCounter($(ele));
+						
+						
+						//총합계 설정
+						setTotal_price($(ele),"+");
+							
+						//눌린 버튼 선택상태 제거
+						$(".content #sizes>div.active.pushed").toggleClass("pushed");
+						
+						
+						
 					}else{
 						var temp = JSON.parse(data); //사이즈와 양만을 바인딩하여 가져옴
 							for(var atom of temp){
@@ -106,7 +120,7 @@ $().ready(()=>{
 
 	//color 선택
 	$(".color").on("click",function(){
-					 	//사이즈 재선택시 사이즈에 있던 이벤트 재거
+					 	//사이즈 재선택시 사이즈s에 있던 이벤트 재거
 					    $(".content #sizes>div").off("click");
 					 	//선택한 색깔을 활성화 시켜 선택했다는 것을 보여줌
  						$(this).toggleClass("active")
@@ -119,29 +133,88 @@ $().ready(()=>{
 	//최초 상품 리스트 요청시 첫번째 색상 선택됨
 	$(".color:first-child").trigger("click");
 	
-	//사이즈 선택 이벤트 함수( 색선택시 마다 다른 사이즈에 이벤트를 부여하고 지워야 하므로 한번의 실행으로는 불가, 함수로 여러번 실행시킨다.)
+	//사이즈 선택 이벤트 함수( 색선택시 마다 다른 사이즈에 이벤트를 부여하고 지워야 하므로 한번의 실행으로는 구현 불가, 함수로 여러번 실행시킨다.)
 	function event_pusher(){
 	//활성화 되어있는 사이즈클릭시 푸쉬클래스를 토글하고 
 	//색상과 사이즈 정보를 합쳐 REPOSIT생성
-	$(".content #sizes>div.active").on("click",function(){
-													  $(this).toggleClass("pushed");//푸쉬 토글 후 리토글 필요
-												      selected_inspector({"color":true,"size":true},"item_selection");
-												    
-												  });			
-	}
-	//reposit 삭제버튼 설정 => 리파짓이 생설될때마다 부여되어야한다.
-	$("#option>.content.reposit #delete")
+	$(".content #sizes>div.active")
 		.on("click",function(){
-			//해당 버튼의 부모=리파짓 통째로 삭제
-			$(this).parent().remove();
+			$(this).toggleClass("pushed");//푸쉬 토글 후 리토글 필요
+			selected_inspector({"color":true,"size":true},"item_selection");
+												    
+		});			
+	}
+	//reposit 삭제버튼 설정
+	function setDelete_reposit(ele){
+		ele.find("#delete")
+			.on("click",function(){
+			  //총합 다시 구하기
+			  total_price($(this),"-");
+			  //해당 버튼의 부모=리파짓 통째로 삭제
+			  $(this).parent().remove();
+			});
+	}
+	//reposit input 버튼 설정
+	function setCounter(ele){
+		ele.find("#plus, #minus")
+			.on("click",function(){
+				var input = $(this).siblings("input");
+				var curr_num = Number.parseInt(input.val());
+				if($(this).text()="-"){
+					curr_num-=1;
+				}
+				input.val(curr_num);
+			})
+	}
+	
+	//reposit input 유효성 설정
+	var prev_val=1;
+	function setInput_corrector(ele){
+		ele.find("input")
+			.on("keyup",function(){
+			var input = Number.parseInt($(this).val());
+			var regEx = $.isNumeric(input)&&input>0;
+			if(regEx){
+				prev_val=input;	
+		 	}else{
+		 		$(this).val(prev_stack);
+		 	}
+		});
+	}
+	
+	
+	
+	//총합계 설정
+	function setTotal_price(ele, direct){
+		$("#total_price").each(function(){
+			var total_price = Number.parseInt($(this).text());
+			var price = Number.parseInt(ele.find("input").val().trim())
+						*Number.parseInt(ele.find("for_clac").text());
+			var calc = total_price+price;
+			if(direct=="-")calc=total_price-price;
+			$(this).text(calc);
 		})
-
-})
-
+	}
 
 	//결제버튼 설정
-	$("#payment>div").eq(1).on("click",()=>location.href="")
-					 .eq(2).on("click",()=>location.href="CartServlet")
-					 .eq(3).on("click",()=>location.href="OrderServlet");
-
+	$("#payment>div")
+		.eq(1).on("click",function(){location.href="/null"})
+		.end().eq(2).on("click",function(){
+						$("#product_info>.layout").css({display:"flex"});
+			  		 })
+		.end().eq(3).on("click",()=>location.href="/null/OrderServlet");
+	
+	//장바구니 선택時 팝업
+	$("#pop_up")
+		.find("#close, #redirector>div:nth-child(1)")
+			.on("click",function(){
+				$(".layout").css({"display":"none"});
+			})
+		.end().find("#redirector>div:nth-child(2)")
+				.on("click",function(){
+				location.href="/null/Content/cart/cart.jsp";
+			  })
+			
+			  
+})
 </Script>
