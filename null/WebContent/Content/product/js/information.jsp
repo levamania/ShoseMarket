@@ -2,8 +2,26 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <Script>
-	function format_won(x) {
-   		 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	//원화로 바꾸는 함수
+	function toWon(price){
+		console.log(typeof price)
+		if(typeof price=="number"){
+			price = price.toString();
+		}
+	
+		var arr = new Array();
+		for(var i=0;i<price.length;i++){
+			arr.push(price.charAt(i));
+		}
+		for(var i=1;price.length-i*3>0;i++){
+			console.log(arr);
+			arr.splice(price.length-i*3,1,","+arr[price.length-i*3]);
+		}
+		var string ="";
+		for(var i of arr){
+			string+=i;
+		}	
+		return string; 
 	}
 
 $().ready(()=>{
@@ -38,7 +56,7 @@ $().ready(()=>{
 				success: function(data, status, xhr){
 					//푸쉬 클래스가 존재할때만 작동
 					if($(".content #sizes>div.active.pushed").length!=0){
-						var price = data;
+						var price = Number.parseInt(data);
 						var ele = $("#product_info>.reposit").clone();
 						//콘텐츠 설정
 						var code = color+"/"+dat.pSize+"/"+"${product.pName}";
@@ -53,7 +71,7 @@ $().ready(()=>{
 						if(confirm){			
 		                    ele.children("div:eq(0)").text(code)//size.text())
 		                        .end().children("div:eq(1)").html("<div>+</div><input value='1' ><div>-</div>")
-		                        .end().children("div:eq(2)").text(price+"("+format_won((parseInt(price)-${min_price}))+"원+)")
+		                        .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
 // 		                        	     .children.text((parseInt(price)-${min_price})).end()                    
 		                        .end().children("div:eq(3)").html("<div id='delete'></div>");
 							$("#option").append(ele);
@@ -100,6 +118,7 @@ $().ready(()=>{
 				   })
 	//최초 상품 리스트 요청시 첫번째 색상 선택됨
 	$(".color:first-child").trigger("click");
+	
 	//사이즈 선택 이벤트 함수( 색선택시 마다 다른 사이즈에 이벤트를 부여하고 지워야 하므로 한번의 실행으로는 불가, 함수로 여러번 실행시킨다.)
 	function event_pusher(){
 	//활성화 되어있는 사이즈클릭시 푸쉬클래스를 토글하고 
@@ -110,8 +129,19 @@ $().ready(()=>{
 												    
 												  });			
 	}
-
+	//reposit 삭제버튼 설정 => 리파짓이 생설될때마다 부여되어야한다.
+	$("#option>.content.reposit #delete")
+		.on("click",function(){
+			//해당 버튼의 부모=리파짓 통째로 삭제
+			$(this).parent().remove();
+		})
 
 })
+
+
+	//결제버튼 설정
+	$("#payment>div").eq(1).on("click",()=>location.href="")
+					 .eq(2).on("click",()=>location.href="CartServlet")
+					 .eq(3).on("click",()=>location.href="OrderServlet");
 
 </Script>
