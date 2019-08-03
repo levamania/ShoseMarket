@@ -6,7 +6,7 @@
 <form action="" method="post" onsubmit="return false">
 <div class="body" id="product_info">
 	<div id="product_img">
-		<img
+		<img>
 			src="/null/Content/img/shoes/${product.styleMid}/${product.styleBot}/${product.pImage}.jpg">
 	</div>
 	<div id="option">
