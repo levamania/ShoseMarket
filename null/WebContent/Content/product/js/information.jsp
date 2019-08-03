@@ -96,7 +96,7 @@ $().ready(()=>{
 							for(var atom of temp){
 								var size = atom.split(":")[0]; //상품 사이즈
 							    var yn =true ;  //상품 재고 여부
-							    if(Number.parseInt(atom.split(":")[1])=="X")yn=false;
+							    if(Number.parseInt(atom.split(":")[1])==0)yn=false;
 						    
 						   		 //
 						   		if(yn){
@@ -196,20 +196,54 @@ $().ready(()=>{
 		})
 	}
 
+//-----------------------------------결제-----------------------------------------//	
+	
+	//로그인 체커
+	function login_checker(fuc){
+		if(${!empty login}){
+			fuc();
+		}else{
+			location.href="/null/LoginServlet";	
+		}
+	}
+	
 	//결제버튼 설정
 	$("#payment>div")
 		.eq(1).on("click",function(){location.href="/null"})
+		//장바구니
 		.end().eq(2).on("click",function(){
-						$("#product_info>.layout").css({display:"flex"});
+						login_checker(function(){
+							$.ajax({
+								//전달셋팅
+								type:"post",
+								url:"/null/OrderingSerlvet",
+								data:{
+									
+								}
+								//수용셋팅
+								tyep:"text",
+								success:function(data){
+									
+								},
+								error:function(staus,xhr,error){
+									
+								}
+							})
+							
+							$("#product_info>.layout").css({display:"flex"});
+						})
 			  		 })
+		//구매하기
 		.end().eq(3).on("click",()=>location.href="/null/OrderServlet");
 	
-	//장바구니 선택時 팝업
+	//장바구니 선택時 팝업 설정
 	$("#pop_up")
+		//닫기
 		.find("#close, #redirector>div:nth-child(1)")
 			.on("click",function(){
 				$(".layout").css({"display":"none"});
 			})
+		//리다이렉트
 		.end().find("#redirector>div:nth-child(2)")
 				.on("click",function(){
 				location.href="/null/Content/cart/cart.jsp";

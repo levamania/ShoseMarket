@@ -120,7 +120,7 @@
 															  var yn ="O" ;  //상품 재고 여부
 															  var nbsp = "";	//사이즈 재고간의 간격
 															  
-															  if(Number.parseInt(atom.split(":")[1])=="X")yn="X";
+															  if(Number.parseInt(atom.split(":")[1])==0)yn="X";
 															  for(var i=0;i<8;i++)nbsp+="&nbsp;";								  
 															  html += size+nbsp+yn+"<br>" 
 														   }		
