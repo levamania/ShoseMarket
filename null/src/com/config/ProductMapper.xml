@@ -32,8 +32,9 @@
 		from product p,stock s
 		where p.pcode = s.pcode
 		and p.pcode = #{pCode}
-	<if test="pColor!=null">and pcolor = #{pColor}</if>
-	<if test="pSize!=null">and psize = #{pSize}</if>
+		<if test="pColor!=null">and pcolor = #{pColor}</if>
+		<if test="pSize!=null">and psize = #{pSize}</if>
+		order by pcolor,psize
 	</select>
 	
 	

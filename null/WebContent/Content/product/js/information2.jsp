@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <Script>
 	//원화로 바꾸는 함수
 	function toWon(price){
@@ -24,111 +24,75 @@
 
 $().ready(()=>{
 	
-	//색상 클릭시 => 색상에 존재하는 색상정보, 사이즈 클릭시 => 사이즈와 색상정보를 넘겨 상응하는 레코드의 가격정보
-	function selected_inspector(param, source){
-		var color = null;
-		var size = null;
-		var dat = {
-				"pCode": "${product.pCode}",
-				"source": source
-		};
+	//가져온 데이터 가공
+	var map = ${json};
 	
-		if(param.color){
-			color = document.querySelector(".color.active").style.backgroundColor.toUpperCase();
-			dat.pColor = color;
+	//색상,사이즈로 가격 얻는 함수
+	function getPrice(color, size){
+		var price = 0;
+		for(var info of map[color]){
+			if(info["PSIZE"]==size)price = info["PPRICED"];
 		}
-		if(param.size){
-			size = $(event.target).text();
-			dat.pSize = size;
-		}
-		
-		
-		if(color.length!=0||$(".size.active").length!=0){
-			//클래스 제거
-			//ajax(ajax로 자바에 null값을 보내는면 인식불가능해진다.)
-			$.ajax({
-				type: "post",
-				url: "/null/ProductServlet",
-				data: dat,
-				dataType: "text",
-				success: function(data, status, xhr){
-					//푸쉬 클래스가 존재할때만 작동
-					if($(".content #sizes>div.active.pushed").length!=0){
-						var price = Number.parseInt(data);
-						var ele = $("#product_info>.reposit").clone();
-						//콘텐츠 설정
-						var code = color+"/"+dat.pSize+"/"+"${product.pName}";
-						var confirm = true;
-						//새로 저장할 상품과 이전의 상품이 같은지 확인
-						$("#option>.content.reposit>div:first-child").each(function(){
-							if($(this).text()==code){
-								alert("이미 선택한 상품입니다.");
-								confirm = false;
-							}
-						});
-						//reposit 생성
-						if(confirm){			
-		                    ele.children("div:eq(0)").text(code)//size.text())
-		                        .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
-//  		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
-// 		                        	  .append("<div id="for_calc"><div>").children().text(price).end()                    
-		                        .end().children("div:eq(3)").html("<div class='delete'></div>");
-							$("#option").append(ele);
-						}
-						//reposit delete 기능 추가
-						setDelete_reposit($(ele));
-						//reposit input 유효성 검사
-						setInput_corrector($(ele));
-						//reposit input couter 추가
-						setCounter($(ele));
-						
-						
-						//총합계 설정
-						setTotal_price($(ele),"+");
-							
-						//눌린 버튼 선택상태 제거
-						$(".content #sizes>div.active.pushed").toggleClass("pushed");
-						
-						
-						
-					}else{
-						var temp = JSON.parse(data); //사이즈와 양만을 바인딩하여 가져옴
-							for(var atom of temp){
-								var size = atom.split(":")[0]; //상품 사이즈
-							    var yn =true ;  //상품 재고 여부
-							    if(Number.parseInt(atom.split(":")[1])==0)yn=false;
-						    
-						   		 //
-						   		if(yn){
-						   	 		$(".content #sizes>div").each(function(){
-						    			if($(this).text()==size)$(this).toggleClass("active");
-						    		})
-						   		}
-						}//end for
-						
-						//가져온 사이즈에 선택적으로 이벤트 활성화
-						event_pusher();			
-					}//end esle
-				},
-				error: function(status, xhr, error){
-					console.log(error);
+		return price;
+	}
+	
+	//색상 클릭시 => 색상에 존재하는 색상정보, 사이즈 클릭시 => 사이즈와 색상정보를 넘겨 상응하는 레코드의 가격정보
+	function createReposit(color,size){	
+		if(color.length!=0||size.length!=0){
+			var price = getPrice(color,size);
+			var ele = $("#product_info>.reposit").clone();
+			//콘텐츠 설정
+			var code = color+"/"+size+"/"+"${product.pName}";
+			var confirm = true;
+			//새로 저장할 상품과 이전의 상품이 같은지 확인
+			$("#option>.content.reposit>div:first-child").each(function(){
+				if($(this).text()==code){
+					alert("이미 선택한 상품입니다.");
+					confirm = false;
 				}
-			});//end ajax
+			});
+			//reposit 생성
+			if(confirm){			
+		        ele.children("div:eq(0)").text(code)//size.text())
+		           .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
+//  		             .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
+// 		                  	  .append("<div id="for_calc"><div>").children().text(price).end()                    
+		           .end().children("div:eq(3)").html("<div class='delete'></div>");
+				$("#option").append(ele);
+			}
+			//reposit delete 기능 추가
+			setDelete_reposit($(ele));
+			//reposit input 유효성 검사
+			setInput_corrector($(ele));
+			//reposit input couter 추가
+			setCounter($(ele));
+						
+			//총합계 설정
+			setTotal_price($(ele),"+");
 		}//end if
-	}//end fucntion
+	}//end function
+
 	
 
 	//color 선택
 	$(".color").on("click",function(){
-					 	//사이즈 재선택시 사이즈s에 있던 이벤트 재거
+					 	//색상 재선택시 사이즈s에 있던 이벤트 재거
 					    $(".content #sizes>div").off("click");
 					 	//선택한 색깔을 활성화 시켜 선택했다는 것을 보여줌
  						$(this).toggleClass("active")
  								  .siblings().removeClass("active");//다른 색상의 active제거, unique active
  						//이전에 사이즈 선택으로 활성화 되었이던 사이즈 버튼들 비활성화
  						$(".content #sizes>div").removeClass("active");
- 						//색상에 맞는 사이즈 리스트 
-						selected_inspector({"color":true},"item_size");	
+ 						//색상에 맞는 사이즈 리스트  활성화
+ 						var color = document.querySelector(".color.active").style.backgroundColor.toUpperCase();//rgb값만이 나오기에
+ 						for(var info of map[color]){
+ 							if(info["PSIZE"]!=0){
+					   	 		$(".content #sizes>div").each(function(){
+					    			if($(this).text()==info["PSIZE"])$(this).toggleClass("active");
+					    		})
+					   		}
+ 						}
+ 						event_push();
 				   })
 	//최초 상품 리스트 요청시 첫번째 색상 선택됨
 	$(".color:first-child").trigger("click");
@@ -140,8 +104,9 @@ $().ready(()=>{
 	$(".content #sizes>div.active")
 		.on("click",function(){
 			$(this).toggleClass("pushed");//푸쉬 토글 후 리토글 필요
-			selected_inspector({"color":true,"size":true},"item_selection");
-												    
+			var color = document.querySelector(".color.active").style.backgroundColor.toUpperCase();
+			var size = Number.parseInt($(this).text());
+			createReposit(color,size);			    
 		});			
 	}
 	//reposit 삭제버튼 설정
