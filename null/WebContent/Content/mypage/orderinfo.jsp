@@ -7,15 +7,21 @@
 <title>주문현황 조회</title>
 <style type="text/css">
 	#top_box{
-		display: inline-block;
-		vertical-align: top;
+		display: inline-flex;
+		flex-direction: column;
+		position: relative;
+		
 	}
 	#order_search{
+		position: absolute;
+		justify-content: flex-start;
+		top: 30px;
 		height:30px; 
 		width:850px; 
 		background-color: #F6F6F6;
 		padding-top: 10px;
 		padding-bottom: 10px;
+		
 	}
 </style>
 </head>
