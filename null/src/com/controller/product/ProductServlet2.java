@@ -29,7 +29,7 @@ import com.util.QueryUtil;
 import com.util.ComparatorGenerator;
 import com.util.MapParamInputer;
 
-@WebServlet("/ProductServlet")
+@WebServlet("/ProductServlet2")
 public class ProductServlet2 extends HttpServlet {
 	private Logger logger = LoggerFactory.getLogger(ProductServlet2.class);
 	private String key;

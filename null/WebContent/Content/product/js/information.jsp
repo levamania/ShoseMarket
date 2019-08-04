@@ -70,21 +70,21 @@ $().ready(()=>{
 						if(confirm){			
 		                    ele.children("div:eq(0)").text(code)//size.text())
 		                        .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
-//  		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
-// 		                        	  .append("<div id="for_calc"><div>").children().text(price).end()                    
+ 	 		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
+ 	    	                        	  .append("<div id='for_calc' >"+price+"<div>").children().text(price).end()                    
 		                        .end().children("div:eq(3)").html("<div class='delete'></div>");
 							$("#option").append(ele);
 						}
 						//reposit delete 기능 추가
-						setDelete_reposit($(ele));
+						setDelete_reposit(ele);
 						//reposit input 유효성 검사
-						setInput_corrector($(ele));
+						setInput_corrector(ele);
 						//reposit input couter 추가
-						setCounter($(ele));
+						setCounter(ele);
 						
 						
 						//총합계 설정
-						setTotal_price($(ele),"+");
+						setTotal_price(ele,"+");
 							
 						//눌린 버튼 선택상태 제거
 						$(".content #sizes>div.active.pushed").toggleClass("pushed");
@@ -146,24 +146,29 @@ $().ready(()=>{
 	}
 	//reposit 삭제버튼 설정
 	function setDelete_reposit(ele){
-		ele.find("#delete")
+		var superior = ele;
+		ele.find(".delete")
 			.on("click",function(){
 			  //총합 다시 구하기
-			  total_price($(this),"-");
+			  setTotal_price(superior,"-");
 			  //해당 버튼의 부모=리파짓 통째로 삭제
-			  $(this).parent().remove();
+			  superior.remove();
+			  console.log("event");
 			});
 	}
 	//reposit input 버튼 설정
 	function setCounter(ele){
+		var superior = ele;
 		ele.find("#plus, #minus")
 			.on("click",function(){
 				var input = $(this).siblings("input");
 				var curr_num = Number.parseInt(input.val());
-				if($(this).text()="-"){
+				if($(this).text()=="-"){
 					curr_num-=1;
-				}
+				}else{curr_num+=1}		
 				input.val(curr_num);
+				//가격재설정
+				setTotal_price(ele);
 			})
 	}
 	
@@ -189,7 +194,7 @@ $().ready(()=>{
 		$("#total_price").each(function(){
 			var total_price = Number.parseInt($(this).text());
 			var price = Number.parseInt(ele.find("input").val().trim())
-						*Number.parseInt(ele.find("for_clac").text());
+						   *Number.parseInt(ele.find("#for_calc").text());
 			var calc = total_price+price;
 			if(direct=="-")calc=total_price-price;
 			$(this).text(calc);

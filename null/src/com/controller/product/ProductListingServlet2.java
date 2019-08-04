@@ -36,7 +36,7 @@ import com.util.WordInspector;
 
 import ch.qos.logback.core.subst.Tokenizer;
 
-@WebServlet("/ProductListingServlet")
+@WebServlet("/ProductListingServlet2")
 public class ProductListingServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
