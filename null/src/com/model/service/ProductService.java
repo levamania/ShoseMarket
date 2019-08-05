@@ -47,8 +47,8 @@ public class ProductService {
 	
 
 	//product list - searching
-	public List<ProductDTO> selectProductList(HashMap<String, Object> reposit) {
-		List<ProductDTO> list = null;
+	public List<HashMap<String, Object>> selectProductList(HashMap<String, Object> reposit) {
+		List<HashMap<String, Object>> list = null;
 		SqlSession session = null;
 		try {
 			session = MySqlSessionFactory.getSession();
@@ -71,6 +71,21 @@ public class ProductService {
 			if(session!=null)session.close();
 		}
 		return product;
+	}
+
+	
+	//DML - UPDATE
+	public int updateProducts(List<HashMap<String, Object>> reposits) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = MySqlSessionFactory.getSession();
+			result = dao.selectProduct(session,reposits);
+			session.commit();
+		}finally {
+			if(session!=null)session.close();
+		}
+		return result;
 	}
 
 }//end class

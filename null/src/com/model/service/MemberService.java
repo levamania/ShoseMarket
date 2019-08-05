@@ -58,6 +58,18 @@ public class MemberService {
 		return dto;
 	}
 
+	public int IdPwCheck(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao = new MemberDAO();
+		int num =0;
+		try {
+			num = dao.IdPwCheck(session,map);
+		} finally {
+		 session.close();
+		}
+		return num;
+	}
+
 	
 
 }

@@ -31,31 +31,29 @@
   		 var html = ""; var data;
   		 //form 태그 생성
    		  if(scope==undefined)scope = $(".searched_product");
-	  	  html += "<form name='product_form' action=' ' method='get' style='display:none'>";
+	  	  scope.wrap("<form name='product_form' action=' ' method='get' onsubmit='return false'>"+
+	  					    "</form>");
   		 
 	  	  switch(destination){
-	  	  	 case "ProductListingServlet":{ 
+	  	  	 case "ProductListingServlet2":{ 
 	  	  		 data ={
-			  	  		    	"searchedWord" : "${searchedWord}",
-			    		 	     "cur_page" : $("#paging>.page.active").text(),
-						     	 "ordering_info" : $("#order_info>.order.active").children().text()
-			   			   };break;
-	  	  		 }
-	  	  	 case "ProductServlet":{
-	  	  		 data = {	"pCode":scope.find("input[name='pCode']").val().trim()   }
-	  	  	 }break;
+			  	  	 "searchedWord" : "${searchedWord}",
+			    	 "cur_page" : $("#paging>.page.active").text(),
+					 "ordering_info" : $("#order_info>.order.active").children().text()
+			     };break;
+	  	  	 }  	  	 
+			 default: data = {
+// 					 		"min_price": ${pPrice}
+			 }			  ;
 	  	  }
 	  	  
   		  $.each(data,function(key, value){
 				html += "<input type='hidden' name='"+key+"' value='"+value+"' >";
 		  });  	
-  		  
-  		  html+= "</form>";
-	 	  //form  추가
-		  $(".searched_product").append(html);
+	 	  //form 설정
+		  scope.append(html);
 	 	  
 	 	  var product_form = document.product_form;
-	 	  console.log(product_form);
 	 	  product_form.action = "/null/"+destination;
  	 	  product_form.submit();
 	
@@ -69,7 +67,7 @@
   											  $(this).on("click",function(){
   												$(this).toggleClass("active");  
   												$(this).siblings(".active").toggleClass("active");  
-  												form_generator("ProductListingServlet");
+  												form_generator("ProductListingServlet2");
   											  });
   										  }
   								   	  })
@@ -100,9 +98,6 @@
   	
 	//재고 있는 사이즈 정보
 	$("div.size_info").on("mouseenter",function(){
-								//중첩이슈해결
-								$(this).children("div").remove();
-								
 								var pCode = $(this).children().text();
 								var curr_ele = $(this); 
 								
@@ -115,42 +110,31 @@
 									},
 									dataType: "json" ,
 									success: function(data, status, xhr){
-												var arr = data;
-												var html = "<div style='position:absolute;left:-10%;top:100%;width:108%;height:auto;" +
-																					"display:flex;flex-direction:column;align-items:center;"+
-																					"background-color:white;z-index:11;" +
-																					"padding: 0 5px 5px; 5px;border: 1px solid black;color:black;" + "'>\n";
-																					
-												for(var color in arr){
-													var font_color = color;
-													if(color=="WHITE")font_color = "BLACK";
-													html += "<div style='height:20px;margin-top:5px;font-family:san-serif;"+
-																					 "color:"+font_color+";font-size:15px;align-self:center;'>"+
-													              color+"</div>";
-		
-													for(var atom of arr[color]){
-														var size = atom["PSIZE"];
-														var amount = atom["PAMOUNT"];
-														var checker = "O";
-														if(amount==0)check="X";
-														var nbsp = "";	//사이즈 재고간의 간격
-														for(var i=0;i<5;i++)nbsp+="&nbsp;";
-														
-														html+= "<div clas='spec' style=';height:15px;font-size:13px;'>"+
-																	  size+nbsp+checker+"</div>";
-														
-													}
-												}		
-												curr_ele.append(html);
+										var arr = data;
+										var html = "<div style='position:absolute;left:-10%;top:100%;width:120%;height:auto;" +
+																			"background-color:white;z-index:11;" +
+																			"padding: 3px 0;border: 1px solid black;" +
+																			"color:black; font-size:12px;'>\n";
+										for(var atom of arr){
+											var size = atom.split(":")[0]; //상품 사이즈
+											var yn ="O" ;  //상품 재고 여부
+											var nbsp = "";	//사이즈 재고간의 간격
+															  
+											if(Number.parseInt(atom.split(":")[1])==0)yn="X";
+											for(var i=0;i<8;i++)nbsp+="&nbsp;";								  
+											html += size+nbsp+yn+"<br>" 
+										}		
+											  html += "\n</div>";
+										curr_ele.append(html);
 									},
 									 error: function(status, xhr, error){
 										 console.log(error);
-									 }					
+									 }				
 								});//end ajax
 								
 							 })//end on
 							 .on("mouseleave",function(){
- 								$(this).children("div").remove();
+								$(this).children("div").remove();
 							 })
 	 	 
  });//end ready

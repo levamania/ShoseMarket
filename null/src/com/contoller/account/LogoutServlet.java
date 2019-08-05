@@ -27,6 +27,7 @@ public class LogoutServlet extends HttpServlet {
 			session.setAttribute("mesg", "로그인이 필요합니다");
 			
 		}else {
+			
 			nextPage="MainServlet";
 			session.invalidate();
 		}

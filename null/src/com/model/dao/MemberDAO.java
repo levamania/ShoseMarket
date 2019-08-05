@@ -23,6 +23,11 @@ public class MemberDAO {
 		return dto;
 	}
 
+	public int IdPwCheck(SqlSession session, HashMap<String, String> map) {
+		int num = session.selectOne("MemberMapper.IdPwCheck", map);
+		return num;
+	}
+
 
 
 }

@@ -135,8 +135,8 @@
 	border-bottom: 1px dashed gray;
 	
 }
-#product_info #option>div:nth-child(6){border-top: 1px solid black;}
-#product_info #option>div:nth-child(n+7){border-top: 1px dashed gray;}
+#product_info #option>div:nth-child(6){border-top: 1px solid black;} /*first reposit*/
+#product_info #option>div:nth-child(n+7){border-top: 1px dashed gray;} /*other reposit*/
 	
 	/* 리파짓 내부 컨텐츠 */
 #option> .reposit>div:nth-child(2){
@@ -160,13 +160,17 @@
  	-moz-appearance: none; appearance: none;
 		
 }
-#option> .reposit>div:nth-child(2)>div{cursor:pointer}
+	/* 계산용 가격 */
+	#option> .reposit>div:nth-child(2)>input>div{display: none;}
+	#option> .reposit>div:nth-child(2)>div{cursor:pointer}
+	.reposit #for_calc{display:none;}
 
-.reposit #delete{
+.reposit .delete{
 	width:15px;
 	height: 15px;
 	cursor:pointer;
-	background-color: red;
+	background-image: url("/null/Content/img/common/x.png");
+	background-size: contain;
 }
 
 /* 찜하기,장바구니,결제하기 */
@@ -211,12 +215,147 @@
 	background-color: red;
 }
 
+	/*  총 결제금액 */
 #product_info #payment div:first-child{
 	position: absolute;
-	top:10px;right:0;
+	top:10px;right:10px;
 	width: auto;height: 30px;
 	
 	font-family: inherit;
 	font-size: 17px;
 	font-weight: bolder;
 }
+
+
+/* 팝업 설정 */
+
+.layout{		
+	display:none;
+	
+	position: fixed;
+	top:0;left:0;
+	z-index:100;
+	
+	width:100%;
+	height:100%;
+	
+}
+.layout.style{
+	background-color: black;
+	opacity: 0.7;
+		
+}
+
+.layout.position{
+	display: none;
+	flex-direction: row;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+#product_info #pop_up{
+	display: inherit;
+	flex-direction: row;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-content: center;
+	
+	position: fixed;
+	
+	
+	width: 450px;
+	height: 250px;
+	
+	background-color: rgba(255,255,255);
+}
+		
+	#pop_up>div{
+		display: inherit;
+		flex-direction:inherit;
+		flex-wrap: inherit;
+		justify-content: inherit;
+	}
+	#pop_up>#close{
+		align-self:center;
+	
+		width: 25px;
+		height: 25px;
+		
+		position:absolute;
+		top:10px;right:10px;
+		
+		border: 2px solid black;
+		
+		background-image: url("/null/Content/img/common/x.png");
+		background-size: contain;
+		
+		cursor:pointer;
+		
+	}
+	#pop_up>#content{
+		flex-direction:column;
+		justify-content: inherit;
+		align-content: center;
+	
+		width: 100%;
+		height: 60%;
+	}
+		#pop_up>#content>div{
+			display: flex-block;
+			flex-direction: inherit;
+			justify-content: center;
+			align-items: center;	
+		}
+		#pop_up>#content>div:nth-child(1){
+			width:50%;
+			height:50%;
+		
+			background-image: url("/null/Content/img/product/cart.png");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			
+		}
+		#pop_up>#content>div:nth-child(2){
+			margin-top: 5px;
+					
+			text-align: center;
+			font-size:18px;
+			font-weight: bold;
+		}
+	
+	#pop_up>#redirector{
+		align-items: center;
+	
+		width: 100%;
+		height: 30%;
+	}
+		#pop_up>#redirector>div{
+			display: inherit;
+			flex-direction: inherit;
+			flex-wrap: inherit;
+			justify-content: center;
+			align-items: center;
+				
+			width: 40%;
+			height: 65%;
+			
+			cursor:pointer;
+			
+			font-weight: bold;
+		}
+		#pop_up>#redirector>div:nth-child(1) {			
+			border: 1px solid red;
+			background-color: white;
+			color:red;
+			
+			margin-right: 5%;
+		}
+		#pop_up>#redirector>div:nth-child(2) {
+			border: 1px solid red;
+			background-color: red;
+			color:white;
+		}
+		
