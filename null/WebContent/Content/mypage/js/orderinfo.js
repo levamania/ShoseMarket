@@ -22,6 +22,7 @@ $(document).ready(function() {
 		var str = ""+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 		return str;
 	};
+	
 	var dateBtns = $('button').filter('.dateValue');
 	dateBtns.each(function(idx,button){
 		$(button).on("click",function(){
@@ -47,24 +48,23 @@ $(document).ready(function() {
 					}
 				}
 			});
-			/*var str = ""+searchDate.val();
+			var str = ""+searchDate.val();
 			str+=$(this).val();
-			searchDate.val(str);*/
+			searchDate.val(str);
 		});
 	});
 	
 	
 	$("#searchBtn").on("click",function(){
 		if(searchDate.val()){
-			$(location).attr("href","../OrderInfoServlet?day="+searchDate.val());
+			$(location).attr("href","/null/OrderInfoServlet?day="+searchDate.val());
 		}else if(date1.val().length+date2.val().length>0){
 			if(date1.val().length==0||date2.val().length==0){
 				alert("범위 날짜 입력이 잘못 되었습니다.")
 			}else if(date1.val()>=date2.val()){
 				alert("두번째 범위 날짜는 첫번재 범위 날짜보다 낮을 수 없습니다..")
 			}else{
-				
-				$(location).attr("href","../OrderInfoServlet?day="+date1.val()+date2.val());
+				$(location).attr("href","/null/OrderInfoServlet?day="+date1.val()+date2.val());
 			}
 		}else{
 			alert("날짜 입력!!!");
@@ -75,5 +75,5 @@ $(document).ready(function() {
 // 선택된 날짜 전송 
 $(document).ready(function() {
 	var dateBtns = $('button').filter('.dateValue');
-	
+
 });

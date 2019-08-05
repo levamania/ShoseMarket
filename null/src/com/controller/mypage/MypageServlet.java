@@ -21,6 +21,7 @@ public class MypageServlet extends HttpServlet implements SessionCheckInterface{
 		String url = "orderinfo.jsp";
 		HttpSession session = request.getSession();
 		sessionCheck(session, request, response, url, REDIRECT,()->{
+			
 			System.out.println("sessoinCheck");
 		});
 	}
