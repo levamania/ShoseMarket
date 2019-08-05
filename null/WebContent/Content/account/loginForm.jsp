@@ -22,27 +22,29 @@ $(document).ready(function(){
 		return false;
 		console.log("작동 테스트");
 	}
-	//id중복체크
-	$('#idcheck').on("click",function(){
+	//id 비밀번호 일치 불일치 유효성 검사
+	$('#check').on("submit",function(){
 		var id = $("#userid");
+		var pw = $("#passwd");
 		$.ajax({
 			type : "get",
-			url : "/null/IdCheckServlet",
-			data : {userid:id.val()},
+			url : "/null/IdPwCheckServlet",
+			data : {userid:id.val(),passwd:pw.val()},
 			dataType : "text",
 			success : function (data,status,xhr){
 				console.log('확인');
 				console.log(data);
-				if(data==1){
-					alert("사용불가능입니다.");
+				if(data==0){
+					alert("아이디또는 비밀번호가 일치하지 않습니다.");
 					/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
 
 					$("#userid").focus();
 					return false;
 				}else{
+					alert("로그인이 되었습니다.")
 					/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
-                    alert("사용가능입니다.");
-					$("#userid").focus();
+                   $("#userid").focus();
+					
 					return false;
 					
 				}
@@ -187,7 +189,7 @@ body {
 
 
 
- <form name="login" action="/null/LoginServlet" method="get">
+ <form name="login" action="/null/LoginServlet" method="get" id="check">
  <div align="center" style="font-size: 200%">
  <br>
  <br>

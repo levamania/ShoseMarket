@@ -22,4 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 select * from account where userid=#{userid} and passwd=#{passwd}
 
 </select>
+<select id="IdPwCheck" parameterType="map" resultType="int">
+select count(*) from account where userid=#{userid} and passwd=#{passwd}
+</select>
 </mapper>
