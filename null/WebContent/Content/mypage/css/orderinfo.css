@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+#body {
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+}
+
+#top_box {
+	position: absolute;
+	display: inline-block;
+	width: 850px;
+	
+}
+
+#order_search {
+	position: absolute;
+	
+	top: 60px;
+	height: 30px;
+	width: 850px;
+	background-color: #F6F6F6;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#order_top{
+	position: absolute;	
+	top: 150px;
+	display: inline-flex;
+	width: 850px;
+	height: 40px;
+	flex-direction: row;
+	background-color: #F6F6F6;
+	border-top: 1px solid red;
+	font-size: 0.8rem;
+	font-weight: bold;
+	align-items: center;
+	justify-content: space-around;
+}
+.order_top_content{
+	
+}
+#order_list{
+	position: absolute;	
+	top: 200px;
+	display: inline-flex;
+	width: 850px;
+	height: 40px;
+	flex-direction: row;
+	border-bottom: 1px solid #F6F6F6;
+	font-size: 0.8rem;
+	font-weight: bold;
+	align-items: center;
+	justify-content: space-around;
+}
+.order_list_content{
+	
+}
