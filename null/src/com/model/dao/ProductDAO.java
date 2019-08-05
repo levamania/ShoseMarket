@@ -20,7 +20,7 @@ public class ProductDAO {
 	}
 	
 	//product
-	public List<ProductDTO> selectProductList(SqlSession session, HashMap<String, Object> reposit) {
+	public List<HashMap<String, Object>> selectProductList(SqlSession session, HashMap<String, Object> reposit) {
 		return session.selectList("selectProductList", reposit);
 	}
 	public ProductDTO selectProduct(SqlSession session, HashMap<String, Object> reposit) {

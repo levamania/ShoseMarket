@@ -163,7 +163,7 @@ body{margin: 0;}
 			cursor:pointer;
 		}
 			/*사이즈 팝업*/
-			
+		.body.searched_product>#searched_list>.product>div.size_info .spec:last-child{}	
 			
 		/* 페이징  */
 		.body.searched_product>#paging{

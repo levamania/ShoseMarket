@@ -2,12 +2,10 @@ package com.controller.product;
 
 import java.io.IOException;
 
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,21 +17,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.model.service.ProductService;
-import com.util.QueryUtil;
+import com.util.ComparatorGenerator;
 import com.util.MapParamInputer;
 
-@WebServlet("/ProductServlet")
-public class ProductServlet extends HttpServlet {
-	private Logger logger = LoggerFactory.getLogger(ProductServlet.class);
+@WebServlet("/ProductServlet2")
+public class ProductServlet3 extends HttpServlet {
+	private Logger logger = LoggerFactory.getLogger(ProductServlet3.class);
 	private String key;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//셋팅
 		response.setContentType("text/html;charset=utf-8");
@@ -48,43 +45,48 @@ public class ProductServlet extends HttpServlet {
 		String pColor = request.getParameter("pColor");
 				
 		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode,"pSize",pSize,"pColor",pColor);
-
-		//set util
-		QueryUtil query = new QueryUtil();
-
+		if(pColor!=null)reposit.put("pColor", pColor);
 		//with model
 		ProductService service = new ProductService();				
 		List<HashMap<String, Object>> stock_list = service.getProduct_info(reposit);
-		logger.debug("mesg{"+stock_list+"}","debug");
-			//색깔별로 사이즈, 수량 , 가격 맵핑
-		HashMap<String, Object> color_mapped =  query.bind(stock_list, "PCOLOR", new String[]{"PSIZE","PAMOUNT","PPRICE"});
-			//map TO JSON으로 파싱하기
-		JSONObject json = new JSONObject(color_mapped);
-		logger.debug("mesg{json:"+json+"}");
+	
+		
 		
 		if(source.equals("item_size")) {
+			List<String> temp =  (List<String>)new ArrayList<String>();
 			logger.debug("mesg: stock_list"+stock_list+"","debug");
-			out.print(json);//ajax 응답
+//			stock_list = stock_list.stream().
+//							  sorted((o1,o2)->o1.get("PSIZE").toString().compareTo(o2.get("PSIZE").toString())).collect(Collectors.toList());
+			for(HashMap<String, Object> stock :stock_list) {
+				temp.add(stock.get("PSIZE")+":"+stock.get("PAMOUNT"));
+			}
+			
+			temp = temp.stream().map((atom)->"\""+atom+"\"").collect(Collectors.toList());								
+			//print
+			out.print(temp);
 		}else if(source.equals("item_text")){
-			//정렬된 컬럼별 리스트 Get & Stack
-			HashMap<String, Object> colums =  query.extractColumn(stock_list, request);
-			
-			//해당 상품 검색메소드를 통해 호출
-			List<HashMap<String, Object>> temp_products = service.selectProductList(reposit);
-				//중복 제거
-			HashMap<String, Object> product =  query.unoverlap(temp_products, "PCODE").get(0);
-			
-			
-			//WITH JSP
+			//정렬된 컬럼 리스트 
+			Set<String> column_set =  stock_list.get(0).keySet();
+			for(String temp_key: column_set) {
+				this.key = temp_key;
+				List<Object> temp_list = stock_list.stream().map(m->m.get(this.key)).distinct()
+													   .sorted((o1,o2)->o1.toString().compareTo(o2.toString())).collect(Collectors.toList());
+				String key = temp_key.toLowerCase();
+				logger.debug("mesg: key"+key,"debug");
+				request.setAttribute(key, temp_list);
+			}
+			//해당 상품
+			ProductDTO product = service.selectProduct(reposit);
 			RequestDispatcher dis = request.getRequestDispatcher("/Content/product/product.jsp");
 				//정보저장
 				request.setAttribute("product", product);
-				request.setAttribute("color_mapped", json);
 				request.setAttribute("min_price", min_price);
-				request.setAttribute("json", json);
 				//사출
 				dis.forward(request, response);
 				//하나의 프로덕트 디티오, 해당 피코드를 가지고 있는 정렬된 사이즈, 색상, 가격
+		}else if(source.equals("item_selection")) {
+			String price = stock_list.get(0).get("PPRICE").toString();
+			out.print(price);	
 		}
 		
 	}
