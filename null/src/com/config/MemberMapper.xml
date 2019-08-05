@@ -25,4 +25,7 @@ select * from account where userid=#{userid} and passwd=#{passwd}
 <select id="IdPwCheck" parameterType="map" resultType="int">
 select count(*) from account where userid=#{userid} and passwd=#{passwd}
 </select>
+<select id="SearchPw" parameterType="map" resultType="int">
+select count(*) from account where userid=#{userid} and username=#{username} and email1=#{email1} and email2=#{email2}
+</select>
 </mapper>

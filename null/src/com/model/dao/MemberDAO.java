@@ -28,6 +28,11 @@ public class MemberDAO {
 		return num;
 	}
 
+	public int SearchPw(SqlSession session, HashMap<String, String> map) {
+		int num = session.selectOne("MemberMapper.SearchPw", map);
+		return num;
+	}
+
 
 
 }

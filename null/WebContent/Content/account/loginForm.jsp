@@ -12,7 +12,7 @@
 	<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			function check(re, what, message) {
+			function check(re, what, mess/age) {
 				if (re.test(what.val())) {
 					return true;
 				}
