@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dto.MemberDTO;
+import com.dto.OrderDTO;
 import com.dto.RegAddrDTO;
 import com.exception.ModifyUserInfoException;
 import com.model.dao.MypageDAO;
@@ -108,6 +109,17 @@ public class MyPageService {
 		}finally {
 			session.close();
 		}
+	}
+	
+	public List<OrderDTO> getOrderList(HashMap<String, String> map) {
+		List<OrderDTO> list = null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			list=mypageDAO.getOrderList(session,map);
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 	
 }

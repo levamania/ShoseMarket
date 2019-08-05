@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>주문현황 조회</title>
 <link rel="stylesheet" href="/null/Content/mypage/css/orderinfo.css">
 </head>
@@ -19,9 +25,11 @@
 		<button type="button" class="dateValue">15일</button>
 		<button type="button" class="dateValue">1개월</button>
 		<button type="button" class="dateValue">3개월</button>
-		<input type="date" id="date1" class="datepicker">~
-		<input type="date" id="date2" class="datepicker">
+		<input type="date" id="date1" >~
+		<input type="date" id="date2" >
 		<input type="hidden" id="searchDate" value="">
+		<input type="hidden" id="date1Value" value="">
+		<input type="hidden" id="date2Value" value="">
 		<button type="button" id="searchBtn">조회</button>
 	</div>
 </div>
@@ -38,6 +46,6 @@
 	<div class="order_list_content">주문날짜</div>
 </div>
 </div>
-<script src="/null/Content/mypage/js/orderinfo.js"></script>
+<script src="/null/Content/mypage/js/orderinfo.js?ver=2"></script> 
 </body>
 </html>

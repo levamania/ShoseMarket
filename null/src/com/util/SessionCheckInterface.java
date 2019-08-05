@@ -17,7 +17,7 @@ public interface SessionCheckInterface {
 	default void sessionCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response, String url,
 			int mode, DoWork doWork) throws IOException, ServletException {
 
-		String loginUrl = "/null/MainServlet";
+		String loginUrl = "/null/LoginUIServlet";
 		MemberDTO login = (MemberDTO) (session.getAttribute("login"));
 		if (login == null) {
 			response.sendRedirect(loginUrl);

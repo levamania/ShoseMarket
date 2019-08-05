@@ -9,6 +9,7 @@
 		<typeAlias type="com.dto.StockDTO" alias="stock"/>
 		<typeAlias type="com.dto.RegAddrDTO" alias="RegAddr"/>
 		<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.dto.OrderDTO" alias="OrderDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
