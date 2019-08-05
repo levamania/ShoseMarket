@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.MemberDTO;
+import com.dto.OrderDTO;
 import com.dto.RegAddrDTO;
 
 public class MypageDAO {
@@ -45,6 +46,10 @@ public class MypageDAO {
 
 	public void modifyAccountInfo(SqlSession session, HashMap<String, String> member) {
 		session.update("myPage.modifyAccountInfo", member);
+	}
+
+	public List<OrderDTO> getOrderList(SqlSession session, HashMap<String, String> map) {
+		return session.selectList("myPage.getOrderList", map);
 	}
 
 }
