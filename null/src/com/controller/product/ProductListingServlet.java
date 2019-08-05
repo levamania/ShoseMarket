@@ -1,10 +1,15 @@
 package com.controller.product;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +28,8 @@ import com.dto.ProductDTO;
 import com.exception.CustomException;
 import com.model.service.ProductService;
 import com.model.service.RankingService;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.CompareGenerator;
+import com.util.ComparatorGenerator;
 import com.util.MapParamInputer;
 import com.util.WordInspector;
 
@@ -53,11 +60,14 @@ public class ProductListingServlet extends HttpServlet {
 		if(searchedWord==null)searchedWord="default";
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
+		String ordering_info = request.getParameter("ordering_info");
+		if(ordering_info==null)ordering_info="date_desc";
+		
 			//페이징 정보
 		String p_temp1 = request.getParameter("cur_page");
 		String p_temp2 = request.getParameter("paging_quantity");
 		if(p_temp1==null)p_temp1="1";
-		if(p_temp2==null)p_temp2="30";
+		if(p_temp2==null)p_temp2="20";
 		int cur_page = Integer.parseInt(p_temp1);
 		int paging_quantity = Integer.parseInt(p_temp2);
 		
@@ -103,7 +113,7 @@ public class ProductListingServlet extends HttpServlet {
 				if(obj!=null)empty_locator = true;
 			}
 			
-			if(empty_locator) {
+			if(empty_locator) { //유효한 검색어가 없을시동작안함
 				List<ProductDTO> raw_list = service.selectProductList(reposit);
 				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";
@@ -115,12 +125,20 @@ public class ProductListingServlet extends HttpServlet {
 						temp.add(product);
 					}
 				}
-				//페이징 처리
-				pList = temp.stream().skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList());
-				//페이지 갯수 저장
-				request.setAttribute("page_size", (temp.size()!=0)?Math.round((temp.size()/paging_quantity)+1):null);
-				request.setAttribute("whole_size", (temp.size()!=0)?temp.size():0);
 				
+				//정렬 기준 선택
+				ComparatorGenerator generator = new ComparatorGenerator();
+				String order_criteria = ordering_info.split("_")[0];
+				String direction = ordering_info.split("_")[1];
+				Comparator<ProductDTO> comparator = generator.generate(order_criteria, direction);
+				
+				//페이징 처리
+				pList = temp.stream().sorted(comparator) //정렬
+						   .skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList()); //페이징->리스트
+				//페이지 갯수 저장
+				request.setAttribute("page_size", Math.round((temp.size()/paging_quantity)+1));
+				request.setAttribute("items_size", temp.size());
+
 				//inserting keyword to ranking
 				if(source.equals("input")) {
 					RankingService ser = new RankingService();
@@ -147,9 +165,12 @@ public class ProductListingServlet extends HttpServlet {
 				//화면 구현용
 			request.setAttribute("searchedWord", searchedWord);
 			request.setAttribute("source", source);
+				
 			request.setAttribute("pList", pList);
 			request.setAttribute("cur_page", cur_page);
 			request.setAttribute("paging_quantity", paging_quantity);
+			
+			request.setAttribute("ordering_info", ordering_info);
 			//shooting
 			dis.forward(request, response);
 		

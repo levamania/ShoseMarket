@@ -15,12 +15,16 @@ public class ProductDAO {
 		return session.selectList("selectProducts_info", map);
 	}
 	//product info
-	public List<StockDTO> selectProduct_info(SqlSession session, HashMap<String, String> map) {
+	public List<HashMap<String, Object>> selectProduct_info(SqlSession session, HashMap<String, Object> map) {
 		return session.selectList("selectProduct_info",map);
 	}
-
+	
+	//product
 	public List<ProductDTO> selectProductList(SqlSession session, HashMap<String, Object> reposit) {
 		return session.selectList("selectProductList", reposit);
+	}
+	public ProductDTO selectProduct(SqlSession session, HashMap<String, Object> reposit) {
+		return session.selectOne("selectOne",reposit);
 	}
 
 	

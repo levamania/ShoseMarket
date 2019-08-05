@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+*{
+	box-sizing: border-box;
+}
+
+.first{
+	position:relative;
+	top:20px;left:20px;
+	display:flex;
+
+	height:300px;
+	width:500px;
+	
+	border: 1px solid red;	
+	font-size: 0;
+}
+.second{
+	position: inherit;
+ 	display:inline-flex; 
+ 	flex-direction: row;
+ 	align-self:flex-start;	
+	top:0%;
+	box-sizing: border-box;
+	width:50%;
+	border:2px dashed black;
+	
+	font-size: 0;
+	
+}
+
+.third{
+	position: inherit;
+	display: inherit;
+	flex-direction: inherit;
+	flex-wrap:wrap;
+	
+	justify-content:center;
+	align-items: center;
+		
+	height:50%;
+	width:25%;
+	border:1px dotted blue;
+	
+	font-size:15px;
+}
+.third.content{
+	width:75%;
+}
+.third.content>div:nth-child(1){flex: 1}
+.third.content>div:nth-child(2){flex: 1}
+.third.content>div:nth-child(3){flex: 1}
+
+.third>div{
+	border: 1px red ridge;
+	
+}
+
+</style>
+</head>
+<body>
+
+<div class="first">
+	<div class="second">
+		<div class="third">
+			<div>아서스</div>
+		</div>
+		<div class="third content">
+			<div>아서스</div>
+			<div>아서스</div>
+			<div>아서스</div><br>
+			<div>아서스</div>
+			<div>아서스</div>
+		</div>
+	</div>
+	<div class="second">
+		<div class="third">아서스</div>
+		<div class="third">아서스</div>
+	</div>
+</div>
+
+</body>
+</html>
