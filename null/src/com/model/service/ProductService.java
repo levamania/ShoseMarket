@@ -31,8 +31,8 @@ public class ProductService {
 		return list;
 	}
 	// a product info - size, price, color 
-		public List<StockDTO> getProduct_info(HashMap<String, String> map) {
-			List<StockDTO> list = null;
+		public List<HashMap<String, Object>> getProduct_info(HashMap<String, Object> map) {
+			List<HashMap<String, Object>> list = null;
 			SqlSession session = null;
 			try {
 				session = MySqlSessionFactory.getSession();
@@ -58,6 +58,19 @@ public class ProductService {
 			if(session!=null)session.close();
 		}
 		return list;
+	}
+	//select a product
+	public ProductDTO selectProduct(HashMap<String, Object> reposit) {
+		ProductDTO product = null;
+		SqlSession session = null;
+		try {
+			session = MySqlSessionFactory.getSession();
+			product = dao.selectProduct(session,reposit);
+			session.commit();
+		}finally {
+			if(session!=null)session.close();
+		}
+		return product;
 	}
 
 }//end class

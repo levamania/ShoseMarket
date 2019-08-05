@@ -27,28 +27,23 @@
 	</select>
 	
 	<!-- 	개별 상품 정보 -->
-	<select id="selectProduct_info" parameterType="hashmap" resultType="stock">
-		select
-		<trim prefix=" " prefixOverrides=","> 
-			<if test="size">,psize</if> 
-			<if test="color">,pcolor</if> 
-			<if test="price">,pprice</if> 
-			<if test="amount">,pamount</if> 
-			<if test="deliverfee">,deliverfee_yn</if> 
-		</trim>
+	<select id="selectProduct_info" parameterType="hashmap" resultType="hashmap">
+		select scode, s.pcode pcode, psize, pcolor, pprice, pamount, deliverfee_yn
 		from product p,stock s
 		where p.pcode = s.pcode
 		and p.pcode = #{pCode}
+	<if test="pColor!=null">and pcolor = #{pColor}</if>
+	<if test="pSize!=null">and psize = #{pSize}</if>
 	</select>
 	
 	
 	<!-- 상품 검색 리스트 -->
 	<select id="selectProductList" parameterType="hashmap" resultType="product">
-		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice
+		select p.pcode, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice, nvl(searchedCnt,0) popularity
 		from product p, stock s , (select pCode,min(pPrice) pPrice
 								   				from stock
-								   				group by pCode) m 
-		where p.pcode = s.pcode and s.pcode = m.pcode
+								   				group by pCode) m, searchedWord w
+		where p.pcode = s.pcode and s.pcode = m.pcode and p.pname = w.sword(+)
 			<if test="styleMid!=null">and styleMid in
 			 	<foreach collection="styleMid" item="item" open="(" close=")"  separator=",">
 			 		#{item}	
@@ -77,6 +72,11 @@
 			<if test="pPrice!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
 			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
 		order by to_number(p.pcode)
+	</select>
+	<select id="selectOne" parameterType="hashmap" resultType="product">
+		select pcode, stylemid, stylebot, pname, pimage, pregitdate
+		from product
+		where pcode = #{pCode}
 	</select>
 	
 </mapper>

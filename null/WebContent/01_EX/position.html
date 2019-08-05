@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.first{
+	position:relative;
+	border: 1px solid red;
+	height:200px;width: 200px;	
+}
+.first>div{
+	position:inherit;
+  	bottom:0;top:20px;  
+	right:0;left:20px;;
+	border: 1px dashed blue;
+	height:150px;width: 150px;
+}
+.first>div>div{
+	position:absolute;
+	bottom:0;top:0;  
+	right:0;left:0;margin:auto;	
+	border: 1px dotted green;
+	height:100px;width: 100px;
+}
+</style>
+</head>
+<body>
+<div class="first">
+	<div>
+		<div>
+		
+		</div>
+	</div>
+</div>
+</body>
+</html>

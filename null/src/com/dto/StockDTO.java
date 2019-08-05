@@ -1,13 +1,13 @@
 package com.dto;
 
 public class StockDTO {
-	private String sCode;
-	private String pCode;
-	private String pSize;
-	private String pColor;
-	private int pPrice;
-	private int pAmount;
-	private String deliverFee_YN;
+	public String sCode;
+	public String pCode;
+	public String pSize;
+	public String pColor;
+	public int pPrice;
+	public int pAmount;
+	public String deliverFee_YN;
 	
 	public StockDTO() {
 		super();

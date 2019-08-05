@@ -25,7 +25,7 @@ public class SpecificFilter extends HttpServlet {
 		String [] entries = searchedWord.split(",");
 		for(String entry : entries) {
 			String key = entry.split(":")[0];
-			List<String> value = Arrays.asList(entry.split(":")[1].split("/"));
+			List<String> value = Arrays.asList(entry.split(":")[1].split("/"));//검색어 형식: 스타일미드:운동화/구두
 			temp.put(key, value);
 		}
 		//이전 스택

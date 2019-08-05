@@ -47,6 +47,7 @@ body{margin: 0;}
 /* 상품 리스트 */
 
 	/* 정렬 옵션 바 */
+	
 	.body.searched_product>#order_info{
 		position:relative;
 		width:100%;
@@ -65,6 +66,16 @@ body{margin: 0;}
 		margin-right: 20px; 
 		background-color: red;
 	}
+	
+	/* 	히든 밸류	 */
+	#order_info>.order span{display:none;}
+	#order_info>.order{cursor:pointer;}
+	#order_info>.order.active{
+		color: red;
+		font-weight: bolder;
+		cursor: default;
+	}
+	
 	.body.searched_product>	#order_info>select{
     -webkit-appearance: none; /*기본 외형 바꾸기, default:menulist*/
 	
@@ -74,6 +85,8 @@ body{margin: 0;}
 	border-radius:3px;
     color: black;
     text-indent: 15%;
+    
+    cursor:pointer;
     
 /*     letter-spacing: normal; */
 /*     word-spacing: normal; */
@@ -102,6 +115,8 @@ body{margin: 0;}
 			
 			margin-top: 30px;
 			display: inline-block;
+			
+			font-family: Maplestroy;
 		}
 		/* 	이미지 */
 		.body.searched_product>#searched_list>.product>img{
@@ -111,7 +126,7 @@ body{margin: 0;}
 			height: auto;
 		}
 		/* 문자열 */
-		.body.searched_product>#searched_list>.product>div.string{
+		.body.searched_product>#searched_list>.product>div.item{
 			position: relative;
 			width: 100%;
 			
@@ -119,6 +134,19 @@ body{margin: 0;}
 			font-size: 14px;
 			font-weight: bold;
 		}
+		.product>div.item.name{
+			cursor: pointer;
+		
+			/* css transition */ 
+			transition-property: color; 
+			transition-duration: 0s; 
+			transition-timing-function: linear; 
+			transition-delay: 0s; 
+		}
+		.product>div.item.name:hover{
+			color:#ff3333;		
+		}
+		
 		/*사이즈정보*/
 		.body.searched_product>#searched_list>.product>div.size_info{
 			position: relative;
@@ -137,7 +165,7 @@ body{margin: 0;}
 			/*사이즈 팝업*/
 			
 			
-		/* 	페이징 */
+		/* 페이징  */
 		.body.searched_product>#paging{
 			position: relative;
 			line-height: 30px; width:100%;
@@ -147,23 +175,20 @@ body{margin: 0;}
 			font-size: 12px;
 			font-family: Maplestory;
 		}
-		#paging .page.active{
+		
+		#paging .page{
 			display: inline-block;
 			line-height:15px; width: 15px;
 			padding:4px;
+		
+			cursor:pointer;			
 			border: 1px solid black;
-			
-			cursor:pointer;
 			background-color: white;	
 			color:black;
-		}
-		#paging .page.disabled{
-			display: inline-block;
-			line-height:15px; width: 15px;
-			padding:4px;
+		}	
+		#paging .page.active{
+			cursor:default;
 			border: 1px solid red;
-
-			cursor:pointer;			
 			background-color: red;
 			color: white;
 		}
