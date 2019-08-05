@@ -38,9 +38,18 @@ public class SearchPwServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print(num);
 		
-		RequestDispatcher dis=
-				request.getRequestDispatcher("/SendMailServlet");
-		dis.forward(request, response);
+		
+		 String nextpage = null;
+		if(num==1) {
+			RequestDispatcher dis= request.getRequestDispatcher("/SendMailServlet");
+			dis.forward(request, response);
+		}		
+		/*
+		 * else if(num==0){ nextpage = "/null/Content/account/searchPw.jsp";
+		 * response.sendRedirect(nextpage); }
+		 */
+		
+		
 		/*
 		 * String nextpage = null; if (num ==1) { nextpage = "SendMailServlet.java";
 		 * }else {

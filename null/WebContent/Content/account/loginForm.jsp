@@ -158,7 +158,7 @@
 			onclick="location.href='searchId.jsp' ">아이디찾기</button>
 		<button type="button"
 			style="width: 68pt; height: 15pt; font-size: 76%; background-color: white; border-color: white; color: black; border-style: hidden;"
-			onclick="location.href='searchPw.jsp' ">비밀번호찾기</button>
+			onclick="location.href='/null/Content/account/searchPw.jsp' ">비밀번호찾기</button>
 	</div>
 	<br>
 	<hr>

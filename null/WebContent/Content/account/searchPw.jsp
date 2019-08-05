@@ -9,6 +9,8 @@
 <jsp:include page="/Content/statics/top/top.jsp" flush="true" />
 <script src="/null/Content/api/jquery/jquery-3.4.1.js" ></script>
 <script type="text/javascript">
+
+
 $(document).ready(function(){
 	$('#emailSelect').change(function(){
 		   $("#emailSelect option:selected").each(function () {
@@ -23,7 +25,7 @@ $(document).ready(function(){
 		   });
 		});
 	$("form").on("submit", function(event) {
-
+		
 		var id = $("#userid");
 		var un = $("#username");
 		var em1 = $("#email1");
@@ -49,18 +51,14 @@ $(document).ready(function(){
 			em2.focus();
 			return false;
 		}
-	});
-		$('form').on("submit", function() {
-			var id = $("#userid");
-			var un = $("#username");
-			var em1 = $("#email1");
-			var em2 = $("#email2");
+	
 			$.ajax({
 			
 			
 			type : "get",
 			url : "/null/SearchPwServlet",
 			data : {
+				
 				userid : id.val(),
 				username : un.val(),
 				email1 : em1.val(),
@@ -76,12 +74,11 @@ $(document).ready(function(){
 
 					$("#userid").focus();
 					return false;
-				} else {
-					alert("메일이전송되었습니다..")
+				} else if(data==1){
+					alert("메일이전송되었습니다.")
+					$(location).attr("href","LoginUIServlet");
 					 
-					$("#userid").focus();
 
-					return false;
 
 				}
 			},
@@ -111,7 +108,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-<form action="/null/SearchPwServlet" method="get" id="search" >
+<form action="/null/LoginUIServlet" method="get" id="search" >
 		<div align="center" style="font-size: 200%">
 			<br> 
 			<br> <b>비밀번호 찾기</b>
