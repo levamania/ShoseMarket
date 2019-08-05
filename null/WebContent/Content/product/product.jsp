@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <!-- script -->
 <script type="text/javascript" src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
-<jsp:include page="/Content/product/js/information2.jsp" flush="true"/>
+<jsp:include page="/Content/product/js/information.jsp" flush="true"/>
 <!--  style -->
 <link rel="stylesheet" type="text/css" href="/null/Content/product/css/product.css">
 </head>

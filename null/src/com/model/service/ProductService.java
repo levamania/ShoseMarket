@@ -73,4 +73,19 @@ public class ProductService {
 		return product;
 	}
 
+	
+	//DML - UPDATE
+	public int updateProducts(List<HashMap<String, Object>> reposits) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = MySqlSessionFactory.getSession();
+			result = dao.selectProduct(session,reposits);
+			session.commit();
+		}finally {
+			if(session!=null)session.close();
+		}
+		return result;
+	}
+
 }//end class

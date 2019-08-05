@@ -116,6 +116,7 @@ public class QueryUtil {
 	 */
 	public HashMap<String,Object> extractColumn(List<HashMap<String,Object>> list, HttpServletRequest request){		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.debug("mesg: headers"+ list.get(0)+"","debug");
 		Set<String> column_set =  list.get(0).keySet();
 		for(String temp_key: column_set) {
 			this.key = temp_key;

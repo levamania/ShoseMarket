@@ -31,29 +31,31 @@
   		 var html = ""; var data;
   		 //form 태그 생성
    		  if(scope==undefined)scope = $(".searched_product");
-	  	  scope.wrap("<form name='product_form' action=' ' method='get' onsubmit='return false'>"+
-	  					    "</form>");
+	  	  html += "<form name='product_form' action=' ' method='get' style='display:none'>";
   		 
 	  	  switch(destination){
 	  	  	 case "ProductListingServlet":{ 
 	  	  		 data ={
-			  	  	 "searchedWord" : "${searchedWord}",
-			    	 "cur_page" : $("#paging>.page.active").text(),
-					 "ordering_info" : $("#order_info>.order.active").children().text()
-			     };break;
-	  	  	 }  	  	 
-			 default: data = {
-// 					 		"min_price": ${pPrice}
-			 }			  ;
+			  	  		    	"searchedWord" : "${searchedWord}",
+			    		 	     "cur_page" : $("#paging>.page.active").text(),
+						     	 "ordering_info" : $("#order_info>.order.active").children().text()
+			   			   };break;
+	  	  		 }
+	  	  	 case "ProductServlet":{
+	  	  		 data = {	"pCode":scope.find("input[name='pCode']").val().trim()   }
+	  	  	 }break;
 	  	  }
 	  	  
   		  $.each(data,function(key, value){
 				html += "<input type='hidden' name='"+key+"' value='"+value+"' >";
 		  });  	
-	 	  //form 설정
-		  scope.append(html);
+  		  
+  		  html+= "</form>";
+	 	  //form  추가
+		  $(".searched_product").append(html);
 	 	  
 	 	  var product_form = document.product_form;
+	 	  console.log(product_form);
 	 	  product_form.action = "/null/"+destination;
  	 	  product_form.submit();
 	
@@ -98,6 +100,9 @@
   	
 	//재고 있는 사이즈 정보
 	$("div.size_info").on("mouseenter",function(){
+								//중첩이슈해결
+								$(this).children("div").remove();
+								
 								var pCode = $(this).children().text();
 								var curr_ele = $(this); 
 								
@@ -119,7 +124,7 @@
 												for(var color in arr){
 													var font_color = color;
 													if(color=="WHITE")font_color = "BLACK";
-													html += "<div style='height:20px;margin-top:5px;"+
+													html += "<div style='height:20px;margin-top:5px;font-family:san-serif;"+
 																					 "color:"+font_color+";font-size:15px;align-self:center;'>"+
 													              color+"</div>";
 		

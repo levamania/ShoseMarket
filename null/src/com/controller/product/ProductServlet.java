@@ -40,14 +40,11 @@ public class ProductServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		//propriating
-		String min_price = request.getParameter("min_price");
 		String source = request.getParameter("source");
 		if(source==null)source = "item_text";
 		String pCode = request.getParameter("pCode");
-		String pSize = request.getParameter("pSize");
-		String pColor = request.getParameter("pColor");
 				
-		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode,"pSize",pSize,"pColor",pColor);
+		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode);
 
 		//set util
 		QueryUtil query = new QueryUtil();
@@ -67,6 +64,7 @@ public class ProductServlet extends HttpServlet {
 			out.print(json);//ajax 응답
 		}else if(source.equals("item_text")){
 			//정렬된 컬럼별 리스트 Get & Stack
+			logger.debug("mesg: stock_list"+stock_list+"","debug");
 			HashMap<String, Object> colums =  query.extractColumn(stock_list, request);
 			
 			//해당 상품 검색메소드를 통해 호출
@@ -79,8 +77,6 @@ public class ProductServlet extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("/Content/product/product.jsp");
 				//정보저장
 				request.setAttribute("product", product);
-				request.setAttribute("color_mapped", json);
-				request.setAttribute("min_price", min_price);
 				request.setAttribute("json", json);
 				//사출
 				dis.forward(request, response);

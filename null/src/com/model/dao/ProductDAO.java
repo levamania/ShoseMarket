@@ -10,21 +10,24 @@ import com.dto.ProductDTO;
 import com.dto.StockDTO;
 
 public class ProductDAO {
-	//products info
+	//products info -- product column data list
 	public List<String> selectProducts_info(SqlSession session, HashMap<String, String> map) {
 		return session.selectList("selectProducts_info", map);
 	}
-	//product info
+	//product info -- 스톡 리스트
 	public List<HashMap<String, Object>> selectProduct_info(SqlSession session, HashMap<String, Object> map) {
 		return session.selectList("selectProduct_info",map);
 	}
 	
-	//product
+	//product -- 제품(모델) 리스트
 	public List<HashMap<String, Object>> selectProductList(SqlSession session, HashMap<String, Object> reposit) {
 		return session.selectList("selectProductList", reposit);
 	}
-	public ProductDTO selectProduct(SqlSession session, HashMap<String, Object> reposit) {
-		return session.selectOne("selectOne",reposit);
+	
+	
+	//DML - UPDATE
+	public int selectProduct(SqlSession session, List<HashMap<String, Object>> reposits) {
+		return session.update("updateProducts", reposits);
 	}
 
 	

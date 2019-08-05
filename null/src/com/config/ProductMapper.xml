@@ -32,8 +32,9 @@
 		from product p,stock s
 		where p.pcode = s.pcode
 		and p.pcode = #{pCode}
-		<if test="pColor!=null">and pcolor = #{pColor}</if>
-		<if test="pSize!=null">and psize = #{pSize}</if>
+		<if test="PCOLOR!=null">and pcolor = #{PCOLOR}</if>
+		<if test="PSIZE!=null">and psize = #{PSIZE}</if>
+		<if test="SCODE!=null">and scode = #{SCODE}</if>
 		order by pcolor,psize
 	</select>
 	
@@ -74,10 +75,11 @@
 			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
 		order by to_number(p.pcode)
 	</select>
-	<select id="selectOne" parameterType="hashmap" resultType="product">
-		select pcode, stylemid, stylebot, pname, pimage, pregitdate
-		from product
-		where pcode = #{pCode}
-	</select>
+	
+	
+<!-- 	DML -->
+	<insert id="updateProducts" parameterType="list">
+		
+	</insert>
 	
 </mapper>

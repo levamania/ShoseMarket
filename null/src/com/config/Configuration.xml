@@ -26,5 +26,6 @@
 		<mapper resource="com/config/RankingMapper.xml" />
 		<mapper resource="com/config/myPageMapper.xml"/>
 		<mapper resource="com/config/MemberMapper.xml"/>
+		<mapper resource="com/config/CartMapper.xml"/>
 	</mappers>
 </configuration>
