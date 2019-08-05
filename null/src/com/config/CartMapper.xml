@@ -6,9 +6,9 @@
 	<insert id="stackProduct" parameterType="list">
 		insert all 
 		<foreach collection="list" item="item">
-			into cart values() values(car(),#{item.USERID },#{item.PCODE },#{item.PNAME },
+			into cart  values(car(),#{item.USERID },#{item.PCODE },#{item.PNAME },
 											    #{item.PSIZE },#{item.PCOLOR },#{item.PPRICE },#{item.PAMOUNT })
 		</foreach>
-		select * from dual
+		select * from dual       
 	</insert>
 </mapper>

@@ -18,7 +18,15 @@ public class CartService {
 		try {
 			session = MySqlSessionFactory.getSession();
 			result = dao.stackProduct(session,reposits);
-			session.commit();
+			
+			ProductService service = new ProductService();
+			int com = service.updateProducts(reposits);
+			if(result!=com) {
+				session.rollback();
+				result = 0;
+			}else {
+				session.commit();				
+			}
 		}finally {
 			if(session!=null)session.close();
 		}

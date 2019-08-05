@@ -22,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.exception.CustomException;
 import com.model.service.CartService;
 import com.model.service.ProductService;
 import com.util.LoginIndicator;
@@ -38,8 +39,13 @@ public class StackProductServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		//세션 처리
-		String userid = LoginIndicator.check(request, response);
-		
+		String userid = null;
+		try {
+			userid = LoginIndicator.check(request, response);
+		}catch (CustomException e) {
+			out.print(e.getMessage());
+			response.sendRedirect("/null");
+		}
 		//수용
 			//string to json
 		String temp = request.getParameter("list");
@@ -50,6 +56,8 @@ public class StackProductServlet extends HttpServlet {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
+		logger.debug("mesg{리파짓:"+json+"}");
+		System.out.println(json);
 			//가공 & with model
 		List<HashMap<String, Object>> reposits = new ArrayList<HashMap<String,Object>>();
 	
@@ -71,21 +79,20 @@ public class StackProductServlet extends HttpServlet {
 	    			map.put("PNAME",s.split("/")[2]);
 	    			map.put("PSIZE",s.split("/")[1]);
 	    			map.put("PCOLOR",s.split("/")[0]);
-	    		}else {
-	    			map.put(key,value);	    			
 	    		}
+	    		map.put(key,value);	    			
 	    	}
 	    	map.put("USERID", userid);
 	    	reposits.add(map);
 	    }
-	    
+	    logger.debug("mesg{리파짓:"+reposits+"}");
 	    //상품 재고 재확인
 	    ProductService ser = new ProductService();
 	    JSONArray array = new JSONArray();
 	    Boolean stock_loss = false;
 	    for(HashMap<String, Object> reposit : reposits) {
 	    	HashMap<String, Object> dto = ser.getProduct_info(reposit).get(0);//한개 확정
-	    	int differ =  (Integer)dto.get("PPRICE")-(Integer)reposit.get("PPRICE");
+	    	int differ =  Integer.parseInt(dto.get("PPRICE").toString())-Integer.parseInt(reposit.get("PPRICE").toString());
 	    	if(differ<0) {
 	    		JSONObject son = new JSONObject();
 	    		son.put("SCODE", reposit.get("SCODE"));
@@ -99,12 +106,14 @@ public class StackProductServlet extends HttpServlet {
 	    }
 	    
 	    if(!stock_loss) {
-	    	//ProductSevice 스톡 수량 감소
-	    	int i = ser.updateProducts(reposits); 
 	    	logger.debug("mesg{"+reposits+"}","debug");
 	    	CartService service = new CartService();
 	    	int result = service.stackProduct(reposits);
-	    		    	
+	    	if(result!=0) {
+	    		out.print("success");
+	    	}
+	    }else {
+	    	out.print(array);
 	    }
 	    
 
