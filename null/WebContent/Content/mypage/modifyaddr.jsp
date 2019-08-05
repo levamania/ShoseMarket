@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

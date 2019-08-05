@@ -114,7 +114,7 @@ public class OrderDTO {
 	}
 
 	public String getOrder_date() {
-		return order_date;
+		return order_date.substring(0, 10);
 	}
 
 	public void setOrder_date(String order_date) {

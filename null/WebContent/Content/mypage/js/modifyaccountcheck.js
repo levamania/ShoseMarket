@@ -17,7 +17,7 @@ $(document).ready(function() {
 				password.focus();
 				return ;
 			}else{
-				$(location).attr("href","/null/ModifyAccountInfo?userid="+id.val()+"&password="+password.val());
+				$(location).attr("href","/null/ModifyAccountInfo?userid="+id.val());
 			}
 		}).fail(function(xhr,status,e) {
 			console.log("erorr",e);
