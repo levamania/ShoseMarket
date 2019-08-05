@@ -30,14 +30,13 @@ import com.model.service.ProductService;
 import com.model.service.RankingService;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.CompareGenerator;
 import com.util.ComparatorGenerator;
-import com.util.ComparatorFactory;
 import com.util.MapParamInputer;
 import com.util.WordInspector;
 
 import ch.qos.logback.core.subst.Tokenizer;
 
 @WebServlet("/ProductListingServlet2")
-public class ProductListingServlet2 extends HttpServlet {
+public class ProductListingServlet3 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션 처리
@@ -115,8 +114,8 @@ public class ProductListingServlet2 extends HttpServlet {
 			}
 			
 			if(empty_locator) { //유효한 검색어가 없을시동작안함
-				List<HashMap<String, Object>> raw_list = service.selectProductList(reposit);
-				List<HashMap<String, Object>> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
+				List<ProductDTO> raw_list = service.selectProductList(reposit);
+				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
 				String prev_pcode = "inital";
 				//중복 제거
 				for(ProductDTO product : raw_list) {
@@ -128,10 +127,10 @@ public class ProductListingServlet2 extends HttpServlet {
 				}
 				
 				//정렬 기준 선택
-				ComparatorFactory generator = new ComparatorFactory();
+				ComparatorGenerator generator = new ComparatorGenerator();
 				String order_criteria = ordering_info.split("_")[0];
 				String direction = ordering_info.split("_")[1];
-				Comparator<HashMap<String, Object>> comparator = generator.generate(order_criteria, direction);
+				Comparator<ProductDTO> comparator = generator.generate(order_criteria, direction);
 				
 				//페이징 처리
 				pList = temp.stream().sorted(comparator) //정렬

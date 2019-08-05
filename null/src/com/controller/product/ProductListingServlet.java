@@ -1,6 +1,7 @@
 package com.controller.product;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,19 +25,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.ProductDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.exception.CustomException;
 import com.model.service.ProductService;
 import com.model.service.RankingService;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.CompareGenerator;
-import com.util.ComparatorGenerator;
+import com.util.ComparatorFactory;
 import com.util.MapParamInputer;
+import com.util.QueryUtil;
 import com.util.WordInspector;
 
-import ch.qos.logback.core.subst.Tokenizer;
 
 @WebServlet("/ProductListingServlet")
 public class ProductListingServlet extends HttpServlet {
+	
+	private static Logger logger = LoggerFactory.getLogger(ProductListingServlet.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션 처리
@@ -46,12 +50,14 @@ public class ProductListingServlet extends HttpServlet {
 			//info from 현재 페이지 정보
 		HashMap<String, Object> listing_setup = null;
 		String back_word = "default";
+		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
 		
 		if(prev_stack!=null) {
 			back_word = (String)prev_stack.get("back_word");
 			listing_setup = (HashMap<String, Object>)prev_stack.get("listing_setup");
 			session.removeAttribute("prev_stack");
 		}
+		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
 			//매 페이지 마다 갱신
 		session.removeAttribute("prev_stack");
 				
@@ -61,7 +67,7 @@ public class ProductListingServlet extends HttpServlet {
 		String source = request.getParameter("source");
 		if(source==null)source="other"; 
 		String ordering_info = request.getParameter("ordering_info");
-		if(ordering_info==null)ordering_info="date_desc";
+		if(ordering_info==null)ordering_info="PREGITDATE:DESC";
 		
 			//페이징 정보
 		String p_temp1 = request.getParameter("cur_page");
@@ -74,7 +80,7 @@ public class ProductListingServlet extends HttpServlet {
 		//setting
 		RequestDispatcher dis = null;
 		Map<String, ArrayList<String>> words_map = null;
-		List<ProductDTO> pList = null;
+		List<HashMap<String, Object>> pList = null;
 		
 		HashMap<String,Object> reposit = null;	
 		try {
@@ -106,7 +112,7 @@ public class ProductListingServlet extends HttpServlet {
 			}else {
 				reposit = listing_setup;
 			}
-	
+			logger.debug("mesg{reposit:}"+reposit,"debug");
 			//list searching through category
 			boolean empty_locator = false;
 			for(Object obj  :reposit.values()) {
@@ -114,30 +120,22 @@ public class ProductListingServlet extends HttpServlet {
 			}
 			
 			if(empty_locator) { //유효한 검색어가 없을시동작안함
-				List<ProductDTO> raw_list = service.selectProductList(reposit);
-				List<ProductDTO> temp = (List<ProductDTO>)new ArrayList<ProductDTO>(); 
-				String prev_pcode = "inital";
+				List<HashMap<String, Object>> raw_list = service.selectProductList(reposit);
 				//중복 제거
-				for(ProductDTO product : raw_list) {
-					String curr_pcode = product.getpCode();
-					if(!prev_pcode.equals(curr_pcode)) {
-						prev_pcode = curr_pcode;
-						temp.add(product);
-					}
-				}
-				
+				QueryUtil query = new QueryUtil();
+				raw_list = query.unoverlap(raw_list, "PCODE");
+				logger.debug("mesg {raw_list="+raw_list+"}", "debug");
 				//정렬 기준 선택
-				ComparatorGenerator generator = new ComparatorGenerator();
-				String order_criteria = ordering_info.split("_")[0];
-				String direction = ordering_info.split("_")[1];
-				Comparator<ProductDTO> comparator = generator.generate(order_criteria, direction);
+				String order_criteria = ordering_info.split(":")[0];
+				String direction = ordering_info.split(":")[1];
+				Comparator<HashMap<String, Object>> comparator = ComparatorFactory.generate(order_criteria, direction);
 				
 				//페이징 처리
-				pList = temp.stream().sorted(comparator) //정렬
+				pList = raw_list.stream().sorted(comparator) //정렬
 						   .skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList()); //페이징->리스트
 				//페이지 갯수 저장
-				request.setAttribute("page_size", Math.round((temp.size()/paging_quantity)+1));
-				request.setAttribute("items_size", temp.size());
+				request.setAttribute("page_size", Math.round((raw_list.size()/paging_quantity)+1));
+				request.setAttribute("items_size", raw_list.size());
 
 				//inserting keyword to ranking
 				if(source.equals("input")) {

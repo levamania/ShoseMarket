@@ -1,19 +1,24 @@
 package com.util;
 
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dto.ProductDTO;
 
 public class QueryUtil {
 	
+	private Logger logger = LoggerFactory.getLogger(QueryUtil.class);
 	//stream용 변수
 	private String key;
 	
@@ -28,9 +33,17 @@ public class QueryUtil {
 	 * @return 
 	 */
 	public HashMap<String,Object> bind(List<HashMap<String,Object>> list,String main, String[] sub){
+		List<HashMap<String,Object>> temp_list = new ArrayList<HashMap<String,Object>>();
+		for(HashMap<String,Object> atom : list) {
+			temp_list.add(atom);
+		}
+		//구분자 추가
+		temp_list.add(MapParamInputer.set(main,"UNTOUCHABLE"));
+		
 		HashMap<String, Object> mapper = new HashMap<String, Object>();
+		ArrayList<HashMap<String, Object>> binding = null;
 		String prev = "initial";
-		for(HashMap<String, Object> stock :list) {
+		for(HashMap<String, Object> stock :temp_list) {
 			//색상={"size:amount",..} 맵만들기
 			String curr = stock.get(main).toString();
 			HashMap<String, Object> info = new HashMap<String, Object>(); //자동형변환을 기대
@@ -38,12 +51,11 @@ public class QueryUtil {
 				info.put(str, stock.get(str)); 
 			}
 			
-			ArrayList<HashMap<String, Object>> binding = null;
 			if(!curr.equals(prev)) {
-				binding = new ArrayList<>();
-				if(binding.size()!=0) {
-					mapper.put(prev, binding);						
+				if(binding!=null) {
+					mapper.put(prev, binding);
 				}
+				binding = new ArrayList<>();
 				prev = curr;
 			}
 			binding.add(info);
@@ -104,12 +116,23 @@ public class QueryUtil {
 	 */
 	public HashMap<String,Object> extractColumn(List<HashMap<String,Object>> list, HttpServletRequest request){		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
 		Set<String> column_set =  list.get(0).keySet();
 		for(String temp_key: column_set) {
 			this.key = temp_key;
-			List<Object> temp_list = list.stream().map(m->m.get(this.key)).distinct()
-									 .sorted((o1,o2)->o1.toString().compareTo(o2.toString())).collect(Collectors.toList());
+			List<Object> temp_list = list.stream().map(m->m.get(this.key))
+												   .sorted((o1,o2)->{
+													   Object alpha = o1;
+													   int result = 0;
+													   if(alpha instanceof Date) {
+														     Date date1 = (Date)alpha;
+															 result =  ((Date) alpha).compareTo((Date)o2); 
+														  }else if(alpha instanceof Integer || alpha instanceof Float || alpha instanceof Double) {
+															  result =  Integer.compare((Integer)alpha,(Integer)o2);
+														  }else {
+															  result = alpha.toString().compareTo(o2.toString());
+														  }
+													   return result;
+												   }).distinct().collect(Collectors.toList());
 			map.put(temp_key, temp_list);
 			request.setAttribute(temp_key, temp_list);
 		}

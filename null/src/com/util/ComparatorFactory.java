@@ -53,7 +53,6 @@ public class ComparatorFactory {
 		logger = LoggerFactory.getLogger(ComparatorFactory.class);
 		//정렬 기준 가공
 		
-		logger.debug("mesg{reversal: "+reversal+"}", "debug");
 		Comparator<HashMap<String, Object>> comparator = null;
 		
 		comparator = (h1,h2)->{

@@ -70,7 +70,7 @@ $().ready(()=>{
 						if(confirm){			
 		                    ele.children("div:eq(0)").text(code)//size.text())
 		                        .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
- 	 		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${min_price})+"원+)")
+ 	 		                    .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${PPRICE[0]})+"원+)")
  	    	                        	  .append("<div id='for_calc' >"+price+"<div>").children().text(price).end()                    
 		                        .end().children("div:eq(3)").html("<div class='delete'></div>");
 							$("#option").append(ele);

@@ -47,8 +47,8 @@ public class ProductService {
 	
 
 	//product list - searching
-	public List<ProductDTO> selectProductList(HashMap<String, Object> reposit) {
-		List<ProductDTO> list = null;
+	public List<HashMap<String, Object>> selectProductList(HashMap<String, Object> reposit) {
+		List<HashMap<String, Object>> list = null;
 		SqlSession session = null;
 		try {
 			session = MySqlSessionFactory.getSession();
