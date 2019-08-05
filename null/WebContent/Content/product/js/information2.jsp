@@ -57,7 +57,7 @@ $().ready(()=>{
 		        ele.children("div:eq(0)").text(code)//size.text())
 		           .end().children("div:eq(1)").html("<div id='plus'>+</div><input value='1' ><div id='minus'>-</div>")
   		             .end().children("div:eq(2)").text( toWon(price)+"("+toWon(price-${PPRICE[0]})+"원+)")
- 		                  	  .append("<div id='for_calc'><div>").children().text(price).end()                    
+ 		                  	  .append("<div id='for_calc'>X<div>").children().text(price).end()                    
 		           .end().children("div:eq(3)").html("<div class='delete'></div>");
 				$("#option").append(ele);
 			}
@@ -115,10 +115,10 @@ $().ready(()=>{
 		var superior = ele;
 		ele.find(".delete")
 			.on("click",function(){
-			  //총합 다시 구하기
-			  setTotal_price();
 			  //해당 버튼의 부모=리파짓 통째로 삭제
 			  superior.remove();
+			  //총합 다시 구하기
+			  setTotal_price();
 		});
 	}
 	//reposit input 버튼 설정

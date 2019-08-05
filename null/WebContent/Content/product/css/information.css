@@ -162,16 +162,16 @@
 }
 	/* 계산용 가격 */
 	#option> .reposit>div:nth-child(2)>input>div{display: none;}
-
-#option> .reposit>div:nth-child(2)>div{cursor:pointer}
+	#option> .reposit>div:nth-child(2)>div{cursor:pointer}
+	.reposit #for_calc{display:none;}
 
 .reposit .delete{
 	width:15px;
 	height: 15px;
 	cursor:pointer;
-	background-color: red;
+	background-image: url("/null/Content/img/common/x.png");
+	background-size: contain;
 }
-.reposit #for_calc{display:none;}
 
 /* 찜하기,장바구니,결제하기 */
 #product_info #payment{
