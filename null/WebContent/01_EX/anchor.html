@@ -3,23 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+//원화로 바꾸는 함수
+function toWon(price){
+	console.log(typeof price)
+	if(typeof price=="number"){
+		price = price.toString();
+	}
+
+	var arr = new Array();
+	for(var i=0;i<price.length;i++){
+		arr.push(price.charAt(i));
+	}
+	for(var i=1;price.length-i*3>0;i++){
+		console.log(arr);
+		arr.splice(price.length-i*3,1,","+arr[price.length-i*3]);
+	}
+	var string ="";
+	for(var i of arr){
+		string+=i;
+	}	
+	return string; 
+}
+
+console.log(toWon(10000));
+
+</script>
 <style type="text/css">
 span{
 	width: 500px;
 	height: 500px;
 	padding:500px;
+	margin:20px;
 	
 	color:red;	
 	background-image: url("a.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+ 	background-repeat: no-repeat; 
+/* 	background-size: cover;  사이즈가 백그라운드 보다 작을때 cover, 클때는 contain // x,y축 %로 설정 가능*/
+	background-position: center bottom; /*x축,y축 origin:samewith box origin*/
 	
-	font-weight: 
+	border: 2px dashed red; 
 }
 </style>
 </head>
 <body>
-<span>dfdfd</span>
+<span id=space>	</span>
 </body>
 </html>

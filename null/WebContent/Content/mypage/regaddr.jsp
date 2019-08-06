@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+    <c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +66,7 @@ userid - 회원 아이디
 	<span class="top_content" style="left:700px;"> * 필수 입력항목</span>
 </div>
 <div style="position: absolute; top: 90px;">
-<form action="../../AddrAddServlet" id="regAddrForm" method="get">
+<form action="/null/AddrAddServlet" id="regAddrForm" method="get">
 	<table style="font-size: 14px; border-top: 1px solid red; width: 900px;" >
 	<tr height="30px" >
 		<td width="200px" height="35px"class="table_title" > &nbsp;* 배송지명 </td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="40" id="delivname"></td>

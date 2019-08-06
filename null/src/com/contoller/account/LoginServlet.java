@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 			nextPage = "MainServlet";
 			
 			  HttpSession session = request.getSession(); session.setAttribute("login", dto);
+			  session.setMaxInactiveInterval(60);
 			 
 		}
 

@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="com.dto.ProductDTO"%>
 <%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,10 +9,10 @@
 <!-- 검색됨 -->
 <div class="body searched_product">
 	<div id="order_info">
-		<span class="order">신상품순<span>date_desc</span></span>
-		<span class="order">베스트 상품순<span>popularity_desc</span></span>
-		<span class="order">낮은 가격순<span>price_asc</span></span>
-		<span class="order">높은 가격순<span>price_desc</span></span>
+		<span class="order">신상품순<span>PREGITDATE:DESC</span></span>
+		<span class="order">베스트 상품순<span>POPULARITY:DESC</span></span>
+		<span class="order">낮은 가격순<span>MIN_PRICE:ASC</span></span>
+		<span class="order">높은 가격순<span>MIN_PRICE:DESC</span></span>
 		<select id="paging_quantity" name="paging_quantity">
 			<option value="20">20개씩 보기</option>
 			<option value="40">40개씩 보기</option>
@@ -26,25 +27,25 @@
 	<div id="searched_list">
 		<c:forEach var="item" items="${pList}" varStatus="stat">
 			<div class="product">
-				<input type="hidden" name="pCode" value="${item.pCode}">
-				<input type="hidden" name="min_price" value="${item.pPrice}">		
-				<img src="/null/Content/img/shoes/${item.styleMid}/${item.styleBot}/${item.pImage}.jpg">
+				<input type="hidden" name="pCode" value=" ${item.PCODE }">
+				<img src="/null/Content/img/shoes/${item.STYLEMID}/${item.STYLEBOT}/${item.PIMAGE}.jpg">
 				<br>	
 				<div class="item name">
-				${item.pName}
+				${item.PNAME}
 				</div><br>
 				<div class="item price">
 				<!-- 가격 원화 표시 -->
 				<%
 					NumberFormat nbf = NumberFormat.getCurrencyInstance();
-					ProductDTO item = (ProductDTO)pageContext.getAttribute("item");
-					String formatted_Price = nbf.format(item.getpPrice());		
+					HashMap<String,Object> item = (HashMap<String,Object>)pageContext.getAttribute("item");
+					int price = Integer.parseInt(item.get("MIN_PRICE").toString());
+					String formatted_Price = nbf.format(price);		
 				%>
 				<%=formatted_Price%>
 				</div><br>
 				<div class="size_info">
 					주문 가능 사이즈
-					<span style="display:none">${item.pCode}</span>
+					<span style="display:none">${item.PCODE}</span>
 				</div>
 			</div>	 
 			<c:if test="${stat.count%5==0}"><br></c:if>

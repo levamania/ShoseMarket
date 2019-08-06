@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
-
+<c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if>
 <%--
 username - 회원정보
 userid - 회원정보
@@ -62,20 +68,22 @@ a{
 			</div>
 			<div style="display: inline-block;">
 				<p>
-					<span id="username"><b>~ 회원님 반갑습니다.</b></span>
+					<span id="username"><b>${login.username} 회원님 반갑습니다.</b></span>
+				</p> 
+				<p style="font-size: 14px;">
+					<img src="/null/Content/img/mypage/mypage_arrow.PNG" height="15" width="15">
+					아이디:${login.userid}<span id="userid"></span>
 				</p>
 				<p style="font-size: 14px;">
 					<img src="/null/Content/img/mypage/mypage_arrow.PNG" height="15" width="15">
-					아이디:<span id="userid"></span>atoro
+					이메일:${login.email1}@${login.email2}<span id="userpassword"></span>
 				</p>
-				<p style="font-size: 14px;">
-					<img src="/null/Content/img/mypage/mypage_arrow.PNG" height="15" width="15">
-					이메일:<span id="userpassword"></span>atoro@daum.net
-				</p>
-				<p style="font-size: 12px;">
+				<input
+						type="button" value="내정보 확인" id="gomyinfo">
+				<!-- <p style="font-size: 12px;">
 					&nbsp;&nbsp;가입일: <span id="regdate">2019-07-25</span> &nbsp;&nbsp;<input
 						type="button" value="내정보 확인" id="gomyinfo">
-				</p>
+				</p> -->
 
 			</div>
 
@@ -118,7 +126,7 @@ a{
 <div style="display: inline-block; border-bottom: 1px solid red; width: 1090px;"></div>
 <div class ="left_menu">
 	<p style="font-weight: bolder; font-size: 20px;">쇼핑내역</p>
-	<p><a href="orderinfo.jsp">주문현황 조회</a></p>
+	<p><a href="/null/OrderInfoServlet">주문현황 조회</a></p>
 	<p><a href="returnAS.jsp">반품/교환/AS</a></p><br>
 	<p style="font-weight: bolder; font-size: 20px;">쇼핑수첩</p>
 	<p><a href="ordereval.jsp">나의 상품후기</a></p><br>

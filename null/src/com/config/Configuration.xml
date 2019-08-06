@@ -9,6 +9,7 @@
 		<typeAlias type="com.dto.StockDTO" alias="stock"/>
 		<typeAlias type="com.dto.RegAddrDTO" alias="RegAddr"/>
 		<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.dto.OrderDTO" alias="OrderDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -26,5 +27,6 @@
 		<mapper resource="com/config/RankingMapper.xml" />
 		<mapper resource="com/config/myPageMapper.xml"/>
 		<mapper resource="com/config/MemberMapper.xml"/>
+		<mapper resource="com/config/CartMapper.xml"/>
 	</mappers>
 </configuration>

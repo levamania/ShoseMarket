@@ -3,10 +3,13 @@
  */
 
 //dateValue button css 속성 부여 
+
 $(document).ready(function() {
 	var searchDate = $('#searchDate');
 	var date1 =$('#date1');
 	var date2 =$('#date2');
+	var date1Value=$("#date1Value");
+	var date2Value=$("#date2Value");
 	var createDate = function(day){
 		var d = new Date();
 		var oneMonth = 30*24*60*60*1000;
@@ -33,9 +36,12 @@ $(document).ready(function() {
 			});
 			date1.val("");
 			date2.val("");
+			date1Value.val("");
+			date2Value.val("");
 			console.log(createDate($(this).text()));
 			$(this).css("background-color","red");
-			searchDate.val(createDate($(this).text()));
+			//searchDate.val(createDate($(this).text()));
+			searchDate.val($(this).text());
 		});
 	});
 	$(".datepicker").each(function(idx,item){
@@ -53,27 +59,49 @@ $(document).ready(function() {
 			searchDate.val(str);
 		});
 	});
-	
+	$("#date1").on("change",function(){
+		dateBtns.each(function(idx,button) {
+			if($(button).prop("style")){
+				$(this).removeAttr("style");
+				if(searchDate.val().length>0){
+					searchDate.val("");
+				}
+			}
+		});
+		date1Value.val($(this).val());
+	});
+	$("#date2").on("change",function(){
+		dateBtns.each(function(idx,button) {
+			if($(button).prop("style")){
+				$(this).removeAttr("style");
+				if(searchDate.val().length>0){
+					searchDate.val("");
+				}
+			}
+		});
+		date2Value.val($(this).val());
+	});
 	
 	$("#searchBtn").on("click",function(){
+		console.log(searchDate.val());
+		console.log(date1Value.val());
 		if(searchDate.val()){
 			$(location).attr("href","/null/OrderInfoServlet?day="+searchDate.val());
-		}else if(date1.val().length+date2.val().length>0){
-			if(date1.val().length==0||date2.val().length==0){
-				alert("범위 날짜 입력이 잘못 되었습니다.")
-			}else if(date1.val()>=date2.val()){
-				alert("두번째 범위 날짜는 첫번재 범위 날짜보다 낮을 수 없습니다..")
+		}else if(date1Value.val()+date2Value.val()){
+			if(date1Value.val()==0){
+				alert("첫번째 날짜를 입력하세요.");
+				date1.focus();
+			}else if(date2Value.val()==0){
+				alert("두번째 날짜를 입력하세요.");
+				date2.focus();
+			}else if(date1Value.val()>date2Value.val()){
+				alert("두번째 범위 날짜는 첫번재 범위 날짜보다 낮을 수 없습니다.")
 			}else{
-				$(location).attr("href","/null/OrderInfoServlet?day="+date1.val()+date2.val());
+				$(location).attr("href","/null/OrderInfoServlet?day="+date1Value.val()+":"+date2Value.val());
 			}
 		}else{
-			alert("날짜 입력!!!");
+			alert("날짜 입력이 필요합니다.!!!");
 		}
 	});
 });
 
-// 선택된 날짜 전송 
-$(document).ready(function() {
-	var dateBtns = $('button').filter('.dateValue');
-
-});

@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,12 +58,12 @@
 </div>
 <form action="/null/ModifyAccountInfo">
 <div id="body_bottom" align="center">
-<input type="hidden" value="asd123" id="id">
+<input type="hidden" value="${login.userid}" id="id">
 <span style="font-size: 14px; font-weight: bold;">비밀번호</span><input type="password" style="margin: 20px;" id="passwordvalue">
 <input type="submit" value="확인" style="30pt; width: 60pt; font-size: 18px; font-weight: bold; background-color: red;">
 </div>
 </form>
 </div>
-<script src="/null/Content/mypage/js/modifyaccountcheck.js"></script>
+<script src="/null/Content/mypage/js/modifyaccountcheck.js?ver=1"></script>
 </body>
 </html>
