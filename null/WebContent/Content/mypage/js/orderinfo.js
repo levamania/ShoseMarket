@@ -105,3 +105,12 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function(){
+	var selectDays = $("#selectDays");
+	$(".dateValue").each(function(idx,button){
+		if($(this).text()==selectDays.val()){
+			$(this).css("background-color","red");
+		}
+	});
+});
+

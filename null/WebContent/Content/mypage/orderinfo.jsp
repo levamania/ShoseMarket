@@ -19,6 +19,7 @@
 <jsp:include page="top.jsp"></jsp:include>
 <div id="body">
 <div id="top_box" >
+	<input type="hidden" id="selectDays" value="${selectDays}">
 	<p style="font-weight:bolder; font-size: 20px;">주문현황 조회</p>
 	<div id="order_search">쇼핑몰 구매 내력
 		<button type="button" class="dateValue">오늘</button>
@@ -57,14 +58,9 @@
 			<span>주문 내역이 없습니다.</span>
 		</div>
 	</c:if>
-	<%-- <c:forEach var="order" items="${orderlist}">
-	<div class="order_list_content">${order.ono}</div>
-	<div class="order_list_content">${order.ordername}</div>
-	<div class="order_list_content">${order.paymethod}</div>
-	<div class="order_list_content">${order.order_date}</div>
-	</c:forEach> --%>
+	<%-- <c:forEach var="order" items="${orderlist}"><div class="order_list_content">${order.ono}</div><div class="order_list_content">${order.ordername}</div><div class="order_list_content">${order.paymethod}</div><div class="order_list_content">${order.order_date}</div></c:forEach> --%>
 </div>
 </div>
-<script src="/null/Content/mypage/js/orderinfo.js?ver=1"></script> 
+<script src="/null/Content/mypage/js/orderinfo.js?ver=3"></script> 
 </body>
 </html>

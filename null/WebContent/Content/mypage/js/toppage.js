@@ -5,6 +5,13 @@ $(document).ready(function(){
 	$("#goaddrinfo").on("click",function(){
 		$(location).attr("href","/null/AddrListServlet");
 	});
+	
+	$("#goorderlist").on("click",function(){
+		$(location).attr("href","/null/OrderInfoServlet");
+	});
+	$("#goordereval").on("click",function(){
+		$(location).attr("href","/null/OrderEvalListServelt");
+	});
 });
 
 
