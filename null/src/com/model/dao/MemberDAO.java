@@ -33,6 +33,16 @@ public class MemberDAO {
 		return num;
 	}
 
+	public int updatePw(SqlSession session, HashMap<String, String> map) {
+		int n = session.update("MemberMapper.updatePw", map);
+	return n;	
+	}
+
+	public int UpdateNewPw(SqlSession session, HashMap<String, String> map) {
+		int n = session.update("MemberMapper.UpdateNewPw", map);
+		return n;
+	}
+
 
 
 }
