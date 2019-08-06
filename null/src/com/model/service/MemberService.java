@@ -70,6 +70,20 @@ public class MemberService {
 		return num;
 	}
 
+	public int SearchPw(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao= new MemberDAO();
+		int num=0;
+		try {
+			num = dao.SearchPw(session,map);
+		} finally {
+			session.close();
+		}
+		
+		
+		return num;
+	}
+
 	
 
 }
