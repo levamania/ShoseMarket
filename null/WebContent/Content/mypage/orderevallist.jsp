@@ -31,8 +31,8 @@
 	</div>
 	<div id="body_title" style="border-top: 1px solid red; font-size: 14px; font-weight: bold;">
 		<span class="body_item" style="width: 200;">주문일</span>
+		<span class="body_item">주문번호</span>
 		<span class="body_item">상품명</span>
-		<span class="body_item">가격</span>
 		<span class="body_item">구매후기</span>
 		<!-- <div class="body_item">
 			<span>주문일</span>
