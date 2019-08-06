@@ -52,13 +52,7 @@ public class OrderInfoServlet extends HttpServlet implements SessionCheckInterfa
 			map.put("userid", userid);
 			List<OrderDTO> list = service.getOrderList(map);
 			session.setAttribute("orderlist", list);
-<<<<<<< HEAD
-			list.stream().forEach(o->System.out.println(o));
-			System.out.println(userid);
-			
-			System.out.println(map.get("start")+map.get("end"));
-=======
->>>>>>> refs/heads/tglee
+
 		});
 		
 	}
