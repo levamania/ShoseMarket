@@ -31,7 +31,7 @@
 		select scode, s.pcode pcode, psize, pcolor, pprice, pamount, deliverfee_yn
 		from product p,stock s
 		where p.pcode = s.pcode
-		and p.pcode = #{pCode}
+		and p.pcode = #{PCODE}
 		<if test="PCOLOR!=null">and pcolor = #{PCOLOR}</if>
 		<if test="PSIZE!=null">and psize = #{PSIZE}</if>
 		<if test="SCODE!=null">and scode = #{SCODE}</if>
@@ -73,13 +73,22 @@
 			</if>
 			<if test="pPrice!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
 			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
+			<if test="PCODE!=null">and p.pcode = #{PCODE}</if>
 		order by to_number(p.pcode)
 	</select>
 	
 	
 <!-- 	DML -->
 	<insert id="updateProducts" parameterType="list">
-		
+		  merge into stock s
+ 		  using
+ 		  	<foreach collection="list" item="item"  open="(" close=")" separator="union"> 
+ 		  		select scode, pamount-#{item.PAMOUNT} res from stock where scode = #{item.SCODE}
+            </foreach>	 
+            	 e
+    	  on (s.scode = e.scode)
+    	  when matched then 
+       	  update set s.pamount = e.res
 	</insert>
 	
 </mapper>

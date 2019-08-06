@@ -43,8 +43,9 @@ public class ProductServlet extends HttpServlet {
 		String source = request.getParameter("source");
 		if(source==null)source = "item_text";
 		String pCode = request.getParameter("pCode");
+		logger.debug("mesg{pCode:"+pCode+"}","debug");
 				
-		HashMap<String, Object> reposit = MapParamInputer.set("pCode",pCode);
+		HashMap<String, Object> reposit = MapParamInputer.set("PCODE",pCode);
 
 		//set util
 		QueryUtil query = new QueryUtil();
@@ -64,11 +65,11 @@ public class ProductServlet extends HttpServlet {
 			out.print(json);//ajax 응답
 		}else if(source.equals("item_text")){
 			//정렬된 컬럼별 리스트 Get & Stack
-			logger.debug("mesg: stock_list"+stock_list+"","debug");
 			HashMap<String, Object> colums =  query.extractColumn(stock_list, request);
 			
 			//해당 상품 검색메소드를 통해 호출
 			List<HashMap<String, Object>> temp_products = service.selectProductList(reposit);
+			logger.debug("mesg{temp_products:"+temp_products+"}");
 				//중복 제거
 			HashMap<String, Object> product =  query.unoverlap(temp_products, "PCODE").get(0);
 			
@@ -80,7 +81,6 @@ public class ProductServlet extends HttpServlet {
 				request.setAttribute("json", json);
 				//사출
 				dis.forward(request, response);
-				//하나의 프로덕트 디티오, 해당 피코드를 가지고 있는 정렬된 사이즈, 색상, 가격
 		}
 		
 	}

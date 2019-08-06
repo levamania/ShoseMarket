@@ -192,12 +192,12 @@ $().ready(()=>{
 							var info = new Array();
 							var count = 1;
 							$("#option>.content.reposit").each(function(){
-								var PCODE = ${product.PCODE};
+								var PCODE = "${product.PCODE}";
 								var SCODE = $(this).children("div:first-child").text().trim();
 								var PAMOUNT = $(this).find("input").val().trim();
 								var PPRICE = $(this).find("#for_calc").text().trim();
 								
-								 info.push( { "SCODE":SCODE, "PAMOUNT":PAMOUNT, "PPRICE":PPRICE });
+								 info.push( { "PCODE":PCODE,"SCODE":SCODE, "PAMOUNT":PAMOUNT, "PPRICE":PPRICE });
 							})
 							
 							console.log(info);
@@ -213,14 +213,17 @@ $().ready(()=>{
 								//수용셋팅
 								type:"text",
 								success:function(data){
-									console.log(data);
+									if(data=="success"){
+										$("#product_info>.layout").css({display:"flex"});
+									}else{
+										alert(data);
+									}
 								},
 								error:function(staus,xhr,error){
 									console.log(error);
 								}
-							})
-							
-							$("#product_info>.layout").css({display:"flex"});
+							});//and ajax
+					
 						})//end fuc
 				}else{
 					alert("상품을 선택해 주세요");

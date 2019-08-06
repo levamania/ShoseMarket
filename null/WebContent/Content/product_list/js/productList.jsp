@@ -32,7 +32,7 @@
   		 //form 태그 생성
    		  if(scope==undefined)scope = $(".searched_product");
 	  	  html += "<form name='product_form' action=' ' method='get' style='display:none'>";
-  		 
+  		 console.log(scope.find("input[name='pCode']").val().trim());
 	  	  switch(destination){
 	  	  	 case "ProductListingServlet":{ 
 	  	  		 data ={

@@ -26,7 +26,7 @@ public class ProductDAO {
 	
 	
 	//DML - UPDATE
-	public int selectProduct(SqlSession session, List<HashMap<String, Object>> reposits) {
+	public int updateProducts(SqlSession session, List<HashMap<String, Object>> reposits) {
 		return session.update("updateProducts", reposits);
 	}
 
