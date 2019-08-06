@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문현황 조회</title>
-<link rel="stylesheet" href="/null/Content/mypage/css/orderinfo.css?ver=1">
+<link rel="stylesheet" href="/null/Content/mypage/css/orderinfo.css?ver=2">
 </head>
 <body>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -35,14 +35,22 @@
 	</div>
 </div>
 <div id="order_top">
-	<div class="order_top_content">주문번호</div>
-	<div class="order_top_content" align="left">주문내용</div>
-	<div class="order_top_content">결제방법</div>
-	<div class="order_top_content">주문날짜</div>
+	<span class="order_top_content">주문번호</span>
+	<span class="order_top_content">주문내용</span>
+	<span class="order_top_content">결제방법</span>
+	<span class="order_top_content">주문날짜</span>
 </div>
-<div id="order_list">
+<div id="order_body">
 	<c:if test="${not empty orderlist}">
-	<table >
+	<c:forEach var="order" items="${orderlist}">
+	<div class="order_list">
+		<span class="order_list_content">${order.ono}</span>
+		<span class="order_list_content">${order.ordername}</span>
+		<span class="order_list_content">${order.paymethod}</span>
+		<span class="order_list_content">${order.order_date}</span>
+	</div>
+	</c:forEach>
+	<%-- <table >
 		<c:forEach var="order" items="${orderlist}">
 		<tr style="font-weight: bold; " height="40px;" align="center">
 			<td width="200px;">${order.ono}</td>
@@ -51,7 +59,7 @@
 			<td width="200px;">${order.order_date}</td>
 		</tr>
 		</c:forEach>
-	</table> 
+	</table>  --%>
 	</c:if>
 	<c:if test="${empty orderlist}">
 		<div id="empty_body">

@@ -71,4 +71,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		order by order_date desc
 	</select>
+	
+	<select id="getOrderEvalList" resultType="OrderEvalListDTO" parameterType="string">
+		select order_date, ono, ordername, evalno
+		from ordertable
+		left outer join eval
+		using(ono)
+		where userid=#{userid}
+	</select>
 </mapper>

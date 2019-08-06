@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+ <c:if test="${empty login}">
+	<%
+		response.sendRedirect("/null/LoginUIServlet");
+	%>
+</c:if> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>나의 상품후기 작성</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/mypage/css/orderevallist.css">
+<link rel="stylesheet" type="text/css" href="/null/Content/mypage/css/orderevallist.css?ver=1">
 </head>
 <body>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -34,22 +39,26 @@
 		<span class="body_item">주문번호</span>
 		<span class="body_item">상품명</span>
 		<span class="body_item">구매후기</span>
-		<!-- <div class="body_item">
-			<span>주문일</span>
-			<span>상품명</span>
-			<span>가격</span>
-			<span>구매후기</span>
+	</div>
+	<div id="body_content">
+		<c:if test="${not empty orderevallist}">
+		<c:forEach var="ordereval" items="${orderevallist}">
+		<div class="body_contentblock">
+			<span class="body_contentinner">${ordereval.order_date}</span>
+			<span class="body_contentinner">${ordereval.ono}</span>
+			<span class="body_contentinner">${ordereval.ordername}</span>
+			<span class="body_contentinner"><input type="button" class="evalbtns" value="수정"><input type="hidden" value="${ordereval.evalno}"></span>
 		</div>
-		<div class="body_item">
-			<span>주문일</span>
-			<span>상품명</span>
-			<span>가격</span>
-			<span><input type="button" value="구매후기"></span>
-		</div> -->
-		<div class="body_content"></div>
+		</c:forEach>
+		</c:if>
+		<c:if test="${empty orderevallist}">
+		<div id="body_emptyblock">
+			<div>주문 내역이 없습니다.</div>
+		</div>
+		</c:if>
 	</div>
 	
 </div>
-
+<script src="/null/Content/mypage/js/orderevallist.js"></script>
 </body>
 </html>
