@@ -17,6 +17,8 @@ body {
 	height: auto;
 	margin: auto;
 	position: relative;	
+	
+	font-family: Maplestroy;
 }
 .body.top1 {
 	height:160px;

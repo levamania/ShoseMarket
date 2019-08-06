@@ -24,8 +24,8 @@ public class QueryUtil {
 	
 	/**
 	 * 
-	 * db에서 가져온 리스트를 한 컬럼의 데이터로 맵핑하는 메소드이다.
-	 * 기준을 삼을 컬럼의 데이터는 정렬이 필요하므로 맵퍼에서 정렬을 하던, ComparatorGenarator을 통해 정렬을 하도록하자
+	 * 		db에서 가져온 리스트를 한 컬럼의 데이터로 맵핑하는 메소드이다.
+	 *		기준을 삼을 컬럼의 데이터는 정렬이 필요하므로 맵퍼에서 정렬을 하던, ComparatorGenarator을 통해 정렬을 하도록하자
 	 * 
 	 * @param list DB에서 hashmap으로 리턴된 List
 	 * @param main 바인딩 기준
@@ -63,6 +63,30 @@ public class QueryUtil {
 		}
 		return mapper;
 	}
+	/**
+	 * 
+	 *		맵핑될 서브파라미터를 지정하지 않았을 경우 자동적으로 모든 서브 파라미터를 
+	 *		맵핑하는 bind 오버로딩용 메소드
+	 * 
+	 * @param list
+	 * @param main
+	 * @return
+	 */
+	public HashMap<String,Object> bind(List<HashMap<String,Object>> list,String main){
+		//self instance
+		QueryUtil query = new QueryUtil();
+		//column head만 가져옴
+		Set<String> set =  query.extractColumn(list).keySet();
+		String [] string_array = new String[set.size()];
+		int count = 0;
+		//문자열 배열에 헤드 저장
+		for(String string : set) {
+			string_array[count]=string; count++;
+		}
+		
+		return query.bind(list, main, string_array);
+	}
+	
 	
 	/**
 	 *
