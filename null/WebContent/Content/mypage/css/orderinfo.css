@@ -41,19 +41,24 @@
 .order_top_content{
 	
 }
+
 #order_list{
-	position: absolute;	
-	top: 200px;
+	position: absolute;
 	display: inline-flex;
+	top:200px;
 	width: 850px;
-	height: 40px;
-	flex-direction: row;
+	flex-direction: column;
 	border-bottom: 1px solid #F6F6F6;
-	font-size: 0.8rem;
-	font-weight: bold;
-	align-items: center;
-	justify-content: space-around;
+	
 }
 .order_list_content{
-	
+	display: inline-flex;
+}
+#empty_body{
+	display: inline-flex;
+	width: 850px;
+	height: 100px;
+	align-items: center;
+	justify-content: space-around;
+	font-weight: bolder;
 }

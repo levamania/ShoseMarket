@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.dto.MemberDTO;
 import com.exception.ModifyUserInfoException;
 import com.model.service.MyPageService;
 
@@ -51,6 +53,9 @@ public class ModifyAccountConfirmServlet extends HttpServlet {
 		
 		try {
 			service.modifyAccountInfo(member);
+			MemberDTO login = service.searchMemberById(userid);
+			HttpSession session = request.getSession();
+			session.setAttribute("login", login);
 			out.print(0);
 		} catch (ModifyUserInfoException e) {
 			System.out.println(e.getMessage());

@@ -13,7 +13,7 @@ import com.dto.MemberDTO;
 public interface SessionCheckInterface {
 	public static final int DISPATCHER = 0;
 	public static final int REDIRECT = 1;
-
+	public static final int SERVLET = 2;
 	default void sessionCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response, String url,
 			int mode, DoWork doWork) throws IOException, ServletException {
 
@@ -30,6 +30,9 @@ public interface SessionCheckInterface {
 				break;
 			case REDIRECT:
 				response.sendRedirect("/null/Content/mypage/"+url);
+				break;
+			case SERVLET:
+				response.sendRedirect("/null/"+url);
 				break;
 			}
 		}

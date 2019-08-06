@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문현황 조회</title>
-<link rel="stylesheet" href="/null/Content/mypage/css/orderinfo.css">
+<link rel="stylesheet" href="/null/Content/mypage/css/orderinfo.css?ver=1">
 </head>
 <body>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -35,17 +35,36 @@
 </div>
 <div id="order_top">
 	<div class="order_top_content">주문번호</div>
-	<div class="order_top_content">주문내용</div>
-	<div class="order_top_content">결제금액</div>
+	<div class="order_top_content" align="left">주문내용</div>
+	<div class="order_top_content">결제방법</div>
 	<div class="order_top_content">주문날짜</div>
 </div>
 <div id="order_list">
-	<div class="order_list_content">주문번호</div>
-	<div class="order_list_content">주문내용</div>
-	<div class="order_list_content">결제금액</div>
-	<div class="order_list_content">주문날짜</div>
+	<c:if test="${not empty orderlist}">
+	<table >
+		<c:forEach var="order" items="${orderlist}">
+		<tr style="font-weight: bold; " height="40px;" align="center">
+			<td width="200px;">${order.ono}</td>
+			<td width="200px;">${order.ordername}</td>
+			<td width="200px;">${order.paymethod}</td>
+			<td width="200px;">${order.order_date}</td>
+		</tr>
+		</c:forEach>
+	</table> 
+	</c:if>
+	<c:if test="${empty orderlist}">
+		<div id="empty_body">
+			<span>주문 내역이 없습니다.</span>
+		</div>
+	</c:if>
+	<%-- <c:forEach var="order" items="${orderlist}">
+	<div class="order_list_content">${order.ono}</div>
+	<div class="order_list_content">${order.ordername}</div>
+	<div class="order_list_content">${order.paymethod}</div>
+	<div class="order_list_content">${order.order_date}</div>
+	</c:forEach> --%>
 </div>
 </div>
-<script src="/null/Content/mypage/js/orderinfo.js?ver=2"></script> 
+<script src="/null/Content/mypage/js/orderinfo.js?ver=1"></script> 
 </body>
 </html>
