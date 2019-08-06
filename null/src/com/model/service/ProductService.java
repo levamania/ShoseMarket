@@ -31,7 +31,7 @@ public class ProductService {
 		return list;
 	}
 	// a product info - size, price, color 
-		public List<HashMap<String, Object>> getProduct_info(HashMap<String, Object> map) {
+		public List<HashMap<String, Object>> selectProduct_info(HashMap<String, Object> map) {
 			List<HashMap<String, Object>> list = null;
 			SqlSession session = null;
 			try {

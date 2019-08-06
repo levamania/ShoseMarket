@@ -37,6 +37,7 @@ $().ready(()=>{
 	}
 	
 	//색상 클릭시 => 색상에 존재하는 색상정보, 사이즈 클릭시 => 사이즈와 색상정보를 넘겨 상응하는 레코드의 가격정보
+	
 	function createReposit(color,size){	
 		if(color.length!=0||size.length!=0){
 			var price = getPrice(color,size);
@@ -72,7 +73,6 @@ $().ready(()=>{
 			setTotal_price();
 		}//end if
 	}//end function
-
 	
 
 	//color 선택
@@ -177,6 +177,7 @@ $().ready(()=>{
 		if(${!empty login}){
 			fuc();
 		}else{
+			alert("로그인이 필요합니다");
 			location.href="/null/LoginServlet";	
 		}
 	}
@@ -200,8 +201,6 @@ $().ready(()=>{
 								 info.push( { "PCODE":PCODE,"SCODE":SCODE, "PAMOUNT":PAMOUNT, "PPRICE":PPRICE });
 							})
 							
-							console.log(info);
-							
 							$.ajax({
 								//전달셋팅
 								method:"post",
@@ -216,7 +215,11 @@ $().ready(()=>{
 									if(data=="success"){
 										$("#product_info>.layout").css({display:"flex"});
 									}else{
-										alert(data);
+										var [son] = JSON.parse(data); //destructing
+										let warnning = ` \n 죄송합니다. 상품이 부족합니다.
+																  \n *상품: `+son["SCODE"]+`  *선택하신 수량: `+son["PICK_QUAN"]+`  *부족한 수량: `+son["DIFFER"];
+										alert(warnning);
+										
 									}
 								},
 								error:function(staus,xhr,error){

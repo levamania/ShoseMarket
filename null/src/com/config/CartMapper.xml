@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shoes.RankingMapper">
+	<!-- QUERY -->
+	<select id="selectCartList" parameterType="hashmap" resultType="hashmap">
+		select cno, pcode, pname, psize, pcolor, pprice, pamount
+		from cart
+		where userid = #{USERID}
+		order by pcode, pcolor
+	</select>
+
+	<!-- 	DML -->
 	<insert id="stackProduct" parameterType="list">
 		insert all 
 		<foreach collection="list" item="item">
