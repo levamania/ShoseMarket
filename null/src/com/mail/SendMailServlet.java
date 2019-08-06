@@ -26,13 +26,17 @@ public class SendMailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mailTo= (String)request.getAttribute("mailTo");
 		String userid = (String)request.getAttribute("userid");
+
+		String email1 =(String)request.getParameter("email1");
+		String email2 =(String)request.getParameter("email2");
 	System.out.println(mailTo+"\t"+userid);
 		String host = "smtp.naver.com";
 	    String subject = "Null Mart 임시비밀번호"; //제목
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
-	    String to = "nullmart@naver.com"; //받는 메일
+	    String to = email1+"@"+email2; //받는 메일
 	    String content = "임시 비밀번호는:" + "입니다."; //내용
+	    System.out.println(to);
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)

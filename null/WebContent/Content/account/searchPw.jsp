@@ -72,11 +72,12 @@ $(document).ready(function(){
 					alert("올바른 정보를 입력해주세요.");
 					
 
-					$("#userid").focus();
+					event.preventDefault(); 
 					return false;
 				} else if(data==1){
 					alert("메일이전송되었습니다.")
-					$(location).attr("href","LoginUIServlet");
+				
+					$(location).attr("href","/null/SendMailServlet?email1="+em1.val()+"&email2="+em2.val());
 					 
 
 
@@ -86,9 +87,10 @@ $(document).ready(function(){
 				console.log("error", e);
 				console.log("status", status);
 			}
-		
+	
 
 	});
+			return false;
 
 	});
 });
@@ -106,9 +108,10 @@ $(document).ready(function(){
 }
 </style>
 </head>
+
 <body>
 
-<form action="/null/LoginUIServlet" method="get" id="search" >
+<form action="/null/SendMailServlet" method="get" id="search" >
 		<div align="center" style="font-size: 200%">
 			<br> 
 			<br> <b>비밀번호 찾기</b>

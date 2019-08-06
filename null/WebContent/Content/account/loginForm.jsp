@@ -12,7 +12,7 @@
 	<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			function check(re, what, mess/age) {
+			function check(re, what, message) {
 				if (re.test(what.val())) {
 					return true;
 				}
@@ -20,7 +20,7 @@
 				what.value = "";
 				what.focus();
 				return false;
-				console.log("작동 테스트");
+
 			}
 			//id 비밀번호 일치 불일치 유효성 검사
 			$('#check').on("submit", function() {
