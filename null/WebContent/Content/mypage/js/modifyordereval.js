@@ -15,6 +15,9 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+	$("#cancel").on("click",function(){
+		$(location).attr("href","/null/OrderEvalListServelt");
+	});
 	
 });
 

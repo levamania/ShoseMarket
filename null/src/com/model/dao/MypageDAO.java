@@ -74,4 +74,12 @@ public class MypageDAO {
 		return session.update("myPage.updateEval", eval);
 	}
 
+	public String searchPassword(SqlSession session, String userid) {
+		return session.selectOne("myPage.searchPassword", userid);
+	}
+
+	public int updatePwd(SqlSession session, HashMap<String, String> map) {
+		return session.update("myPage.updatePwd", map);
+	}
+
 }

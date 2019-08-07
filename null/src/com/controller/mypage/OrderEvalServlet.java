@@ -37,6 +37,12 @@ public class OrderEvalServlet extends HttpServlet implements SessionCheckInterfa
 			String ono = request.getParameter("ono");
 			String evalno = ono+"EVAL";
 			logger.trace(evalno);
+			System.out.println(orderscore);
+			System.out.println(ordersatis);
+			System.out.println(fastdelivery);
+			System.out.println(evalcontent);
+			System.out.println(ono);
+			System.out.println(evalno);
 			EvalDTO eval = new EvalDTO(evalno, Integer.parseInt(orderscore), Integer.parseInt(fastdelivery), Integer.parseInt(ordersatis), evalcontent, ono);
 			MyPageService service = new MyPageService();
 			int num = service.addEval(eval);

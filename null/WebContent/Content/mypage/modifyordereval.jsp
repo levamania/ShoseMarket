@@ -78,6 +78,7 @@
 		
 		<div style="display: inline-flex; width: 900px; align-items: center; justify-content: center; margin-bottom:15px;">
 			<input type="submit" value="저장 " style="height: 30pt; width:60pt; font-size: 20px; background-color: red;">
+			<input type="button" value="취소 " style="height: 30pt; width:60pt; font-size: 20px; background-color: rgba(219, 228, 247, 0.6);" id="cancel">
 		</div>
 		
 	</div>

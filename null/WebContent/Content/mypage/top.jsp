@@ -133,6 +133,7 @@ a{
 	<p style="font-weight: bolder; font-size: 20px;">개인정보</p>
 	<p><a href="/null/AddrListServlet">배송주소록관리</a></p>
 	<p><a href="/null/Content/mypage/modifyaccountcheck.jsp">개인정보수정</a></p>
+	<p><a href="/null/ModifyPasswordServlet">비밀번호변경</a></p>
 </div>
 	<!-- <script src="/null/Content/mypage/js/top.js"></script> -->
 	<script src="/null/Content/mypage/js/toppage.js?ver=2"></script>

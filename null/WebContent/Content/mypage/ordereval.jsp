@@ -48,11 +48,11 @@
     			<input type="radio" name="star-input" value="5" id="p5">
     			<label for="p5">5</label>
   				</span>
-  				<!-- <output for="star-input"><b>0</b>점</output> --> 
-  				<span>별을 클릭하여 상품의 만족도를 알려주세요</span>	
+  				<!-- <output for="star-input"><b>0</b>점</output> -->
+  				<span>별을 클릭하여 상품의 만족도를 알려주세요</span>
   				<input type="hidden" id="start_score" name="orderscore" value="0">
-  				<input type="hidden" name="ono" value="<%=ono%>">				
-				</span> 
+  				<input type="hidden" name="ono" value="<%=ono%>">
+				</span>
 			</div>
 			<div class="eval_content"></div>
 		</div>
@@ -68,18 +68,19 @@
 				<span class="radio_content"><input type="radio" name="fastdelivery" value="3">보통이에요</span>
 				<span class="radio_content"><input type="radio" name="fastdelivery" value="5">빨라요</span>
 			</div>
-			
+
 		</div>
 		<div class="eval_item">
 			<textarea rows="22" cols="122" maxlength="200" name="evalcontent" id="evalcontent"></textarea>
-		</div> 
-		
+		</div>
+
 		<div style="display: inline-flex; width: 900px; align-items: center; justify-content: center; margin-bottom:15px;">
 			<input type="submit" value="저장 " style="height: 30pt; width:60pt; font-size: 20px; background-color: red;">
+			<input type="button" value="취소 " style="height: 30pt; width:60pt; font-size: 20px; background-color: rgba(219, 228, 247, 0.6);" id="cancel">
 		</div>
-		
+
 	</div>
-	</form>
+</form>
 </div>
 <script src="/null/Content/mypage/js/ordereval.js?ver=1"></script>
 <script src="/null/Content/mypage/js/jquery-1.11.3.min.js"></script>
