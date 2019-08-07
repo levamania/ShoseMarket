@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.dto.MemberDTO;
 import com.dto.OrderDTO;
+import com.dto.OrderEvalListDTO;
 import com.dto.RegAddrDTO;
 
 public class MypageDAO {
@@ -50,6 +51,10 @@ public class MypageDAO {
 
 	public List<OrderDTO> getOrderList(SqlSession session, HashMap<String, String> map) {
 		return session.selectList("myPage.getOrderList", map);
+	}
+
+	public List<OrderEvalListDTO> getOrderEvalList(SqlSession session, String userid) {
+		return session.selectList("myPage.getOrderEvalList", userid);
 	}
 
 }

@@ -52,7 +52,7 @@ public class ProductServlet extends HttpServlet {
 
 		//with model
 		ProductService service = new ProductService();				
-		List<HashMap<String, Object>> stock_list = service.getProduct_info(reposit);
+		List<HashMap<String, Object>> stock_list = service.selectProduct_info(reposit);
 		logger.debug("mesg{"+stock_list+"}","debug");
 			//색깔별로 사이즈, 수량 , 가격 맵핑
 		HashMap<String, Object> color_mapped =  query.bind(stock_list, "PCOLOR", new String[]{"PSIZE","PAMOUNT","PPRICE"});

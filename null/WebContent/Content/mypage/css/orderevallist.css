@@ -27,13 +27,42 @@
 	flex-direction: row;
 	width: 900px;
 	height: 50px;
+	align-items:center;
 	top: 300px;
 	background-color: #F6F6F6;
 }
 .body_item{
 	display: inline-flex;
-	width: 900px;
+	width: 225px;
+	padding: 20px;
+}
+
+#body_content{
+	display: inline-flex;
+	position: absolute;
+	top: 360px;
+	flex-direction: column;
+}
+
+.body_contentblock{
+	display: inline-flex;
 	flex-direction: row;
-	align-self: center;
+	width: 900px;
+	height: 50px;
+	align-items: center;
+	font-weight: bolder;
+	border-bottom: 1px solid #F6F6F6;
+}
+.body_contentinner{
+	display: inline-flex;
+	width: 225px;
+	padding: 20px;
+}
+#body_emptyblock{
+	display: inline-flex;
+	width: 900px;
+	height: 100px;
+	align-items: center;
 	justify-content: center;
+	font-weight: bolder;
 }

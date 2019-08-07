@@ -39,13 +39,7 @@ public class StackProductServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		//세션 처리
-		String userid = null;
-		try {
-			userid = LoginIndicator.check(request, response);
-		}catch (CustomException e) {
-			out.print(e.getMessage());
-			response.sendRedirect("/null");
-		}
+		String userid = LoginIndicator.check(request, response);
 		//수용
 			//string to json
 		String temp = request.getParameter("list");
@@ -91,14 +85,15 @@ public class StackProductServlet extends HttpServlet {
 	    JSONArray array = new JSONArray();
 	    Boolean stock_loss = false;
 	    for(HashMap<String, Object> reposit : reposits) {
-	    	HashMap<String, Object> dto = ser.getProduct_info(reposit).get(0);//한개 확정
-	    	int differ =  Integer.parseInt(dto.get("PPRICE").toString())-Integer.parseInt(reposit.get("PPRICE").toString());
+	    	HashMap<String, Object> dto = ser.selectProduct_info(reposit).get(0);//한개 확정
+	    	int differ =  Integer.parseInt(dto.get("PAMOUNT").toString())-Integer.parseInt(reposit.get("PAMOUNT").toString());
+	    	  logger.debug("mesg{차이:"+differ+"}");
 	    	if(differ<0) {
 	    		JSONObject son = new JSONObject();
 	    		son.put("SCODE", reposit.get("SCODE"));
 	    		son.put("PICK_QUAN", reposit.get("PAMOUNT"));
 	    		son.put("STOCK_QUAN", dto.get("PAMOUNT"));
-	    		son.put("DIFFER", differ);
+	    		son.put("DIFFER", Math.abs(differ));
 	    		array.add(son);
 	    		
 	    		stock_loss = true;
@@ -113,6 +108,7 @@ public class StackProductServlet extends HttpServlet {
 	    		out.print("success");
 	    	}
 	    }else {
+	    	 logger.debug("mesg{어레이:"+array+"}");
 	    	out.print(array);
 	    }
 	    

@@ -13,28 +13,26 @@ import javax.servlet.http.HttpSession;
 
 import com.dto.MemberDTO;
 import com.dto.OrderDTO;
+import com.dto.OrderEvalListDTO;
 import com.model.service.MyPageService;
 import com.util.SessionCheckInterface;
 
 @WebServlet("/OrderEvalListServelt")
 public class OrderEvalListServelt extends HttpServlet implements SessionCheckInterface{
 	private static final long serialVersionUID = 1L;
-
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url="orderevallist.jsp";
+		
 		HttpSession session = request.getSession();
 		sessionCheck(session, request, response, url, REDIRECT, ()->{
 			MyPageService service = new MyPageService();
 			MemberDTO member = (MemberDTO)session.getAttribute("login");
 			String userid = member.getUserid();
-			HashMap<String, String> map = new HashMap<String,String>();
-			map.put("start", null);
-			map.put("end", null);
-			map.put("userid", userid);
-			List<OrderDTO> orderList = service.getOrderList(map);
-			session.setAttribute("orderevallist",orderList);
-			
+			List<OrderEvalListDTO> orderEvalList = service.getOrderEvalList(userid);
+			System.out.println(orderEvalList);
+			session.setAttribute("orderevallist",orderEvalList);
 		});
 	}
 
