@@ -28,4 +28,12 @@ select count(*) from account where userid=#{userid} and passwd=#{passwd}
 <select id="SearchPw" parameterType="map" resultType="int">
 select count(*) from account where userid=#{userid} and username=#{username} and email1=#{email1} and email2=#{email2}
 </select>
+<update id="updatePw" parameterType="map">
+update account set passwd=#{tempPassword}
+where userid=#{userid}
+</update>
+<update id="UpdateNewPw" parameterType="map">
+update account set passwd=#{passwd}
+where passwd=#{oldpasswd}
+</update>
 </mapper>

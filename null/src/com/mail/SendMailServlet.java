@@ -1,6 +1,7 @@
 package com.mail;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -17,26 +18,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.dto.MemberDTO;
+import com.model.service.MemberService;
+
 /**
  * Servlet implementation class SendMailServlet
  */
 @WebServlet("/SendMailServlet")
 public class SendMailServlet extends HttpServlet {
+	Logger logger = LoggerFactory.getLogger(SendMailServlet.class);
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String tempPassword = ""; 
+		for(int i=0; i<8; i++) {
+			int rndVal = (int)(Math.random() * 62);
+			if(rndVal < 10) { tempPassword += rndVal; 
+			}else if(rndVal > 35) {
+			tempPassword += (char)(rndVal + 61); 
+			} else { tempPassword += (char)(rndVal + 55); } 
+			}
+			
+		MemberService service = new MemberService();
+		
+		
+		
 		String mailTo= (String)request.getAttribute("mailTo");
-		String userid = (String)request.getAttribute("userid");
-
+		String userid2 = (String)request.getAttribute("userid");
+		String userid = request.getParameter("userid");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("tempPassword", tempPassword);
+	
+		int num=service.updatePw(map);
+		System.out.println(userid+tempPassword+"service보낸 후");
 		String email1 =(String)request.getParameter("email1");
 		String email2 =(String)request.getParameter("email2");
-	System.out.println(mailTo+"\t"+userid);
+
+
+	  logger.debug(mailTo+"\t"+userid2);
 		String host = "smtp.naver.com";
 	    String subject = "Null Mart 임시비밀번호"; //제목
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
-	    String content = "임시 비밀번호는:" + "입니다."; //내용
-	    System.out.println(to);
+	    String content = "임시 비밀번호는:&nbsp;" +tempPassword+ "&nbsp;입니다."; //내용
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
@@ -78,7 +108,7 @@ public class SendMailServlet extends HttpServlet {
 	       e.printStackTrace();
 	     }
 	   
-	     response.sendRedirect("LoginUIServlet");
+	     response.sendRedirect("/null/LoginUIServlet");
 	   
 	}//end doGet
 

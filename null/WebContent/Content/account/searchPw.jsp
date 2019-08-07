@@ -77,7 +77,7 @@ $(document).ready(function(){
 				} else if(data==1){
 					alert("메일이전송되었습니다.")
 				
-					$(location).attr("href","/null/SendMailServlet?email1="+em1.val()+"&email2="+em2.val());
+					$(location).attr("href","/null/SendMailServlet?email1="+em1.val()+"&email2="+em2.val()+"&userid="+id.val());
 					 
 
 
@@ -104,6 +104,7 @@ $(document).ready(function(){
  body {
 	max-width: 80%; height: 100%;
 	margin: auto;
+
 	
 }
 </style>
@@ -112,20 +113,20 @@ $(document).ready(function(){
 <body>
 
 <form action="/null/SendMailServlet" method="get" id="search" >
-		<div align="center" style="font-size: 200%">
+		<div align="center" style="display: block; width: 1500px;">
 			<br> 
-			<br> <b>비밀번호 찾기</b>
-		</div>
+			<br> <b style="font-size: 200%">비밀번호 찾기</b>
+		
 		<br>
-		<div align="center" style="font-size: 80%;color: gray">
+		
 			<br> 
-			<br> <a>비밀번호를 잊어버리셨나요?
+			<br> <a style="font-size: 80%;color: gray">비밀번호를 잊어버리셨나요?
                         <br>
                         그럼 찾아보세요!</a>
 		<br> 
 		<br>
-		<a>email로 찾기</a>
-		</div>
+		<a style="font-size: 80%;color: gray">email로 찾기</a>
+		
 		<hr>
 		<table>
 <tr>
@@ -166,6 +167,7 @@ $(document).ready(function(){
 </tr>
 
 			</table>
+			</div>
 			
 	</form>
 

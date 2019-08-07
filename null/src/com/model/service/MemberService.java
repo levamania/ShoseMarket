@@ -84,6 +84,36 @@ public class MemberService {
 		return num;
 	}
 
+	public int updatePw(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao = new MemberDAO();
+		int num=0;
+		try {
+			num=dao.updatePw(session,map);
+			session.commit();
+		} finally {
+			session.close();
+		}return num;
+	}
+
+	public int UpdateNewPw(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao = new MemberDAO();
+		int num=0;
+		try {
+			num=dao.UpdateNewPw(session,map);
+			session.commit();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			session.rollback();
+		
+		} finally {
+			session.close();
+			// TODO: handle finally clause
+		}
+		return num;
+	}
+
 	
 
 }
