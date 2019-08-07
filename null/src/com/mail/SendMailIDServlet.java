@@ -27,35 +27,31 @@ import com.model.service.MemberService;
 /**
  * Servlet implementation class SendMailServlet
  */
-@WebServlet("/SendMailServlet")
-public class SendMailServlet extends HttpServlet {
-	Logger logger = LoggerFactory.getLogger(SendMailServlet.class);
+@WebServlet("/SendMailIDServlet")
+public class SendMailIDServlet extends HttpServlet {
+	Logger logger = LoggerFactory.getLogger(SendMailIDServlet.class);
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String tempPassword = ""; 
-		for(int i=0; i<8; i++) {
-			int rndVal = (int)(Math.random() * 62);
-			if(rndVal < 10) { tempPassword += rndVal; 
-			}else if(rndVal > 35) {
-			tempPassword += (char)(rndVal + 61); 
-			} else { tempPassword += (char)(rndVal + 55); } 
-			}
+		
 			
 		MemberService service = new MemberService();
 		
 		
-		
+	
 		String mailTo= (String)request.getAttribute("mailTo");
 		String userid2 = (String)request.getAttribute("userid");
+		String username = request.getParameter("username");
 		String userid = request.getParameter("userid");
+		System.out.println(userid+username+"put전");
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userid", userid);
-		map.put("tempPassword", tempPassword);
+		map.put("username", username);
+		map.put("passwd", userid);
+		System.out.println(userid+username+"put후");
 	
-		int num=service.updatePw(map);
-		System.out.println(userid+tempPassword+"service보낸 후");
+		MemberDTO dto=service.SearchID(map);
+		
 		String email1 =(String)request.getParameter("email1");
 		String email2 =(String)request.getParameter("email2");
 
@@ -66,8 +62,8 @@ public class SendMailServlet extends HttpServlet {
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
-	    String content = "임시 비밀번호는:&nbsp;" +tempPassword+ "&nbsp;입니다."; //내용
-
+	    String content = "귀하의 아이디는:&nbsp;" +userid+ "&nbsp;입니다."; //내용
+System.out.println("email확인"+email1+"@"+email2);
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
 	     Properties props = new Properties();

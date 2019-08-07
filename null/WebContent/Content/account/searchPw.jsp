@@ -77,7 +77,7 @@ $(document).ready(function(){
 				} else if(data==1){
 					alert("메일이전송되었습니다.")
 				
-					$(location).attr("href","/null/SendMailServlet?email1="+em1.val()+"&email2="+em2.val()+"&userid="+id.val());
+					$(location).attr("href","/null/SendMailPWServlet?email1="+em1.val()+"&email2="+em2.val()+"&userid="+id.val());
 					 
 
 
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
 <body>
 
-<form action="/null/SendMailServlet" method="get" id="search" >
+<form action="/null/SendMailPWServlet" method="get" id="search" >
 		<div align="center" style="display: block; width: 1500px;">
 			<br> 
 			<br> <b style="font-size: 200%">비밀번호 찾기</b>

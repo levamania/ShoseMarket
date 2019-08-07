@@ -7,6 +7,7 @@
 <title>buyinfo</title>
 </head>
 <body>
-buyinfo
+buyinfo 
+
 </body>
 </html>

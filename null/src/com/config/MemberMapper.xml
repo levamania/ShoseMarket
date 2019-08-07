@@ -17,7 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" parameterType="string" resultType="int">
 	select count(*) from account where userid=#{userid}
 	</select>
-
+<select id="emailCheck" parameterType="map" resultType="int">
+select count(*) from account where email1=#{email1} and email2=#{email2}
+</select>
 <select id="login" parameterType="map" resultType="MemberDTO">
 select * from account where userid=#{userid} and passwd=#{passwd}
 
@@ -36,4 +38,7 @@ where userid=#{userid}
 update account set passwd=#{passwd}
 where passwd=#{oldpasswd}
 </update>
+<select id="SearchID" parameterType="map" resultType="string">
+select userid from account where username=#{username} 
+</select>
 </mapper>

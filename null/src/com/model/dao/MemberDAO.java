@@ -43,6 +43,16 @@ public class MemberDAO {
 		return n;
 	}
 
+	public MemberDTO SearchID(SqlSession session, HashMap<String, String> map) {
+		MemberDTO dto = session.selectOne("MemberMapper.SearchID", map);
+		return dto;
+	}
+
+	public int emailCheck(SqlSession session, HashMap<String, String> map) {
+		int num = session.selectOne("MemberMapper.emailCheck", map);
+		return num;
+	}
+
 
 
 }
