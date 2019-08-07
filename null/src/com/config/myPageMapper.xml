@@ -60,12 +60,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getOrderList" parameterType="hashmap" resultType="OrderDTO">
 		select * from ordertable where userid=#{userid}
+		<if test="end!=null">
 		and
-		<if test="start==null">
-			order_date=#{end}
-		</if>
-		<if test="start!=null">
-			order_date between #{start} and #{end}
+			<if test="start==null">
+				order_date=#{end}
+			</if>
+			<if test="start!=null">
+				order_date between #{start} and #{end}
+			</if>
 		</if>
 		order by order_date desc
 	</select>

@@ -129,10 +129,10 @@ a{
 	<p><a href="/null/OrderInfoServlet">주문현황 조회</a></p>
 	<p><a href="returnAS.jsp">반품/교환/AS</a></p><br>
 	<p style="font-weight: bolder; font-size: 20px;">쇼핑수첩</p>
-	<p><a href="ordereval.jsp">나의 상품후기</a></p><br>
+	<p><a href="/null/OrderEvalListServelt">나의 상품후기</a></p><br>
 	<p style="font-weight: bolder; font-size: 20px;">개인정보</p>
 	<p><a href="/null/AddrListServlet">배송주소록관리</a></p>
 	<p><a href="/null/Content/mypage/modifyaccountcheck.jsp">개인정보수정</a></p>
 </div>
 	<!-- <script src="/null/Content/mypage/js/top.js"></script> -->
-	<script src="/null/Content/mypage/js/toppage.js"></script>
+	<script src="/null/Content/mypage/js/toppage.js?ver=2"></script>
