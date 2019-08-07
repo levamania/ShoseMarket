@@ -44,26 +44,31 @@ public class SendMailIDServlet extends HttpServlet {
 		String userid2 = (String)request.getAttribute("userid");
 		String username = request.getParameter("username");
 		String userid = request.getParameter("userid");
-		System.out.println(userid+username+"put전");
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("username", username);
-		map.put("passwd", userid);
-		System.out.println(userid+username+"put후");
-	
-		MemberDTO dto=service.SearchID(map);
-		
 		String email1 =(String)request.getParameter("email1");
 		String email2 =(String)request.getParameter("email2");
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("username", username);
+		map.put("email1", email1);
+		map.put("email2", email2);
+		
+	
+		MemberDTO dto =service.SearchID(map);
+		
+		 String id = dto.getUserid();
+		System.out.println(id);
+		
+
 
 
 	  logger.debug(mailTo+"\t"+userid2);
 		String host = "smtp.naver.com";
-	    String subject = "Null Mart 임시비밀번호"; //제목
+	    String subject = "Null Mart 아이디찾기 메일입니다."; //제목
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
-	    String content = "귀하의 아이디는:&nbsp;" +userid+ "&nbsp;입니다."; //내용
-System.out.println("email확인"+email1+"@"+email2);
+	    String content = username+"님의 아이디는:&nbsp;[" +id+ "]&nbsp;입니다."; //내용
+
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
 	     Properties props = new Properties();

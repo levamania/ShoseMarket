@@ -66,7 +66,7 @@ public class SendMailPWServlet extends HttpServlet {
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
-	    String content = "임시 비밀번호는:&nbsp;" +tempPassword+ "&nbsp;입니다."; //내용
+	    String content = "임시 비밀번호는:&nbsp;[" +tempPassword+ "]&nbsp;입니다."; //내용
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)

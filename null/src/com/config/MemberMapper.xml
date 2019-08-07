@@ -38,7 +38,7 @@ where userid=#{userid}
 update account set passwd=#{passwd}
 where passwd=#{oldpasswd}
 </update>
-<select id="SearchID" parameterType="map" resultType="string">
-select userid from account where username=#{username} 
+<select id="SearchID" parameterType="map" resultType="MemberDTO">
+select userid from account where username=#{username} and  email1=#{email1} and email2=#{email2}
 </select>
 </mapper>
