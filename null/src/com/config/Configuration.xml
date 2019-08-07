@@ -11,6 +11,7 @@
 		<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.dto.OrderDTO" alias="OrderDTO"/>
 		<typeAlias type="com.dto.OrderEvalListDTO" alias="OrderEvalListDTO"/>
+		<typeAlias type="com.dto.EvalDTO" alias="EvalDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

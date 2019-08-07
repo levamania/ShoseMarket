@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
+import com.dto.EvalDTO;
 import com.dto.MemberDTO;
 import com.dto.OrderDTO;
 import com.dto.OrderEvalListDTO;
@@ -131,6 +132,54 @@ public class MyPageService {
 			session.close();
 		}
 		return list;
+	}
+	public int addEval(EvalDTO eval) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		int num =0;
+		try {
+			num = mypageDAO.addEval(session,eval);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		return num;
+	}
+	public EvalDTO searchEvalByOno(String ono) {
+		EvalDTO eval = null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			eval = mypageDAO.searchEvalByOno(session,ono);
+		} finally {
+			session.close();
+		}
+		return eval;
+	}
+	public String searchOrdernameByOno(String ono) {
+		String ordername=null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			ordername=mypageDAO.searchOrdernameByOno(session,ono);
+		} finally {
+			session.close();
+		}
+		return ordername;
+	}
+	public int updateEval(EvalDTO eval) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		int num =0;
+		try {
+			num = mypageDAO.updateEval(session,eval);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		return num;
 	}
 	
 }

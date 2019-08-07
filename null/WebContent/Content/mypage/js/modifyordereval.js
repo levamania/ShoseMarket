@@ -17,6 +17,27 @@ $(document).ready(function(){
 	});
 	
 });
+
+$(document).ready(function() {
+	var orderscore = $("#orderscore");
+	var fastdelivery = $("#fastdelivery");
+	var ordersatis = $("#ordersatis");
+	var evalcontent = $("#evalcontent");
+	
+	$("input[name=ordersatis]").each(function(idx,radio){
+		if($(this).val()==ordersatis.val()){
+			$(this).prop("checked",true);
+		}
+	});
+	$("input[name=fastdelivery]").each(function(idx,radio){
+		if($(this).val()==fastdelivery.val()){
+			$(this).prop("checked",true);
+		}
+	});
+	
+	$("textarea").val(evalcontent.val());
+	
+});
 var starRating = function(){
 	var $star = $(".star-input"),
 	    $result = $star.find("output>b");

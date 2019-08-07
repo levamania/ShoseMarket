@@ -45,8 +45,8 @@
 		<c:forEach var="ordereval" items="${orderevallist}">
 		<div class="body_contentblock">
 			<span class="body_contentinner">${ordereval.order_date}</span>
-			<span class="body_contentinner">${ordereval.ono}</span>
-			<span class="body_contentinner">${ordereval.ordername}</span>
+			<span class="body_contentinner">${ordereval.ono}</span><input type="hidden" value="${ordereval.ono}">
+			<span class="body_contentinner">${ordereval.ordername}</span><input type="hidden" value="${ordereval.ordername}">
 			<span class="body_contentinner"><input type="button" class="evalbtns" value="수정"><input type="hidden" value="${ordereval.evalno}"></span>
 		</div>
 		</c:forEach>
@@ -59,6 +59,6 @@
 	</div>
 	
 </div>
-<script src="/null/Content/mypage/js/orderevallist.js"></script>
+<script src="/null/Content/mypage/js/orderevallist.js?ver=1"></script>
 </body>
 </html>

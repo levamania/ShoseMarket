@@ -14,6 +14,7 @@ public interface SessionCheckInterface {
 	public static final int DISPATCHER = 0;
 	public static final int REDIRECT = 1;
 	public static final int SERVLET = 2;
+	public static final int TEST=3;
 	default void sessionCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response, String url,
 			int mode, DoWork doWork) throws IOException, ServletException {
 
@@ -34,7 +35,11 @@ public interface SessionCheckInterface {
 			case SERVLET:
 				response.sendRedirect("/null/"+url);
 				break;
+			case TEST:
+				break;
 			}
+			
+				
 		}
 	}
 	
