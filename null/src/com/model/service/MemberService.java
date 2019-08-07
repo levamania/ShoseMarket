@@ -114,6 +114,30 @@ public class MemberService {
 		return num;
 	}
 
+	public MemberDTO SearchID(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao = new MemberDAO();
+		MemberDTO dto = null;
+		try {
+			dto=dao.SearchID(session,map);
+		} finally {
+			session.close();
+		}
+		return dto;
+	}
+
+	public int emailCheck(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		MemberDAO dao = new MemberDAO();
+		int num = 0;
+		try {
+			num=dao.emailCheck(session,map);
+		} finally {
+			session.close();
+		}
+		return num;
+	}
+
 	
 
 }
