@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,10 +138,16 @@ public class ProductListingServlet extends HttpServlet {
 				for(HashMap<String, Object> indiv :raw_list) {
 					repo.addAll(service.selectProduct_info(indiv));
 				}
+				//선택된 제품 컬럼 정보 중복제거하여 저장
 				query.extractColumn(repo, request);
 				query.extractColumn(raw_list, request);
 				
-				
+				//스타일 미드에 스타일 봇 바인딩
+				HashMap<String, Object> binded = query.bind(raw_list, "STYLEMID",new String[] {"STYLEBOT"});
+					//json 파싱 => 저장
+				JSONObject sonsang = new JSONObject(binded);
+				request.setAttribute("BINDING", sonsang);
+			
 				//페이징 처리
 				pList = raw_list.stream().sorted(comparator) //정렬
 						   .skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList()); //페이징->리스트

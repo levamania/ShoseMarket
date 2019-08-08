@@ -133,8 +133,12 @@
 	background-color: #e6eeff;
 	
 	cursor: default;
+	
+	color: #008fb3;	
 }
-
+#stylemid .deeper:hover{
+	color: #008fb3;	
+}
 #stylemid .deeper>div{
 	display: inline-flex;
 	align-items: center;
@@ -153,10 +157,12 @@
 	cursor: pointer;
 }
 #stylemid .deeper>div:hover{
-	color: #cccccc;
-	border:1px solid white;
+	color:  #000080;
+	border:1px solid  #000080;
 }
-
+#stylemid .deeper>div.pushed{
+	background-color:  #b3ccff;
+}
 /* 선택한 조건 설정 */
 #collection>.value>.optical{
 	border:none;
@@ -197,3 +203,7 @@
 		cursor: pointer;
 	}
 	
+	/* 	검색버튼 */
+	#find{
+		
+	}

@@ -1,19 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
+<script>
 
 $().ready(()=>{
 
 //리파짓 설정하기
-var reposit ;
+var reposit ={};
+
 function push_atom(ele){
-	reposit = {};
 	//객체에 저장
 	var category = $(ele).parents(".category_option").attr("id").toUpperCase();
+	if($(ele).parent(".deeper").length!=0)category = "STYLEBOT";
 	var text = $(ele).text();
 	//리스트가 없을 경우
 	if(reposit[category]==undefined){
 		reposit[category] = Array.of();
 	}
-	console.log(reposit);
 	//사이즈 셀렉트
 	if(category=="PSIZE"&&reposit[category].length==2){
 		var small_one = Number.parseInt(reposit[category].shift());
@@ -63,8 +66,6 @@ function push_atom(ele){
 		
 	}else{		
 		reposit[category].push(text);
-		console.log("still working",text);
-		console.log(reposit);
 	}
 
 	//화면구현
@@ -99,7 +100,14 @@ function add_delete(){
 		}
 		
 		//푸쉬 해제
-		var x = $(("#"+id).toLowerCase()).find("div:contains('"+text+"')");
+		var temp = "";
+		if(id=="STYLEBOT"){
+			temp =".DEEPER";			
+		}else{
+			temp = "#"+id;
+		}
+
+		var x = $(temp.toLowerCase()).find("div:contains('"+text+"')");
 		x.removeClass("pushed");
 		//자기삭제
 		$(this).remove();
@@ -110,6 +118,7 @@ function add_delete(){
 	//css 설정
 		//선택 설정
 function buttonSet(){
+	$(".button").off("click");	//클릭을 중복 해주면 큰일이 생긴다!
 	$(".button").on("click",function(){
 		var id = $(this).parents(".category_option").attr("id");
 		if($(this).parent(".deeper").length!=0)id="stylebot";
@@ -120,15 +129,20 @@ function buttonSet(){
 				//id 와 문자열이 같은 optical 클릭
 				$("#collection .optical>span:contains('"+id.toUpperCase()+"')")
 				.siblings(":contains('"+text+"')").parent(".optical").trigger("click");
+
 			}else{
 				//의미없는 값 방지: 공백 div 입력 방지 
 				if($(this).text().trim().length!=0){
 					//&& category확장시 스타일입력 방지
-					if($("#stylemid .deeper").css("display")!="none" && $(this).parents("#stylemid").length!=0){
-						console.log("me");    
+					if($("#stylemid .deeper").css("display")!="none" 
+							&& $(this).parents("#stylemid").length!=0){
+						if($(this).parent(".deeper").length!=0){
+
+							push_atom(this);		
+							$(this).toggleClass("pushed");							
+						}	
 					}else{
-						push_atom(this);				
-						//클래스 토글
+						push_atom(this);		
 						$(this).toggleClass("pushed");						
 					}
 				}
@@ -157,25 +171,26 @@ buttonSet();
 			//기존 디퍼 삭제
 			deeper.children("div").remove();
 			
- 			//consisting deeper
- 			var binding = ${BINDING};
- 			$.each(binding,function(key, value){
- 				if(key==partner.text()){
- 					for(var o of value){
- 						deeper.append("<div class='button'>"+o["STYLEBOT"]+"</div>");
- 					}
- 				}
- 			})
-//			이벤트 부여
-//			buttonSet();
-
-			
-			
+			//consisting deeper
+			var binding = ${BINDING};
+			$.each(binding,function(key, value){
+				if(key==partner.text()){
+					for(var o of value){
+						deeper.append("<div class='button'>"+o["STYLEBOT"]+"</div>");
+					}
+				}
+			})
+			//이벤트 부여
+ 			buttonSet();
+		
 		}else{
 			if(prev_clicked!=this){
 				prev_clicked = this;
 				style.css({"margin-top":"10px"});
-				deeper.css({"display":"flex"});			
+				deeper.css({"display":"none"});
+				$(this).click();
+				$(this).siblings().removeClass("overed");
+				partner.toggleClass("overed");
 			}else{
 				style.css({"margin-top":"0"});
 				deeper.css({"display":"none"});
@@ -200,3 +215,4 @@ buttonSet();
 	
 
 })
+</script>

@@ -20,7 +20,7 @@ public class SpecificFilter extends HttpServlet {
 		HttpSession session = request.getSession();
 		String searchedWord = request.getParameter("searchedWord");
 		
-			//검색단어 가공
+		//검색단어 가공
 		HashMap<String, Object> temp = new HashMap<>();
 		String [] entries = searchedWord.split(",");
 		for(String entry : entries) {
