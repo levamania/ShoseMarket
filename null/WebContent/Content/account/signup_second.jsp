@@ -183,6 +183,9 @@ $('document').ready(function(){
 <br>
 <button id="test_btn1" >회원가입</button>
     <!-- onclick="location.href='signup_memberForm.jsp'" -->
+    <br>
+    <br>
+    
 </div>
 </body>
 </html>
