@@ -63,8 +63,7 @@
 				data : {email1:em1.val(),email2:em2.val()},
 				dataType : "text",
 				success : function (data,status,xhr){
-					console.log('확인');
-					console.log(data);
+					
 					if(data==1){
 						alert("이메일 중복입니다.");
 						
@@ -234,12 +233,101 @@
 					return false;
 
 				} 
+				 var answer = $('#answer');
+				 var reload = $('#reLoad');
+				  if(answer.val()==""){
+						alert("보안문자를 입력하지 않았습니다.")
+						answer.focus();
+						return false;
+					}
+				  
 			
 			
 		});
 		
 		
 	});
+	/* 
+	  * Captcha Image 요청
+	  * [주의] IE의 경우 CaptChaImg.jsp 호출시 매번 변하는 임의의 값(의미없는 값)을 파라미터로 전달하지 않으면
+	  * '새로고침'버튼을 클릭해도 CaptChaImg.jsp가 호출되지 않는다. 즉, 이미지가 변경되지 않는 문제가 발생한다. 
+	  *  그러나 크롭의 경우에는 파라미터 전달 없이도 정상 호출된다.
+	  */
+	 function changeCaptcha() {
+	  //IE에서 '새로고침'버튼을 클릭시 CaptChaImg.jsp가 호출되지 않는 문제를 해결하기 위해 "?rand='+ Math.random()" 추가 
+	  $('#catpcha').html('<img src="/null/CaptCha?rand='+ Math.random() + '"/>');
+	 }
+
+
+
+	 function winPlayer(objUrl) {
+	  $('#audiocatpch').html(' <bgsound src="' + objUrl + '">');
+	 }
+	 
+	 /* 
+	  * Captcha Audio 요청
+	  * [주의] IE의 경우 CaptChaAudio.jsp 호출시 매번 매번 변하는 임의의 값(의미없는 값)을 파라미터로 전달하지 않으면
+	  * '새로고침'된 이미지의 문자열을 읽지 못하고 최초 화면 로드시 로딩된 이미지의 문자열만 읽는 문제가 발생한다. 
+	  * 이 문제의 원인도 결국 매번 변하는 파라미터 없이는 CaptChaAudio.jsp가 호출되지 않기 때문이다. 
+	  * 그러나 크롭의 경우에는 파라미터 전달 없이도 정상 호출된다.  
+	  */
+	 function audioCaptcha() {
+
+	   var uAgent = navigator.userAgent;
+	   var soundUrl = '/null/AudioCaptCha';
+	   if (uAgent.indexOf('Trident') > -1 || uAgent.indexOf('MSIE') > -1) {
+	       //IE일 경우 호출
+	       winPlayer(soundUrl+'?agent=msie&rand='+ Math.random());
+	   } else if (!!document.createElement('audio').canPlayType) {
+	       //Chrome일 경우 호출
+	       try { new Audio(soundUrl).play(); } catch(e) { winPlayer(soundUrl); }
+	   } else window.open(soundUrl, '', 'width=1,height=1');
+	 }
+	 
+	 //화면 호출시 가장 먼저 호출되는 부분 
+	 $(document).ready(function() {
+	  
+	  changeCaptcha(); //Captcha Image 요청
+	  
+	  $('#reLoad').click(function(){ changeCaptcha(); }); //'새로고침'버튼의 Click 이벤트 발생시 'changeCaptcha()'호출
+	  $('#soundOn').click(function(){ audioCaptcha(); }); //'음성듣기'버튼의 Click 이벤트 발생시 'audioCaptcha()'호출
+	  
+	
+	  
+	  
+	  //'확인' 버튼 클릭시
+	  $('#frmSubmit').click(function(){
+		  var reload = $('#reLoad');
+		  var answer = $('#answer');
+		  
+	      if ( !answer.val() ) {
+	           alert('이미지에 보이는 숫자를 입력해 주세요.');
+	      } else {
+	    	  $.ajax({
+	               url: '/null/CaptchaConfirm',
+	               type: 'POST',
+	               dataType: 'text',
+	               data: 'answer=' + answer.val(),
+	               async: false,  
+	               success: function(data) {
+	            	   
+	            	   if(data==0){
+	            		   alert("입력값이 일치합니다.");    
+	            		  return false
+	            	   }else if(data==1){            		   
+	            		  
+	                       alert("입력값이 일치하지않습니다. 다시 입력하셔야합니다.");
+	                        reload.click();
+	                       answer.val(''); 
+	                       return false
+	                       
+	            	   }
+	            	   
+	              }
+	         });
+	      }
+	  });
+	 });
 </script>
 <!-- <script>
 
@@ -693,7 +781,22 @@ function check(re3, what, message) {
 </tr>
 </table>
 <br>
-<br>
+
+<table >
+<tr>
+<td width="100"></td>
+<td>
+<div id="catpcha">Wait...</div>
+  <div id="audiocatpch" style="display: none;"></div>
+
+  <input id="reLoad" type="button" value="새로고침" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/>
+  <input id="soundOn" type="button" value="음성듣기" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/> 
+  <br />
+  <input type="text" id="answer" name="answer" value="" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/>
+  <input type="button" id="frmSubmit" value="확인" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/>
+</tr>
+</table>
+</td>
 <hr>
 <br>
 <div id="btn_group" class="align-center vi">
