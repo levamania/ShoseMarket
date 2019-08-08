@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dto.StockDTO;
 import com.model.service.AdminService;
 
 
@@ -25,7 +26,7 @@ public class InputStockServlet extends HttpServlet {
 		System.out.println(pcode);
 		PrintWriter out = response.getWriter();
 		AdminService service = new AdminService();
-		if(pcode==null) {
+		if(pcode.equals("")) {
 			pcode = service.searchPcodeByPname(pname);
 			if(pcode==null) {
 				out.print("pnamenone");
@@ -33,7 +34,7 @@ public class InputStockServlet extends HttpServlet {
 				out.print(pcode);
 			}
 			
-		}else if(pname==null) {
+		}else if(pname.equals("")) {
 			
 			pname = service.searchPnameByPcode(pcode);
 			if(pname==null) {
@@ -52,14 +53,10 @@ public class InputStockServlet extends HttpServlet {
 			}else if(searchPname==null) {
 				out.print("pcodenosearch");
 			}else {
-				if(!pcode.equals(searchPcode)&&!pname.equals(searchPname)) {
-					out.print("bothnot");
+				if(!pcode.equals(searchPcode)||!pname.equals(searchPname)) {
+					out.print("eachnotequal");
 				}
-				else if(!pcode.equals(searchPcode)) {
-					out.print("pcodenot");
-				}else if(!pname.equals(searchPname)) {
-					out.print("pnamenot");
-				}else {
+				else {
 					out.print("both");
 				}
 			}
@@ -70,22 +67,19 @@ public class InputStockServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pname = request.getParameter("pname");
-		String pcode = request.getParameter("pcode");
-		String psize = request.getParameter("psize");
-		String pcolor = request.getParameter("pcolor");
-		String pamount = request.getParameter("pamount");
-		String pprice = request.getParameter("pprice");
-		String deliverfee_yn = request.getParameter("deliverfee_yn");
-		String scode = pcolor+psize+pname;
-		System.out.println(pname);
-		System.out.println(pcode);
-		System.out.println(psize);
-		System.out.println(pcolor);
-		System.out.println(pamount);
-		System.out.println(pprice);
-		System.out.println(deliverfee_yn);
-		System.out.println(scode);
+		String pName = request.getParameter("pname");
+		String pCode = request.getParameter("pcode");
+		String pSize = request.getParameter("psize");
+		String pColor = request.getParameter("pcolor");
+		String pAmount = request.getParameter("pamount");
+		String pPrice = request.getParameter("pprice");
+		String deliverFee_YN = request.getParameter("deliverfee_yn");
+		String sCode = pColor+pSize+pName;
+		AdminService service = new AdminService();
+		StockDTO stock = new StockDTO(sCode, pCode, pSize, pColor, Integer.parseInt(pPrice), Integer.parseInt(pAmount), deliverFee_YN);
+		int num = service.insertStock(stock);
+		
+		
 	}
 
 }

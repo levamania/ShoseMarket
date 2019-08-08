@@ -11,4 +11,17 @@
 	<select id="searchPnameByPcode" parameterType="string" resultType="string">
 		select pname from product where pcode = #{pcode}
 	</select>
+	
+	<insert id="insertStock" parameterType="stock" >
+		insert into stock (scode,pcode,psize,pcolor,pprice,pamount,deliverfee_yn)
+		values (#{sCode},#{pCode},#{pSize},#{pColor},#{pPrice},#{pAmount},#{deliverFee_YN})
+	</insert>
+	
+	<select id="searchSCode" parameterType="string" resultType="int">
+		select count(*) from stock where sCode=#{sCode}
+	</select>
+	
+	<update id="updateStock" parameterType="stock">
+		update stock set pamount = (pamount+#{pAmount}) where scode = #{sCode}
+	</update>
 </mapper>
