@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <body>
-<div></div>
+<div>상품관리</div>
 </body>
 </html>

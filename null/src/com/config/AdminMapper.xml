@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dto.Admin" >
+	
+	<select id="searchPcodeByPname" parameterType="string" resultType="string">
+		select pcode from product where pname = #{pname}
+	</select>
+	
+	<select id="searchPnameByPcode" parameterType="string" resultType="string">
+		select pname from product where pcode = #{pcode}
+	</select>
+</mapper>
