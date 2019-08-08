@@ -41,7 +41,7 @@ public class CartServlet extends HttpServlet {
 			}
 
 			// with jsp
-			RequestDispatcher dis = request.getRequestDispatcher("/Content/cart/cart2.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("/Content/cart/cart.jsp");
 				// 저장
 			request.setAttribute("CART_LIST", cart_list);
 			request.setAttribute("KEY_SET", key_set);

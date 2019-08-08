@@ -17,7 +17,14 @@ import java.util.regex.Pattern;
 import com.exception.CustomException;
 
 public class WordInspector {
-	public static Map<String, ArrayList<String>>  inspect(String input) throws IOException {
+	
+	private File dictionary;
+	
+	public WordInspector(File dictionary) {
+		this.dictionary = dictionary;
+	}
+	
+	public  Map<String, ArrayList<String>>  inspect(String input) throws IOException {
 		
 		//word_inspecting -- excepting special literal
 		Pattern pattern = Pattern.compile("[가-힣A-Za-z]{1,10}");
@@ -36,8 +43,7 @@ public class WordInspector {
 		if(list==null)throw new CustomException("검색가능 단어 없음");
 			
 		//file loading
-		File dictionary = 
-				new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt");
+		File dictionary = this.dictionary;
 		BufferedReader buff = new BufferedReader(new FileReader(dictionary));
 		
 		//collection copy
@@ -61,7 +67,7 @@ public class WordInspector {
 				}
 			}
 		}//end translating
-		
+		buff.close();
 		//lists 저장, copy = 랭킹 저장용 | list = 검색용	
 		return MapParamInputer.set("searching", list, "ranking", forRank);
 	}//end method

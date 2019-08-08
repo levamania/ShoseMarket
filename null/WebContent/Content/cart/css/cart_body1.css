@@ -21,15 +21,11 @@
 .content{
 	display: flex;
 	flex-direction: row;
-	flex-wrap:wrap;
 	align-items: center;
 	
 	position:relative;
 	
 	width:100%;
-}
-.content:nth-child(n+2){
-	padding: 10px 0 10px;
 }
 
 	/* 컨테이너 개별 설정 */
@@ -51,11 +47,7 @@
 	}
 	
 	
-	#cart_logo>.content:nth-child(2){
-		align-content:center;
-	
-		height:60%; padding: 0 5% 0;	
-	}
+	#cart_logo>.content:nth-child(2){height:60%; padding: 0 5% 0;}
 	
 		.phase{
 			display: inline-flex;
@@ -116,7 +108,6 @@
 		
 		#cart_logo #line{
 			position: absolute;
-			top:50%;
 			
 			height: 1px;
 			width: 80%;
@@ -144,168 +135,96 @@
 		
 		background-color: #f8f8f8;
 	}
-	#cart_list>.content:nth-child(n+2){height:auto;}
-	#cart_list>.content:last-child{
-		height:30px;
-		
-		padding:0;
-		border-bottom: 1px solid #d9cbcb;
-	}
-	#cart_list>.content:last-child>div{
-		align-items:center;
-		display:inline-flex;
-	
-		height:100%;
-	}
-	#cart_list>.content:last-child #optional_delete{
-		display:inline-flex;
-		align-items:center;
-		justify-content:center;
-		
-		height: 75%;
-		width: 10%;
-		
-		border: 1px solid #d9cbcb;
-		cursor: pointer;
-	}
+	#cart_list>.content:nth-child(n+2){height:100px;}
+	#cart_list>.content:last-child{height:25px;border-bottom: 1px solid #d9cbcb;}
 		
 		/* 	컨텐츠 내용 */
 		#cart_list>.content>div{
 			text-align: center;
 		}
-		#cart_list>.content>div:nth-child(1){flex:5;}
-		#cart_list>.content>div:nth-child(2){flex:15}
-		#cart_list>.content>div:nth-child(3){flex:75}
-		#cart_list>.content>.calc>div{width:25%;}
-			
-			#cart_list>.content>.calc>div>div:nth-child(6n+1){width:25%;}
-			#cart_list>.content:nth-child(n+2)>.calc>.group>div:nth-child(4n+1){
-				padding-left:30px;
-				
-				text-align: left;
-			}
-			#cart_list>.content>.calc>div>div:nth-child(6n+2){width:25%}
-			#cart_list>.content>.calc>div>div:nth-child(6n+3){width:25%}
-			#cart_list>.content>.calc>div>div:nth-child(6n+4){width:25%}
-		
-			#cart_list>.content>.calc>.group{width:100%;}
-		
-		#cart_list>.content>div:nth-child(4){
-			display:inline-flex;
-			flex-direction:column;
-			align-items:center;
-			justify-content:center;
-			
-			width:100%;
-			height:100%;
-			
-			flex:10;align-self: center;
-		}
+		#cart_list>.content>div:nth-child(1){flex:5}
+		#cart_list>.content>div:nth-child(2){flex:25}
+		#cart_list>.content>div:nth-child(3){flex:20}
+		#cart_list>.content>div:nth-child(4){flex:20}
+		#cart_list>.content>div:nth-child(5){flex:20}
+		#cart_list>.content>div:nth-child(6){flex:10}
 		
 		#cart_list>.content:last-child>div:nth-child(1){flex:5}
 		#cart_list>.content:last-child>div:nth-child(2){flex:95; text-align: left; padding-left: 5%;}
-		
-		
-		/* calc */
-		#cart_list .calc{
-			display: inline-flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			align-content: flex-start;
-			
-			height: auto;
-		}
-		#cart_list .calc>div{
-			display: inline-flex;
-			flex-direction: row;
-			align-content: flex-end;
-			justify-content:center;
-			
-			height: auto;
-		}
-		
-		
 		
 		/* 	상품명/옵션 */
 		.content .item{
 			
 		}
-		.group .option{
-			position:relative;
-	
-		}
-			.option .cno{display: none;}
-			.option .quak{
-				position: absolute;
-				top:0;right:0;
-				
-				width:6%;height: 90%;
-				
-				border:1px solid black;
-				
-				background-image: url("/null/Content/img/common/x.png");
-				background-repeat: no-repeat;
-				background-size: contain;
-				
-				cursor: pointer;
-			}
+		.content .item>.option{
+			padding: auto;
 		
+			font-weight: bold;
+			color: white;
+			background-color: gray;
+			
+			text-align: center;
+		}
 		/* 	판매가 */
 		.content .cell, .content .decart{font-weight: bold;}
-		/* 수학부호 */
-		.math{position: absolute;}
-		.math.multi{right:45%;}
-		.math.equal{right:27%;}
 		
+		/* 	수량 카운트 */
+		#cart_list>.content .count{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 80%;
+		}
+		
+		#cart_list>.content .count>div:first-child{
+			display: inline-flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			
+			width: 30%;
+			height: 40%;
+		}
+		
+		#cart_list>.content .count>div:first-child>*{border: 1px solid #e6e6e6;}		
+		#cart_list>.content .count>div:first-child>input{
+			width: 70%;
+			height: 100%;
+			text-align: center;
+			
+			-webkit-appearance: none;
+		}
+		#cart_list>.content .count>div:first-child>div{
+			width: 30%;
+			height: 50%;
+		}
+		
+		#cart_list>.content .count>div:nth-child(2){
+			width: 15%;
+			height: 40%;
+			
+			text-align:center;
+			padding-top:8px;
+			
+			background-color: #e6e6e6;
+			
+			color:white;
+		}
 		
 		/* 	결정 */
-		.calc~.decision{
+		.content .decision{
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 		}
 		.content .decision>div{
 			width: 80%;
-			height: 30%;
+			height: 25%;
 			
-			margin: 2px 0 2px;
-		
 			text-align: center;
-			cursor: pointer;
 		}
-		
 		.content .decision>div:first-child{background-color: red;color: white;}		
-		.content .decision>div:last-child{border:1px solid #e6e6e6; color: gray;}		
-		
-		
-	
-		/* 소합계 */
-		.content .sum{
-			display:flex;
-			align-items: center;
-			justify-content: flex-end;
-			
-			position: relative;
-			
-			width: 100%;
-			height: 20px;
-			
-			margin-top: 5px;
-		}
-		.content .sum>div:first-child{
-			position:absolute;
-			right:16%;top:10px;
-		}
-		.content .sum>div:last-child{
-			position:absolute;
-			right: 15%;top:2px;
-			
-			width:65%;
-			height: 3px;
-
-			background-image: url("/null/Content/img/cart/wave-line.png");
-			background-size: 5% 100%;		
-		}
+		.content .decision>div:first-child{border:1px solid #e6e6e6; color: gray;}		
 		
 	/* 	합계 및 결제 */
 	#cart_total{
@@ -320,7 +239,6 @@
 		border: 1px solid black;
 	}
 
-		/* 가격창 */
 		#cart_total>.content:nth-child(1)>div{
 			display: inline-flex;
 			flex-direction: row;
@@ -384,9 +302,7 @@
 		font-family: Maplestroy;
 		font-size: 20px;
 		font-weight: bold;
-		color: red;	
-		
-		cursor:pointer;
+		color: red;		
 	}
 	
 	#cart_total>.content:nth-child(2)>div:nth-child(1){

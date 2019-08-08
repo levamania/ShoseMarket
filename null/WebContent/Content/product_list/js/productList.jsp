@@ -23,7 +23,7 @@
   		    	var timer = setTimeout(scroller,0); timer;
   		    }
   		 }
-  		scroller();
+//   		scroller();
 
   		
   	 //검색 셋팅 저자용 히든 인풋 태그 생성

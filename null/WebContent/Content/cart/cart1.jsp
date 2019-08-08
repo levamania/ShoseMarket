@@ -13,7 +13,7 @@
 <!-- 탑 -->
 <jsp:include page="/Content/statics/top/top.jsp" flush="true"/>
 <!-- 메인 -->
-<jsp:include page="/Content/cart/parts/cart_body2.jsp" flush="true"/>
+<jsp:include page="/Content/cart/parts/cart_body.jsp" flush="true"/>
 <!-- 바텀 -->
 <jsp:include page="/Content/statics/bottom/bottom.jsp" flush="true"/>
 </body>

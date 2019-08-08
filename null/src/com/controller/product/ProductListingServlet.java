@@ -1,5 +1,6 @@
 package com.controller.product;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.text.ParseException;
@@ -81,14 +82,16 @@ public class ProductListingServlet extends HttpServlet {
 		RequestDispatcher dis = null;
 		Map<String, ArrayList<String>> words_map = null;
 		List<HashMap<String, Object>> pList = null;
-		
+			
 		HashMap<String,Object> reposit = null;	
 		try {
 			ProductService service = new ProductService();
 			
 			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
-				words_map = WordInspector.inspect(searchedWord);
+				WordInspector inspector =
+						new WordInspector(new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt"));
+				words_map = inspector.inspect(searchedWord);
 				//repository of category or name
 				reposit = new HashMap<String, Object>(); 
 				//data for comparison
@@ -129,6 +132,14 @@ public class ProductListingServlet extends HttpServlet {
 				String order_criteria = ordering_info.split(":")[0];
 				String direction = ordering_info.split(":")[1];
 				Comparator<HashMap<String, Object>> comparator = ComparatorFactory.generate(order_criteria, direction);
+				//extract column
+				List<HashMap<String, Object>> repo = new ArrayList<HashMap<String,Object>>();
+				for(HashMap<String, Object> indiv :raw_list) {
+					repo.addAll(service.selectProduct_info(indiv));
+				}
+				query.extractColumn(repo, request);
+				query.extractColumn(raw_list, request);
+				
 				
 				//페이징 처리
 				pList = raw_list.stream().sorted(comparator) //정렬

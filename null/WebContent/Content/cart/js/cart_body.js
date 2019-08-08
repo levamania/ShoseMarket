@@ -118,7 +118,8 @@ $().ready(()=>{
 	
 	//chief checkbox 설정
 	$("input.chief").on("change",function(){
-		$(".content").find(".selection").prop("checked",true);
+		var same  = $(this).prop("checked");
+		$(".content").find(".selection").prop("checked",same);
 	})
 
 	//선택 삭제버튼 설정
