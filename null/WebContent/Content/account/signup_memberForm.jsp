@@ -801,7 +801,7 @@ function check(re3, what, message) {
 <br>
 <div id="btn_group" class="align-center vi">
 <button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="submit" id="btn">회원가입</button>
-<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: white;color: red;font-weight:600" onclick="location.href='main.jsp'">취소</button>
+<button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: white;color: red;font-weight:600" onclick="location.href='/null/MainServlet'">취소</button>
 <br>
 <br>
 </div>
