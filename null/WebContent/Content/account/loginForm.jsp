@@ -136,7 +136,7 @@
 					<td width="100" height="35"><a
 						style="font-size: 60%; color: red">* </a><a
 						style="font-size: 60%">패스워드</a></td>
-					<td width="200" height="35"><input type="text"
+					<td width="200" height="35"><input type="password"
 						style="width: 150px; height: 80%; font-size: 70%" id="passwd"
 						placeholder="영문,숫자,특수문자사용 4~12자" name="passwd"></td>
 					<br>

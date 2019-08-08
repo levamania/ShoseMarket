@@ -93,6 +93,8 @@
 
 <div id="btn_group" class="align-center vi">
 <button id="test_btn1" onclick="location.href='signup_second.jsp'"><b>온라인 회원가입</button>
+<br>
+<br>
 </div>
 
 </body>

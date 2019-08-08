@@ -1,6 +1,7 @@
 package com.mail;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -27,46 +28,53 @@ import com.model.service.MemberService;
 /**
  * Servlet implementation class SendMailServlet
  */
-@WebServlet("/SendMailServlet")
-public class SendMailServlet extends HttpServlet {
-	Logger logger = LoggerFactory.getLogger(SendMailServlet.class);
+@WebServlet("/SendMailIDServlet")
+public class SendMailIDServlet extends HttpServlet {
+	Logger logger = LoggerFactory.getLogger(SendMailIDServlet.class);
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String tempPassword = ""; 
-		for(int i=0; i<8; i++) {
-			int rndVal = (int)(Math.random() * 62);
-			if(rndVal < 10) { tempPassword += rndVal; 
-			}else if(rndVal > 35) {
-			tempPassword += (char)(rndVal + 61); 
-			} else { tempPassword += (char)(rndVal + 55); } 
-			}
+		response.setContentType("text/plain;charset=utf-8");
 			
 		MemberService service = new MemberService();
 		
 		
-		
+	
 		String mailTo= (String)request.getAttribute("mailTo");
 		String userid2 = (String)request.getAttribute("userid");
+		String username = request.getParameter("username");
 		String userid = request.getParameter("userid");
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userid", userid);
-		map.put("tempPassword", tempPassword);
-	
-		int num=service.updatePw(map);
-		System.out.println(userid+tempPassword+"service보낸 후");
 		String email1 =(String)request.getParameter("email1");
 		String email2 =(String)request.getParameter("email2");
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("username", username);
+		map.put("email1", email1);
+		map.put("email2", email2);
+		
+	
+		MemberDTO dto =service.SearchID(map);
+		if(dto==null) {
+			PrintWriter out = response.getWriter();
+			System.out.println("dto== null:");
+			out.print("응답실패");
+		}else {
+			String id = dto.getUserid();
+		
+		 
+		
+
 
 
 	  logger.debug(mailTo+"\t"+userid2);
 		String host = "smtp.naver.com";
-	    String subject = "Null Mart 임시비밀번호"; //제목
+	    String subject = "Null Mart 아이디찾기 메일입니다."; //제목
 	    String from = "nullmart@naver.com"; //보내는 메일
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
-	    String content = "임시 비밀번호는:&nbsp;" +tempPassword+ "&nbsp;입니다."; //내용
+	    String content = username+"님의 아이디는:&nbsp;[" +id+ "]&nbsp;입니다."; //내용
+	    
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
@@ -109,6 +117,7 @@ public class SendMailServlet extends HttpServlet {
 	     }
 	   
 	     response.sendRedirect("/null/LoginUIServlet");
+		}
 	   
 	}//end doGet
 

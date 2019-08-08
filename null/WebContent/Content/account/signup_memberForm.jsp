@@ -32,7 +32,7 @@
 					console.log('확인');
 					console.log(data);
 					if(data==1){
-						alert("사용불가능입니다.");
+						alert("아이디 중복입니다.");
 						/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
 
 						$("#userid").focus();
@@ -41,6 +41,40 @@
 						/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
                         alert("사용가능입니다.");
 						$("#userid").focus();
+						return false;
+						
+					}
+				},
+				error:function(xhr,status,e){
+					console.log("error",e);
+					console.log("status",status);
+				}
+			});
+					
+			
+		});
+		//email 중복체크
+		$('#emailcheck').on("click",function(){
+			var em1 = $("#email1");
+			var em2 = $("#email2");
+			$.ajax({
+				type : "get",
+				url : "/null/EmailCheckServlet",
+				data : {email1:em1.val(),email2:em2.val()},
+				dataType : "text",
+				success : function (data,status,xhr){
+					console.log('확인');
+					console.log(data);
+					if(data==1){
+						alert("이메일 중복입니다.");
+						
+
+						$("#email1").focus();
+						return false;
+					}else if(data==0){
+						
+                        alert("사용가능입니다.");
+						$("#email1").focus();
 						return false;
 						
 					}
@@ -627,12 +661,13 @@ function check(re3, what, message) {
  <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">이메일</a></td>
 <td width="100" height="35" colspan="0"><input type="text" style="width:70px;height:50%" id="email1" name="email1"><a>@</a>
-<input type="text" style="width:100px;height:50%;font-size:60%" id="email2" name="email2" placeholder="예) null.com"></td>
+<input type="text" style="width:100px;height:50%;font-size:60%" id="email2" name="email2" placeholder="예) null.com"  value="naver.com"></td>
 <td><select  id="emailSelect"><option value="naver.com" id="naver">naver.com</option>
 <option value="softbank.jp" id="softbank">softbank.jp</option>
 <option value="daum.net" id="daum">daum.net</option>
 </select>
-<!-- <button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="emailcheck">중복확인</button> --></td>
+
+<button class="test_btn1" style="width:33pt;height:11pt;font-size:56%" id="emailcheck">중복확인</button>
 </tr>
 <tr>
 <td width="100" height="35"><a  style="font-size:60%;color:red" >* </a><a  style="font-size:60%">우편번호</a></td>
@@ -664,6 +699,8 @@ function check(re3, what, message) {
 <div id="btn_group" class="align-center vi">
 <button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: red;color: white;font-weight:600" type="submit" id="btn">회원가입</button>
 <button style="width: 120px;height: 40px;font-size: 20px;border: 1px solid red;background-color: white;color: red;font-weight:600" onclick="location.href='main.jsp'">취소</button>
+<br>
+<br>
 </div>
 </form>
 
