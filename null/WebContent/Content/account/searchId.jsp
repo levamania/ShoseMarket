@@ -62,11 +62,11 @@ $(document).ready(function(){
 			success : function(data, status, xhr) {
 				console.log('확인');
 				console.log(data);
-				if (!un.val()||!em1.val()||!em2.val()) {
+				if (data=="응답실패") {
 					alert("올바른 정보를 입력해주세요.");
 					
 
-					event.preventDefault(); 
+					
 					return false;
 				} else if(un.val()||em1.val()||em2.val()!=null){
 					alert("메일이전송되었습니다.")
@@ -85,6 +85,7 @@ $(document).ready(function(){
 	
 
 	});
+			
 			return false;
 
 	});

@@ -1,6 +1,7 @@
 package com.mail;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -34,7 +35,7 @@ public class SendMailIDServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		response.setContentType("text/plain;charset=utf-8");
 			
 		MemberService service = new MemberService();
 		
@@ -54,9 +55,14 @@ public class SendMailIDServlet extends HttpServlet {
 		
 	
 		MemberDTO dto =service.SearchID(map);
+		if(dto==null) {
+			PrintWriter out = response.getWriter();
+			System.out.println("dto== null:");
+			out.print("응답실패");
+		}else {
+			String id = dto.getUserid();
 		
-		 String id = dto.getUserid();
-		System.out.println(id);
+		 
 		
 
 
@@ -68,6 +74,7 @@ public class SendMailIDServlet extends HttpServlet {
 	   String fromName = "Admin";
 	    String to = email1+"@"+email2; //받는 메일
 	    String content = username+"님의 아이디는:&nbsp;[" +id+ "]&nbsp;입니다."; //내용
+	    
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
@@ -110,6 +117,7 @@ public class SendMailIDServlet extends HttpServlet {
 	     }
 	   
 	     response.sendRedirect("/null/LoginUIServlet");
+		}
 	   
 	}//end doGet
 
