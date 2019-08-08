@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.EvalDTO;
 import com.dto.MemberDTO;
 import com.dto.OrderDTO;
 import com.dto.OrderEvalListDTO;
@@ -55,6 +56,30 @@ public class MypageDAO {
 
 	public List<OrderEvalListDTO> getOrderEvalList(SqlSession session, String userid) {
 		return session.selectList("myPage.getOrderEvalList", userid);
+	}
+
+	public int addEval(SqlSession session, EvalDTO eval) {
+		return session.insert("myPage.addEval", eval);
+	}
+
+	public EvalDTO searchEvalByOno(SqlSession session, String ono) {
+		return session.selectOne("myPage.searchEvalByOno", ono);
+	}
+
+	public String searchOrdernameByOno(SqlSession session, String ono) {
+		return session.selectOne("myPage.searchOrdernameByOno",ono);
+	}
+
+	public int updateEval(SqlSession session, EvalDTO eval) {
+		return session.update("myPage.updateEval", eval);
+	}
+
+	public String searchPassword(SqlSession session, String userid) {
+		return session.selectOne("myPage.searchPassword", userid);
+	}
+
+	public int updatePwd(SqlSession session, HashMap<String, String> map) {
+		return session.update("myPage.updatePwd", map);
 	}
 
 }

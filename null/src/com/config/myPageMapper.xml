@@ -79,4 +79,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		using(ono)
 		where userid=#{userid}
 	</select>
+	
+	<insert id="addEval" parameterType="EvalDTO">
+		insert into eval(evalno, orderscore, fastdelivery,ordersatis,evalcontent,ono)
+		values(#{evalno},#{orderscore},#{fastdelivery},#{ordersatis},#{evalcontent},#{ono})
+	</insert>
+	
+	<select id="searchEvalByOno" resultType="EvalDTO" parameterType="string">
+		select * from eval where ono = #{ono}
+	</select>
+	
+	<select id="searchOrdernameByOno" parameterType="string" resultType="string">
+		select ordername from ordertable where ono=#{ono}
+	</select>
+	
+	<update id="updateEval" parameterType="EvalDTO">
+		update eval set 
+		orderscore = #{orderscore}, fastdelivery=#{fastdelivery}, ordersatis=#{ordersatis}, 
+		evalcontent = #{evalcontent}
+		where evalno = #{evalno}
+	</update>
+	
+	<select id="searchPassword" parameterType="string" resultType="string">
+		select passwd from account where userid=#{userid}
+	</select>
+	
+	<update id="updatePwd" parameterType="hashmap">
+		update account set passwd = #{passwd}
+		where userid = #{userid}
+	</update>
 </mapper>

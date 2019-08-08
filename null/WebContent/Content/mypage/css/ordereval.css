@@ -43,7 +43,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	width: 900px;
 	height: 700px;
 	flex-direction: column;
-	background-color: red;
+	/* background-color: red; */
 	padding-left: 20px;
 }
 .eval_item{
@@ -63,12 +63,12 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 }
 .eval_head{
 	flex-grow: 1;
-	background-color: yellow;
+	/* background-color: yellow; */
 }
 .eval_content{
 	flex-grow: 10;
-	background-color: gray;
-	padding-left: 30px;
+	/* background-color: gray; */
+	padding-left: 23px;
 }
 .radio_content{
 	padding-right: 40px;
