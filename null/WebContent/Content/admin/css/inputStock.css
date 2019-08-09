@@ -13,11 +13,21 @@
 }
 #body_left{
 	display: inline-flex;
-	width: 100px;
+	width: 150px;
 	flex-grow: 1;
 	border-right:1px solid red;
 }
 
+/*left.jsp의 summary */
+summary{
+	font-size: 20px;
+	font-weight: bold;
+}
+.left_content{
+	font-size: 18px;
+	font-weight: bold;
+	padding-left: 40px;
+}
 #body_content{
 	display: inline-flex;
 	flex-grow: 9;
