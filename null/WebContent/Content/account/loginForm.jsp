@@ -15,24 +15,23 @@
 </head>
 <body>
 	<script type="text/javascript">
-	$( function() {
-	    $( "#tabs" ).tabs();
-	  } );
-		$(document).ready(function() {
-			function check(re, what, message) {
-				if (re.test(what.val())) {
-					return true;
-				}
-				alert(message);
-				what.value = "";
-				what.focus();
-				return false;
+	
+	$(document).ready(function() {
+		
+         
 
-			}
-			//id 비밀번호 일치 불일치 유효성 검사
-			$('#login').on("submit", function() {
+		$( "#tabs" ).tabs();
+
+		//id 비밀번호 일치 불일치 유효성 검사
+		//var = loginFunction = function
+				
+			$("#login").on("submit", function() {
+				
 				var id = $("#userid");
 				var pw = $("#passwd");
+
+			
+			
 				$.ajax({
 					type : "get",
 					url : "/null/IdPwCheckServlet",
@@ -41,20 +40,22 @@
 						passwd : pw.val()
 					},
 					dataType : "text",
+					
+					
 					success : function(data, status, xhr) {
 						
 						if (data == 0) {
 							alert("아이디또는 비밀번호가 일치하지 않습니다.");
-							/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+							
 
 							$("#userid").focus();
 							return false;
 						} else {
 							alert("로그인이 되었습니다.")
-							/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+							
 							$("#userid").focus();
 
-							return false;
+							
 
 						}
 					},
@@ -63,32 +64,34 @@
 						console.log("status", status);
 					}
 				});
+			
+			});
+				
 				//masterid 비밀번호 일치 불일치 유효성 검사
 				$('#masterLogin').on("submit", function() {
-					var id = $("#masteruserid");
-					var pw = $("#masterpasswd");
+					var mid = $("#masteruserid");
+					var mpw = $("#masterpasswd");
 					$.ajax({
 						type : "get",
 						url : "/null/ManagerIdPwCheckServlet",
 						data : {
-							masteruserid : id.val(),
-							masterpasswd : pw.val()
+							masteruserid : mid.val(),
+							masterpasswd : mpw.val()
 						},
 						dataType : "text",
 						success : function(data, status, xhr) {
 						
 							if (data == 0) {
 								alert("아이디또는 비밀번호가 일치하지 않습니다.");
-								/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
-
+								
 								$("#masteruserid").focus();
 								return false;
 							} else {
 								alert("로그인이 되었습니다.")
-								/* window.open("idCheckPass.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
+								
 								$("#masteruserid").focus();
 
-								return false;
+								
 
 							}
 						},
@@ -99,9 +102,19 @@
 					});
 
 				});
-
-			});
 			
+				
+
+				function check(re, what, message) {
+					if (re.test(what.val())) {
+						return true;
+					}
+					alert(message);
+					what.value = "";
+					what.focus();
+					return false;
+
+				}
 
 			
 
@@ -135,7 +148,7 @@
 					return false;
 				}
 
-			});
+			}); 
 			//기본 유효성검사
 
 			$("#masterLogin").on("submit", function(event) {
@@ -215,7 +228,7 @@
 					<br>
 				</tr>
 			</table>
-			<br> <input type="submit" value="  로그인 " class="test_btn1"
+			<br> <input type="submit" value="  로그인 " id="loginbtn" class="test_btn1"
 				style="width: 53pt; height: 15pt; font-size: 76%; background-color: red; border-color: red; color: white; border-style: hidden;" />
 			<input type="reset" value="다시입력" class="test_btn1"
 				style="width: 53pt; height: 15pt; font-size: 76%; background-color: red; border-color: red; color: white; border-style: hidden;">
@@ -254,7 +267,7 @@
 					<br>
 				</tr>
 			</table>
-			<br> <input type="submit" value="  로그인 " class="test_btn1"
+			<br> <input type="submit" value="  로그인 " class="test_btn1" id=""
 				style="width: 53pt; height: 15pt; font-size: 76%; background-color: red; border-color: red; color: white; border-style: hidden;" />
 			<input type="reset" value="다시입력" class="test_btn1"
 				style="width: 53pt; height: 15pt; font-size: 76%; background-color: red; border-color: red; color: white; border-style: hidden;">
@@ -274,6 +287,8 @@
 			onclick="location.href='/null/Content/account/searchPw.jsp' ">비밀번호찾기</button>
 	</div>
 	</div>
+	<br>
+	<br>
 	<br>
 	<hr>
 </body>
