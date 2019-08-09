@@ -115,9 +115,28 @@ function push_atom(ele){
 					  "</div>";
 	$("#collection>.value").append(html);
 	
+	// 정렬
+	
+	//min_price , max_price 정렬
+	if(reposit['MAX_PRICE']!=undefined && reposit['MIN_PRICE']!=undefined){
+		var container = $("#collection>.value");
+		var min = $("#collection>.value").find("span:contains('MIN_PRICE')").parents(".optical");
+		var max = $("#collection>.value").find("span:contains('MAX_PRICE')").parents(".optical");
+	
+		while(true){
+			if(min.next()[0]==max[0])break;
+			container.prepend(min.next());
+			container.append(min.prev());
+		}
+		
+		
+	}
+	
 	//삭제 기능 추가
 	add_delete();
 }
+
+
 
 //리파짓 atom 삭제 추가 기능
 function add_delete(){
@@ -146,16 +165,14 @@ function add_delete(){
 		}else{
 			temp = "#"+id;
 		}
-
-		var x = $(temp.toLowerCase()).find(".value>div:contains('"+text+"')");
-		console.log(x);
+		var x = $(temp.toLowerCase()).find(".button:contains('"+text+"')").add(".price>.value");
 		x.removeClass("pushed");
-		
-		x.find("input").val("");
-		x.find("span").text("");
+ 		
+		var io = x.find("input").val("");
+ 		x.find("span").text("");
 		
 		//자기삭제
-		$(this).remove();
+ 		$(this).remove();
 	})
 }
 
@@ -213,7 +230,6 @@ buttonSet();
 		//집중시 내부값 지워지고 옵티컬 해제
 		.on("focus",function(){
 			//초기화
-			$(this).val("");
 			var id = $(this).parents(".category_option").attr("id");
 			var text = $(this).next("span").text();
 			//id 와 문자열이 같은 optical 클릭
@@ -291,16 +307,19 @@ buttonSet();
 			deeper.children("div").remove();
 			
 			//consisting deeper
-			var binding = ${BINDING};
-			$.each(binding,function(key, value){
-				if(key==partner.text()){
-					for(var o of value){
-						deeper.append("<div class='button'>"+o["STYLEBOT"]+"</div>");
+			var sol = Array.of(${BINDING});
+			if(sol.length!=0){	
+				var [binding] = sol;
+				$.each(binding,function(key, value){
+					if(key==partner.text()){
+						for(var o of value){
+							deeper.append("<div class='button'>"+o["STYLEBOT"]+"</div>");
+						}
 					}
-				}
-			})
-			//이벤트 부여
- 			buttonSet();
+				})
+				//이벤트 부여
+ 				buttonSet();
+			}
 		
 		}else{
 			if(prev_clicked!=this){
