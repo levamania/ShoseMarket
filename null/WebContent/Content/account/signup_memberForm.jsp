@@ -31,7 +31,7 @@
 				success : function (data,status,xhr){
 					console.log('확인');
 					console.log(data);
-					if(data==1){
+					if(data==1||id.val("nullmart")){
 						alert("아이디 중복입니다.");
 						/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
 
@@ -64,7 +64,7 @@
 				dataType : "text",
 				success : function (data,status,xhr){
 					
-					if(data==1){
+					if(data==1||em1.val("nullmart")){
 						alert("이메일 중복입니다.");
 						
 

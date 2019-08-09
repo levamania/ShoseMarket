@@ -10,11 +10,24 @@ DROP TABLE EVAL CASCADE CONSTRAINTS;
 DROP TABLE STOCK CASCADE CONSTRAINTS;
 DROP TABLE PRODUCT CASCADE CONSTRAINTS;
 DROP TABLE SEARCHEDWORD CASCADE CONSTRAINTS;
+DROP TABLE MANAGER CASCADE CONSTRAINTS;
 
 
 
 
 /* Create Tables */
+create table MANAGER
+(
+  userid varchar2(10) primary key,
+  passwd varchar2(10) not null,
+  username varchar2(10) not null,
+
+  phone1 varchar2(3) not null,
+  phone2 varchar2(4) not null,
+  phone3 varchar2(4) not null,
+  email1 varchar2(20) not null,
+  email2 varchar2(20) not null
+);
 
 CREATE TABLE ACCOUNT
 (
