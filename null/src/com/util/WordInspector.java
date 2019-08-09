@@ -87,7 +87,7 @@ public class WordInspector {
 		HashMap<String, Object> harry = new HashMap<String, Object>();
 		Set<String> categories = service.getKeyset(MapParamInputer.set("TABLES",tables));
 		for(String key: categories) {
-			List<String> single = service.getCategory(MapParamInputer.set("TEMP",key));
+			List<String> single = service.getCategory(MapParamInputer.set("HEAD",key,"TABLES",tables));
 			List<String> lone = new ArrayList<String>();
 			for(String atom : single) {
 				for(String word : word_list) {

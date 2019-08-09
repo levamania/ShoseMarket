@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="/null/Content/product_list/css/searchingOption.css"  type="text/css"> 
 <!-- <script src="/null/Content/product_list/js/searchingOption.js"></script> -->
 <jsp:include page="/Content/product_list/js/searchingOption.jsp" flush="true"/>
-<c:if test="${!empty pList}">
+
+<c:if test="${!empty listing_setup || !empty pList}">
 <div class="body searching_option">
 	<div class="category_option" id="styletop">
 		<div class="head">테마</div>
@@ -14,11 +15,15 @@
 			</c:forEach>
 		</div>
 	</div>
-	<div class="category_option" id="pprice">
+	<div class="category_option price" id="min_price">
 		<div class="head">가격</div>
 		<div class="value">
-			<div><input type="text" id="min_price">&nbsp;원&nbsp;&nbsp;&nbsp;&nbsp;~ </div>
-			 <div><input type="text" id="max_price">&nbsp;원</div>
+			<div><input type="text" id="min"><span class="shame"></span> &nbsp;원&nbsp;&nbsp;&nbsp;&nbsp;~ </div>
+		</div>
+	</div>
+	<div class="category_option price" id="max_price">
+		<div class="value">
+			 <div><input type="text" id="max"><span class="shame"></span>&nbsp;원</div>
 		</div>
 	</div>
 	<div class="category_option" id="stylemid">
@@ -52,7 +57,10 @@
 		<div class="value"></div>
 		<div id="purge">전체해제</div>
 	</div>
-	<div id="find">
-	</div>
+	<div id="find">상세검색</div>
+	<form name="specific" method="post">
+		<input type="hidden" name="selected_atoms"> 
+		<input type="hidden" name="searchedWord" value="${searchedWord}"> 
+	</form>
 </div>
 </c:if>

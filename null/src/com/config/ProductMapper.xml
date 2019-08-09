@@ -6,17 +6,17 @@
 	<!-- keyset 구현 -->
 	<select id="keyset" resultType="hashmap" parameterType="hashmap">
 		select * from  
-		<foreach collection="TABLES" item="TABLE" separator="and">
-			#{TABLE}	
+		<foreach collection="TABLES" item="TABLE" separator=",">
+			${TABLE}	
 		</foreach>
 		where rownum = 1
 	</select>
-	
 	<!-- Products_info list-->
-	<select id="getCatrgory" parameterType="hashmap" resultType="string">
-		select	distinct #{HEAD}
-
-		from product 
+	<select id="getCategory" parameterType="hashmap" resultType="string">
+		select	distinct ${HEAD} from
+		<foreach collection="TABLES" item="TABLE" separator=",">
+			${TABLE}	
+		</foreach> 
 	</select>
 	
 	<!-- 	개별 상품 정보 -->
@@ -73,9 +73,18 @@
 			 		#{item}	
 			 	</foreach>
 			</if>
-			<if test="PPRICE!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
+			<if test="MIN_PRICE!=null">
+				<foreach collection="MIN_PRICE" item="item" >
+					and m.pPrice > to_number(#{item})
+				</foreach>
+			</if>
+			<if test="MAX_PRICE!=null">
+				<foreach collection="MAX_PRICE" item="item" >
+					and m.pPrice &lt; to_number(#{item})
+				</foreach>
+			</if>
 			<if test="DELIVERFEE_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
-			<if test="PCODE!=null"e>and p.pcode = #{PCODE}</if>
+			<if test="PCODE!=null">and p.pcode = #{PCODE}</if>
 		order by to_number(p.pcode)
 	</select>
 	

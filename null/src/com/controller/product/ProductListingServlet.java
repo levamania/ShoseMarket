@@ -52,14 +52,14 @@ public class ProductListingServlet extends HttpServlet {
 			//info from 현재 페이지 정보
 		HashMap<String, Object> listing_setup = null;
 		String back_word = "default";
-		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
 		
 		if(prev_stack!=null) {
 			back_word = (String)prev_stack.get("back_word");
 			listing_setup = (HashMap<String, Object>)prev_stack.get("listing_setup");
 			session.removeAttribute("prev_stack");
 		}
-		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
+		logger.debug("mesg{listing_setup}"+listing_setup,"debug");
+
 			//매 페이지 마다 갱신
 		session.removeAttribute("prev_stack");
 				
@@ -95,7 +95,11 @@ public class ProductListingServlet extends HttpServlet {
 				words_map = inspector.translate(searchedWord);
 				//repository of category or name
 				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
-		
+				
+				//기본 셋팅 삭제하기
+				if(session.getAttribute("basic_setup")!=null) {
+					session.removeAttribute("basic_setup");					
+				}
 			}else {
 				reposit = listing_setup;
 			}

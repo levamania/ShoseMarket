@@ -1,4 +1,4 @@
-export function toWon(price){
+export default function toWon(price){
 		if(typeof price=="number"){
 			price = price.toString();
 		}
@@ -16,3 +16,14 @@ export function toWon(price){
 		}	
 		return string; 
 	}
+
+//숫자변환 함수
+export function toNum(price){
+	var regEx = /\d{1,100}/g;
+	var x = price.match(regEx);
+	var string = "";
+	for(var i of x){
+		string+=i;
+	}
+	return Number.parseInt(string);
+}

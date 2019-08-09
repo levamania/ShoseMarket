@@ -1,18 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <script>
+function toWon(price){
+		if(typeof price=="number"){
+			price = price.toString();
+		}
+	
+		var arr = new Array();
+		for(var i=0;i<price.length;i++){
+			arr.push(price.charAt(i));
+		}
+		for(var i=1;price.length-i*3>0;i++){
+			arr.splice(price.length-i*3,1,","+arr[price.length-i*3]);
+		}
+		var string ="";
+		for(var i of arr){
+			string+=i;
+		}	
+		return string; 
+	}
 
-$().ready(()=>{
+//숫자변환 함수
+function toNum(price){
+	var regEx = /\d{1,100}/g;
+	var x = price.match(regEx);
+	var string = "";
+	for(var i of x){
+		string+=i;
+	}
+	return Number.parseInt(string);
+}
 
 //리파짓 설정하기
-var reposit ={};
+var reposit ={ "HELPER": [] }; //아무값이 없으면 JSON파싱불가 in JACKSON
 
+$().ready(()=>{
 function push_atom(ele){
 	//객체에 저장
 	var category = $(ele).parents(".category_option").attr("id").toUpperCase();
 	if($(ele).parent(".deeper").length!=0)category = "STYLEBOT";
 	var text = $(ele).text();
+	
 	//리스트가 없을 경우
 	if(reposit[category]==undefined){
 		reposit[category] = Array.of();
@@ -64,8 +92,20 @@ function push_atom(ele){
 		
 		}//end size-argo
 		
-	}else{		
-		reposit[category].push(text);
+	}else{
+		//인풋값 정제
+		if($(ele).siblings("input").length!=0){ //형제중에 인풋태그가 있을때
+			var arr = text.match(/\d{1,10}/g);
+			var str = "";
+			for(var i of arr){
+				str += i;
+			}
+			console.log(str);
+			reposit[category].push(str);
+			
+		}else{
+			reposit[category].push(text);		
+		}
 	}
 
 	//화면구현
@@ -107,8 +147,13 @@ function add_delete(){
 			temp = "#"+id;
 		}
 
-		var x = $(temp.toLowerCase()).find("div:contains('"+text+"')");
+		var x = $(temp.toLowerCase()).find(".value>div:contains('"+text+"')");
+		console.log(x);
 		x.removeClass("pushed");
+		
+		x.find("input").val("");
+		x.find("span").text("");
+		
 		//자기삭제
 		$(this).remove();
 	})
@@ -151,6 +196,80 @@ function buttonSet(){
 	});
 }//end fuc
 buttonSet();
+
+	//가격 입력 설정
+	$(".price input").on("keyup",function(){
+		//원화로 변경
+		if($(this.length!=0)){
+			//숫자검열
+			if(!/\d{1,10}/g.test($(this).val())){
+				$(this).val("");
+			}else{
+				$(this).val(toWon(toNum($(this).val())));							
+			}
+		}
+		
+	})
+		//집중시 내부값 지워지고 옵티컬 해제
+		.on("focus",function(){
+			//초기화
+			$(this).val("");
+			var id = $(this).parents(".category_option").attr("id");
+			var text = $(this).next("span").text();
+			//id 와 문자열이 같은 optical 클릭
+			$("#collection .optical>span:contains('"+id.toUpperCase()+"')")
+			.siblings(":contains('"+text+"')").parent(".optical").trigger("click");
+			
+		})
+	
+		//최소가격
+		.filter("[id='min']").on("blur",function(){
+			var ele = $(this).next();
+			//내부 스팬에 가격 설정
+			$(this).next().text($(this).val()+"~");
+
+			//의미없는 값 입력 방지
+			if($(this).val().length!=0){
+				//optical 생성
+				push_atom(ele);					
+			}
+			
+		})
+			.on("keyup",function(){
+				//수치 제한 => 최대값이 있을시 최대값보다 크게 설정 불가능
+				var max =  reposit["MAX_PRICE"];
+				if(max!=undefined){
+					if(toNum($(this).val())>max[0]){
+						$(this).val(toWon(max[0]));
+					}
+					
+				}
+			
+			})
+		//최대가격 
+		.end().filter("[id='max']").on("blur",function(){
+			var ele = $(this).next();
+			//내부 스팬에 가격 설정
+			$(this).next().text("~"+$(this).val());
+			//optical 생성
+			if($(this).val().length!=0){
+				push_atom(ele);	
+			}
+		})
+			.on("keyup",function(){
+				//최대값 제한
+				var max_value = 500000;
+				if(toNum($(this).val())>max_value){
+					$(this).val(toWon(max_value));
+				}
+				
+				var min =  reposit["MIN_PRICE"];
+				if(min!=undefined){
+					if(toNum($(this).val())<min[0]){
+						$(this).val(toWon(min[0]));
+					}
+				}
+			})
 
 		//카테고리 확장 버튼 설정
 	var prev_clicked = null;
@@ -204,15 +323,20 @@ buttonSet();
 			}
 		});
 	
-	
-	
-	
 	//전체해제 설정
 	$("#collection #purge").on("click",function(){
 		$("#collection .optical").trigger("click");
 	})
 	
-	
+	//상세검색 버튼 설정
+	$("#find").on("click",function(){
+		var form = document.specific;
+		var input = specific.querySelector("[name='selected_atoms']");
+		//값 설정
+		input.value = JSON.stringify(reposit);
+		form.action = "/null/SpecificFilter";
+		form.submit();
+	})
 
 })
 </script>
