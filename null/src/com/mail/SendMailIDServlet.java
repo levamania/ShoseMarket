@@ -57,7 +57,7 @@ public class SendMailIDServlet extends HttpServlet {
 		MemberDTO dto =service.SearchID(map);
 		if(dto==null) {
 			PrintWriter out = response.getWriter();
-			System.out.println("dto== null:");
+
 			out.print("응답실패");
 		}else {
 			String id = dto.getUserid();

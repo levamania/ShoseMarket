@@ -143,7 +143,7 @@ $(document).ready(function(){
  <tr>
 <td width="100" height="35"><a  style="font-size:60%">이메일</a></td>
 <td width="100" height="35" colspan="0"><input type="text" style="width:70px;height:50%" id="email1" name="email1"><a>@</a>
-<input type="text" style="width:100px;height:50%;font-size:60%" id="email2" name="email2" placeholder="예) null.com"></td>
+<input type="text" style="width:100px;height:50%;font-size:60%" id="email2" name="email2" placeholder="예) null.com" value="naver.com"></td>
 <td><select  id="emailSelect"><option value="naver.com" id="naver">naver.com</option>
 <option value="softbank.jp" id="softbank">softbank.jp</option>
 <option value="daum.net" id="daum">daum.net</option>
