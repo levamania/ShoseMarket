@@ -51,7 +51,6 @@ public class StackProductServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 		logger.debug("mesg{리파짓:"+json+"}");
-		System.out.println(json);
 			//가공 & with model
 		List<HashMap<String, Object>> reposits = new ArrayList<HashMap<String,Object>>();
 	
