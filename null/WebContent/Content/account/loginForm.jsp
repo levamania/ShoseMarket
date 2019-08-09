@@ -134,6 +134,7 @@
 					id.focus();
 					return false;
 				}
+				
 				if (pw.val() == "") {
 					alert("패스워드를 입력하시오")
 					pw.focus();

@@ -108,7 +108,7 @@ $(document).ready(function(){
 
 <body>
 
-<form action="/null/LoginUIServlet" method="get" id="search" >
+<form action="/null/loginFrom.jsp" method="get" id="search" >
 		<div align="center" style="display: block; width: 1500px;">
 			<br> 
 			<br> <b style="font-size: 200%">아이디 찾기</b>
