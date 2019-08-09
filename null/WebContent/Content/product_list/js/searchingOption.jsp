@@ -47,6 +47,9 @@ function push_atom(ele){
 	}
 	//사이즈 셀렉트
 	if(category=="PSIZE"&&reposit[category].length==2){
+		//배열 정렬
+		reposit[category].sort();
+		
 		var small_one = Number.parseInt(reposit[category].shift());
 		var large_one = Number.parseInt(reposit[category].pop());
 		var size = Number.parseInt(text);
@@ -100,7 +103,6 @@ function push_atom(ele){
 			for(var i of arr){
 				str += i;
 			}
-			console.log(str);
 			reposit[category].push(str);
 			
 		}else{
@@ -112,7 +114,7 @@ function push_atom(ele){
 	var html = "<div class='optical'>"+
 							"<div>"+text+"</div><span style='display:none;'>"+category+"</span>"+
 							"<div></div>"+
-					  "</div>";
+				"</div>";
 	$("#collection>.value").append(html);
 	
 	// 정렬
@@ -144,8 +146,14 @@ function add_delete(){
 		//객체에서 제거
 		var id = $(this).find("span").text();
 		var text = $(this).find("div:first-child").text();
+		if(id.includes("PRICE")){
+			var num = "";
+			for(var o of text.match(/\d{1,10}/g)){
+				num += o;
+			}
+			text = num;
+		}
 		var count =0;
-		
 		if(reposit[id]!=undefined){			
 			for(var atom of  reposit[id]){
 				if(atom==text)break;
@@ -165,10 +173,11 @@ function add_delete(){
 		}else{
 			temp = "#"+id;
 		}
-		var x = $(temp.toLowerCase()).find(".button:contains('"+text+"')").add(".price>.value");
+		var x = $(temp.toLowerCase()).find(".button:contains('"+text+"')")
+				.add(temp.toLowerCase());
 		x.removeClass("pushed");
  		
-		var io = x.find("input").val("");
+		x.find("input").val("");
  		x.find("span").text("");
 		
 		//자기삭제

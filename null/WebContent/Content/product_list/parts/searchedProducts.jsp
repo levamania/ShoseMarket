@@ -4,8 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <c:if test="${!empty basic_setup || !empty pList}">
+<jsp:include page="/Content/product_list/js/productList.jsp"/>
 	<!-- 검색됨 -->
 	<div class="body searched_product">
 		<div id="order_info">

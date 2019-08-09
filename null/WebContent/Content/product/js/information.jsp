@@ -217,7 +217,7 @@ $().ready(()=>{
 									}else{
 										var [son] = JSON.parse(data); //destructing
 										let warnning = ` \n 죄송합니다. 상품이 부족합니다.
-																  \n *상품: `+son["SCODE"]+`  *선택하신 수량: `+son["PICK_QUAN"]+`  *부족한 수량: `+son["DIFFER"];
+													   \n *상품: `+son["SCODE"]+`  *선택하신 수량: `+son["PICK_QUAN"]+`  *부족한 수량: `+son["DIFFER"];
 										alert(warnning);
 										
 									}
