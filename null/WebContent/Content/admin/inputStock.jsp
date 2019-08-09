@@ -34,8 +34,7 @@
 				<td colspan="2">
 					<div class="content_input">
 						<input type="button" value="확인" id="checkpcode" style="margin-right: 20px;">
-						<p style="font-size: 12px;">상품명과 상품코드는 확인 하나만 입력 후  검색을 통해 자동 입력 됩니다.</p>
-						<p style="font-size: 12px;">입력 후 저장 버튼이 활 성화 됩니다.</p>
+						<p style="font-size: 12px;">상품명과 상품코드는 확인 하나만 입력 후  검색을 통해 자동 입력 됩니다.입력 후 저장 버튼이 활 성화 됩니다.</p>
 					</div>
 				</td>
 			</tr >

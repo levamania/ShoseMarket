@@ -57,26 +57,3 @@ tr{
 	align-items: center;
 	padding-left: 20px;
 }
-.content_input{
-	display: flex;
-	padding-left: 20px;
-	align-items: center;
-}
-input[type=text],input[type=select],input[type=radio]{
-	
-}
-#checkpcode{
-	font-size: 18px;
-	font-weight: bold;
-	background-color: red;
-	height: 25pt;
-	width: 40pt;
-}
-
-input[type=submit]{
-	width: 60pt;
-	height: 30pt;
-	font-size: 20px;
-	font-weight: bold;
-	background-color: red;
-}
