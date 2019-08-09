@@ -25,12 +25,12 @@ public class ManagerIdPwCheckServlet extends HttpServlet {
 		response.setContentType("text/plain;charset=utf-8");
 		
 		
-		String userid = request.getParameter("masteruserid");
-		String passwd = request.getParameter("masterpasswd");
+		String masteruserid = request.getParameter("masteruserid");
+		String masterpasswd = request.getParameter("masterpasswd");
 		ManagerService service = new ManagerService();
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("masteruserid", userid);
-		map.put("masterpasswd", passwd);
+		map.put("masteruserid", masteruserid);
+		map.put("masterpasswd", masterpasswd);
         int num = service.ManagerIdPwCheck(map);
 
         PrintWriter out = response.getWriter(); out.print(num);

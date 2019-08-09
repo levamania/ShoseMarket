@@ -11,14 +11,13 @@
 <!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#tabs" ).tabs();
-  } );
-  </script>
+  
 </head>
 <body>
 	<script type="text/javascript">
+	$( function() {
+	    $( "#tabs" ).tabs();
+	  } );
 		$(document).ready(function() {
 			function check(re, what, message) {
 				if (re.test(what.val())) {
@@ -77,7 +76,7 @@
 						},
 						dataType : "text",
 						success : function(data, status, xhr) {
-							
+						
 							if (data == 0) {
 								alert("아이디또는 비밀번호가 일치하지 않습니다.");
 								/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
@@ -182,8 +181,8 @@
 	
   <ul style="background-color: white;" >
   
-    <li><a href="#tabs-1" style="background-color: white;border-color: black;border: 1px;color: black;border-bottom-color: black;width: 100px">회원 로그인</a></li>
-    <li><a href="#tabs-2"style="background-color: white;border-color: black;border: 1px;color: black;border-bottom-color: black">관리자 로그인</a></li>
+    <li><a href="#tabs-1" style="background-color: white;border-color: red;border: 1px;color: black;outline-color: red;">회원 로그인</a></li>
+    <li><a href="#tabs-2"style="background-color: white;border-color: red;border: 1px;color: black;outline-color: red;">관리자 로그인</a></li>
   
   </ul>
  

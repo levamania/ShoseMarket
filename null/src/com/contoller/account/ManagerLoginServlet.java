@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dto.ManagerDTO;
-import com.dto.MemberDTO;
+
 import com.model.dao.ManagerDAO;
 import com.model.service.ManagerService;
-import com.model.service.MemberService;
+
 
 @WebServlet("/ManagerLoginServlet")
 public class ManagerLoginServlet extends HttpServlet {
@@ -22,22 +22,22 @@ public class ManagerLoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userid = request.getParameter("masteruserid");
+		String masteruserid = request.getParameter("masteruserid");
 		//언젠간 고치는걸로
-		if(userid==null) {
+		if(masteruserid==null) {
 			response.sendRedirect("/null/Content/account/loginForm.jsp");
 			
 		}else {
 			
-		String passwd = request.getParameter("masterpasswd");
-		System.out.println(userid+passwd);
+		String masterpasswd = request.getParameter("masterpasswd");
+		System.out.println(masteruserid+masterpasswd);
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("masteruserid", userid);
-		map.put("masterpasswd", passwd);
+		map.put("masteruserid", masteruserid);
+		map.put("masterpasswd", masterpasswd);
 		ManagerService service =  new ManagerService();
 		ManagerDTO dto = service.masterLogin(map);
 
-	
+	System.out.println("dto값:"+dto);
 		
 		
 		String nextPage = null;
@@ -45,7 +45,7 @@ public class ManagerLoginServlet extends HttpServlet {
 			nextPage = "LoginUIServlet";
 
 		} else {
-			nextPage = "/null/Content/admin/InputStock.jsp";
+			nextPage = "/null/Content/admin/inputStock.jsp";
 			
 			  HttpSession session = request.getSession(); session.setAttribute("masterLogin", dto);
 			  session.setMaxInactiveInterval(60);
