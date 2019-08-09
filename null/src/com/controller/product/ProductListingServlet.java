@@ -81,7 +81,7 @@ public class ProductListingServlet extends HttpServlet {
 		
 		//setting
 		RequestDispatcher dis = null;
-		Map<String, ArrayList<String>> words_map = null;
+		HashMap<String, List<String>> words_map = null;
 		List<HashMap<String, Object>> pList = null;
 			
 		HashMap<String,Object> reposit = null;	
@@ -92,27 +92,10 @@ public class ProductListingServlet extends HttpServlet {
 				//검증되고 번역된 단어얻기
 				WordInspector inspector =
 						new WordInspector(new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt"));
-				words_map = inspector.inspect(searchedWord);
+				words_map = inspector.translate(searchedWord);
 				//repository of category or name
-				reposit = new HashMap<String, Object>(); 
-				//data for comparison
-				List<String> stylemid = service.getProducts_info(MapParamInputer.set("style","styleMid"));
-				List<String> stylebot = service.getProducts_info(MapParamInputer.set("style","styleBot"));
-				List<String> pname = service.getProducts_info(MapParamInputer.set("pName","pName"));			
-				//comparing to figure out category
-				List<String> styleMid = (List<String>)new ArrayList<String>();
-				List<String> styleBot = (List<String>)new ArrayList<String>();
-				List<String> pName = (List<String>)new ArrayList<String>();
-				
-				for(String word: words_map.get("searching")) {
-					for(String mid: stylemid) {if(mid.contains(word))styleMid.add(word);}
-					for(String bot: stylebot) {if(bot.contains(word))styleBot.add(word);	}
-					for(String name: pname) {	if(name.contains(word))pName.add(word);}
-				}
-				reposit.put("styleMid",(styleMid.size()!=0)?styleMid:null);
-				reposit.put("styleBot",(styleBot.size()!=0)?styleBot:null);
-				reposit.put("pName",(pName.size()!=0)?pName:null);
-			
+				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
+		
 			}else {
 				reposit = listing_setup;
 			}
@@ -165,7 +148,7 @@ public class ProductListingServlet extends HttpServlet {
 			}// end_ser
 		
 		} catch (CustomException e) {
-			e.getMessage();
+			logger.debug("mesg{"+e.getMessage()+"}", "debug");
 		} catch(IOException e){
 			System.out.println("경고: 파일이 없데요!");
 		} catch (Exception e) {
