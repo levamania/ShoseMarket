@@ -9,7 +9,7 @@
 		<foreach collection="TABLES" item="TABLE" separator="and">
 			#{TABLE}	
 		</foreach>
-		where rownum<2
+		where rownum = 1
 	</select>
 	
 	<!-- Products_info list-->
