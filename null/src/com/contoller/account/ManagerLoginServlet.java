@@ -47,7 +47,7 @@ public class ManagerLoginServlet extends HttpServlet {
 		} else {
 			nextPage = "/null/Content/admin/inputStock.jsp";
 			
-			  HttpSession session = request.getSession(); session.setAttribute("masterLogin", dto);
+			  HttpSession session = request.getSession(); session.setAttribute("login", dto);
 			  session.setMaxInactiveInterval(60);
 			 
 		}

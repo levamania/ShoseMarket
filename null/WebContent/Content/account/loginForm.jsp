@@ -25,7 +25,7 @@
 		//id 비밀번호 일치 불일치 유효성 검사
 		//var = loginFunction = function
 				
-			$("#login").on("submit", function() {
+			$("#memberLogin").on("submit", function() {
 				
 				var id = $("#userid");
 				var pw = $("#passwd");
@@ -40,6 +40,7 @@
 						passwd : pw.val()
 					},
 					dataType : "text",
+					
 					
 					
 					success : function(data, status, xhr) {
@@ -120,7 +121,7 @@
 
 			//기본 유효성검사
 
-			$("#login").on("submit", function(event) {
+			$("#memberLogin").on("submit", function(event) {
 
 				var re = /^[a-zA-Z0-9]{4,12}$/
 				var re1 = /^[a-zA-Z0-9~!;:]{4,12}$/
@@ -199,7 +200,7 @@
   
   </ul>
  
-	<form name="login" action="/null/LoginServlet" method="get" id="login">
+	<form name="memberLogin" action="/null/LoginServlet" method="get" id="memberLogin">
 		 <div id="tabs-1">
 		<div align="center" style="font-size: 200%">
 			<br> <br> <b >회원 로그인</b>
