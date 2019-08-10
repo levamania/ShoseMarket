@@ -56,6 +56,11 @@
 			<c:forEach var="COLOR" items="${PCOLOR}">
 				<div class="button">${COLOR}</div>
 			</c:forEach>
+			<div class="button">BLUE</div>
+			<div class="button">RED</div>
+			<div class="button">GREEN</div>
+			<div class="button">YELLOW</div>
+			<div class="button">BLACK</div>
 		</div>
 	</div>
 	<div class="category_option" id="collection">

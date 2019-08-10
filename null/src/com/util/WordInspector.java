@@ -26,6 +26,29 @@ public class WordInspector {
 	public WordInspector(File dictionary) {
 		this.dictionary = dictionary;
 	}
+	
+	private List<String> censor(String input) throws CustomException{
+		//word_inspecting -- excepting special literal
+		Pattern pattern = Pattern.compile("[가-힣A-Za-z]{1,10}");
+		Matcher matcher = pattern.matcher(input);
+				
+		ArrayList<String> list = null; //1차 유효성 검사에서 살아남은 아이들
+				
+		while(matcher.find()) {
+			String word = input.substring(matcher.start(), matcher.end());
+			if(word.length()!=0) {
+				if(list==null)list = new ArrayList<String>();
+				list.add(word);
+				}
+			}
+				
+		if(list==null)throw new CustomException("검색가능 단어 없음");
+		
+		return list;
+					
+	}
+	
+	
 	/**
 	 *  입력한 단어를 JSON 형식으로 작성된 파일에 맞추어
 	 *  번역한다
@@ -35,22 +58,7 @@ public class WordInspector {
 	 * @throws IOException
 	 */
 	public  HashMap<String, List<String>>  translate(String input) throws IOException {
-		
-		//word_inspecting -- excepting special literal
-		Pattern pattern = Pattern.compile("[가-힣A-Za-z]{1,10}");
-		Matcher matcher = pattern.matcher(input);
-		
-		ArrayList<String> list = null; //1차 유효성 검사에서 살아남은 아이들
-		
-		while(matcher.find()) {
-			String word = input.substring(matcher.start(), matcher.end());
-			if(word.length()!=0) {
-				if(list==null)list = new ArrayList<String>();
-				list.add(word);
-			}
-		}
-		
-		if(list==null)throw new CustomException("검색가능 단어 없음");
+		List<String> list = this.censor(input);
 			
 		//file loading
 		File dictionary = this.dictionary;

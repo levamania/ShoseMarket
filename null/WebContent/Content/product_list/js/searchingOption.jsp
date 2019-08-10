@@ -106,7 +106,8 @@ function push_atom(ele){
 			reposit[category].push(str);
 			
 		}else{
-			reposit[category].push(text);		
+			reposit[category].push(text);
+			reposit[category].sort();
 		}
 	}
 
@@ -118,6 +119,25 @@ function push_atom(ele){
 	$("#collection>.value").append(html);
 	
 	// 정렬
+	var order_list = ["STYLETOP","STYLEMID","STYLEBOT","PSIZE","PCOLOR"];
+	var position = 0;
+	for(var order of order_list){
+		if(reposit[order]!=undefined){
+			for(var i=0;i<reposit[order].length;i++){
+				while(true){
+					var lox = $("#collection>.value");
+					var focus = lox.children().eq(position);
+					if(focus.children(":first-child").text()==reposit[order][i]
+						&& focus.children("span").text()==order){
+						position++;break;
+					}
+					lox.append(focus);
+				}
+				
+			}
+		}
+	}
+	
 	
 	//min_price , max_price 정렬
 	if(reposit['MAX_PRICE']!=undefined && reposit['MIN_PRICE']!=undefined){
@@ -251,7 +271,7 @@ buttonSet();
 		.filter("[id='min']").on("blur",function(){
 			var ele = $(this).next();
 			//내부 스팬에 가격 설정
-			$(this).next().text($(this).val()+"~");
+			$(this).next().text($(this).val()+"원~");
 
 			//의미없는 값 입력 방지
 			if($(this).val().length!=0){
@@ -275,7 +295,7 @@ buttonSet();
 		.end().filter("[id='max']").on("blur",function(){
 			var ele = $(this).next();
 			//내부 스팬에 가격 설정
-			$(this).next().text("~"+$(this).val());
+			$(this).next().text("~"+$(this).val()+"원");
 			//optical 생성
 			if($(this).val().length!=0){
 				push_atom(ele);	
