@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	File dir = new File("C:/ShoseMarket/null/WebContent/Content/img/advertise");
+	File dir = new File(application.getRealPath("Content/img/advertise"));
 	ArrayList<String> file_list = new ArrayList<>();
 
 	File[] fileList = dir.listFiles();

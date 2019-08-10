@@ -34,6 +34,7 @@ import com.exception.CustomException;
 import com.model.service.ProductService;
 import com.model.service.RankingService;
 import com.util.ComparatorFactory;
+import com.util.ConfigGuide;
 import com.util.MapParamInputer;
 import com.util.QueryUtil;
 import com.util.WordInspector;
@@ -91,7 +92,7 @@ public class ProductListingServlet extends HttpServlet {
 			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
 				WordInspector inspector =
-						new WordInspector(new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt"));
+						new WordInspector(new File(ConfigGuide.getPath()+"Content/configuration/subsitution_dictionary.txt"));
 				words_map = inspector.translate(searchedWord);
 				//repository of category or name
 				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
@@ -99,7 +100,7 @@ public class ProductListingServlet extends HttpServlet {
 				//기본 셋팅 삭제하기
 				if(session.getAttribute("basic_setup")!=null) {
 					session.removeAttribute("basic_setup");					
-				}
+				} 	
 			}else {
 				reposit = listing_setup;
 			}
