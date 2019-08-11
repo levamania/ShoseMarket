@@ -385,6 +385,10 @@ buttonSet();
 		form.action = "/null/SpecificFilter";
 		form.submit();
 	})
+	
+	
+	//페이지 시작시 리스팅 셋업에 따라 클릭
+	
 
 })
 </script>
