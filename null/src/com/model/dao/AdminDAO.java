@@ -1,5 +1,7 @@
 package com.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.StockDTO;
@@ -33,6 +35,22 @@ public class AdminDAO {
 
 	public int updateStock(SqlSession session, StockDTO stock) {
 		return session.update("com.dto.Admin.updateStock", stock);
+	}
+
+	public List<String> searchStyleTop(SqlSession session) {
+		return session.selectList("com.dto.Admin.searchStyleTop");
+	}
+
+	public List<String> searchStyleMid(SqlSession session) {
+		return session.selectList("com.dto.Admin.searchStyleMid");
+	}
+
+	public List<String> searchStyleBot(SqlSession session) {
+		return session.selectList("com.dto.Admin.searchStyleBot");
+	}
+
+	public List<String> searchPname(SqlSession session) {
+		return session.selectList("com.dto.Admin.searchPname");
 	}
 
 	

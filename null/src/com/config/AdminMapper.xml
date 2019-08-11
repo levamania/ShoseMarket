@@ -24,4 +24,20 @@
 	<update id="updateStock" parameterType="stock">
 		update stock set pamount = (pamount+#{pAmount}) where scode = #{sCode}
 	</update>
+	
+	<select id="searchStyleTop" resultType="string">
+		select distinct styletop from product group by styletop
+	</select>
+	
+	<select id="searchStyleMid" resultType="string">
+		select distinct stylemid from product group by stylemid
+	</select>
+	
+	<select id="searchStyleBot" resultType="string">
+		select distinct stylebot from product group by stylebot
+	</select>
+	
+	<select id="searchPname" resultType="string">
+		select distinct pname from product
+	</select>
 </mapper>

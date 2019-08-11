@@ -1,5 +1,8 @@
 package com.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
@@ -60,6 +63,37 @@ public class AdminService {
 			session.close();
 		}
 		return num;
+	}
+
+
+
+	public HashMap<String, List<String>> getSearchStockOptions() {
+		HashMap<String, List<String>> map =new HashMap<String, List<String>>();
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			List<String> styleTop = adminDAO.searchStyleTop(session);
+			List<String> styleMid = adminDAO.searchStyleMid(session);
+			List<String> styleBot = adminDAO.searchStyleBot(session);
+			map.put("styletop", styleTop);
+			map.put("stylemid", styleMid);
+			map.put("stylebot",styleBot);
+		} finally {
+			session.close();
+		}
+		return map;
+	}
+
+
+
+	public List<String> searchPname() {
+		List<String> pnames = null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			pnames = adminDAO.searchPname(session);
+		} finally {
+			session.close();
+		}
+		return pnames;
 	}
 	
 	

@@ -7,12 +7,13 @@
 <meta charset="UTF-8">
 <title>관리자페이지</title>
 <link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=2">
+<link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
-<script src="/null/Content/admin/js/util.js"></script>
+<script src="/null/Content/api/jquery/jquery-ui/jquery-ui.js"></script>
 <body>
 <div><jsp:include page="top.jsp"/></div>
-<form action="/null/InputStockServlet" method="post">
+<form action="/null/SearchStockServlet" method="get">
 <div id="body">
 	<div id="body_left"><jsp:include page="left.jsp"/></div>
 	<div id="body_content">
@@ -23,27 +24,22 @@
 			<table>
 				<tr>
 					<td>상품명</td>
-					<td><input type="text"></td>
+					<td><input id="pname" name="pname"></td>
 					<td>상품코드</td>
-					<td><input type="text"></td>
-					<td colspan="2"><input type="button" value="조회"></td>
+					<td><input type="text" disabled="disabled"></td>
+					<td colspan="2"><input type="submit" value="조회"></td>
 				</tr>
 				<tr>
 					<td>대분류</td>
 					<td>
 						<select id="styletop">
-							<option>both</option>
-							<option>male</option>
-							<option>female</option>
+							
 						</select>
 					</td>
 					<td>중분류</td>
 					<td>
 						<select id="stylemid">
-							<option>sports</option>
-							<option>tennis</option>
-							<option>shoe</option>
-							<option>boots</option>
+							
 						</select>
 					</td>
 					<td>소분류</td>
@@ -52,6 +48,38 @@
 							
 						</select>
 					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="6">
+						<div id="order_search">
+							<button type="button" class="dateValue">오늘</button>
+							<button type="button" class="dateValue">15일</button>
+							<button type="button" class="dateValue">1개월</button>
+							<button type="button" class="dateValue">3개월</button>
+							<button type="button" class="dateValue">1년</button>
+							<button type="button" class="dateValue">전체</button>
+							<input type="date" id="date1" >~
+							<input type="date" id="date2" >
+							<input type="hidden" id="searchDate" name="searchDate" value="">
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td colspan="6"><div style="border-top: 1px solid red;"></div></td>
+				</tr>
+				<tr>
+					<th>scode</th>
+					<th>pcode</th>
+					<th>상품명</th>
+					<th>가격</th>
+					<th>재고</th>
+					<th>등록일</th>
+				</tr>
+				<tr>
+					<td colspan="6"><div style="border-bottom: 1px solid red;"></div></td>
 				</tr>
 			</table>
 		</div>
