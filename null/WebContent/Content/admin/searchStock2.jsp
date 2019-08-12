@@ -6,30 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=2" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=2">
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <script src="/null/Content/api/jquery/jquery-ui/jquery-ui.js"></script>
 <body>
-<header>
-	<jsp:include page="top.jsp"/>
-</header>
+<div><jsp:include page="top.jsp"/></div>
 <form action="/null/SearchStockServlet" method="get">
-<div id="container">
-	<nav>
-		<jsp:include page="left.jsp"/>
-	</nav>
-	<section>
-		<div>
-			<span>상품 검색하기</span>
-			
-		</div>
-	</section>
-</div>
-
-
-<%-- <div id="body">
+<div id="body">
 	<div id="body_left"><jsp:include page="left.jsp"/></div>
 	<div id="body_content">
 		<div>
@@ -101,7 +86,7 @@
 
 	</div>
 	
-</div> --%>
+</div>
 </form>
 <script src="/null/Content/admin/js/searchStock.js"></script>
 </body>
