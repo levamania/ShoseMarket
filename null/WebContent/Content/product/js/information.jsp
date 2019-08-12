@@ -22,7 +22,36 @@
 		return string; 
 	}
 
+ 	//숫자변환 함수
+ 	function toNum(price){
+ 		var regEx = /\d{1,100}/g;
+ 		var x = price.match(regEx);
+ 		var string = "";
+ 		for(var i of x){
+ 			string+=i;
+ 		}
+ 		return Number.parseInt(string);
+ 	}
+	
 $().ready(()=>{
+	
+	//자동 스크롤 함수
+		var distance = 0;
+	  		$(".top1, .top2").each(function(){
+	  			distance += toNum($(this).css("height"));
+	  		})
+		var position = 0;
+		function scroller(){	
+			if (position < distance){
+		    	position+=10;
+		    	scroll(0,position);
+		    	clearTimeout(timer);
+		    	var timer = setTimeout(scroller,0); timer;
+		    }
+		 }
+		scroller();
+	
+	
 	
 	//가져온 데이터 가공
 	var map = ${json};

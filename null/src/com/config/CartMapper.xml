@@ -32,7 +32,7 @@
 		delete from cart
 		where cno in
 		<foreach collection="list" item="ITEM" open="(" close=")" separator=",">
-			#{ITEM}
+			#{ITEM.CNO}
 		</foreach>
 	</delete>
 </mapper>

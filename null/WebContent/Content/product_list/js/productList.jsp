@@ -21,12 +21,11 @@
   	  	var temp =null;
   	  		$(".body").each(function(){
   	  			var height = toNum($(this).css("height"));
-  	  			var margin = toNum($(this).css("margin-top"));
-  	  			console.log($(this).css("margin-top"));
-  	  			distance += Number.parseInt(temp.substr(0,temp.length-2));
+  	  			var margin = toNum($(this).css("margin-top"))+toNum($(this).css("margin-bottom"));
+  	  			distance += height+margin;
   	  		});	
-  	  	distance -= Number.parseInt($(".bottom").css("height").substr(0,temp.length-2)); 	
-  	  	distance -= Number.parseInt($(".searched_product").css("height").substr(0,temp.length-2)); 	
+  	  	distance -= toNum($(".bottom").css("height")); 	
+  	  	distance -= toNum($(".searched_product").css("height")); 	
   	  	
   		var position = 0;
   		function scroller(){	
@@ -46,7 +45,6 @@
   		 //form 태그 생성
    		  if(scope==undefined)scope = $(".searched_product");
 	  	  html += "<form name='product_form' action=' ' method='get' style='display:none'>";
-  		 console.log(scope.find("input[name='pCode']").val().trim());
 	  	  switch(destination){
 	  	  	 case "ProductListingServlet":{ 
 	  	  		 data ={
