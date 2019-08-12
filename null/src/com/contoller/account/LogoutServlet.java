@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dto.ManagerDTO;
 import com.dto.MemberDTO;
 
 /**
@@ -21,8 +22,9 @@ public class LogoutServlet extends HttpServlet {
 	
 		HttpSession session = request.getSession();
 		MemberDTO dto =(MemberDTO)session.getAttribute("login");
+		ManagerDTO mdto = (ManagerDTO)session.getAttribute("masterLogin");
 		String nextPage = null;
-		if (dto==null) {
+		if (dto==null&&mdto==null) {
 			nextPage="LoginUIServlet";
 			session.setAttribute("mesg", "로그인이 필요합니다");
 			

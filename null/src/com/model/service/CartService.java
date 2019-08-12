@@ -51,5 +51,18 @@ public class CartService {
 		return result;
 	}
 
+	public int deleteCart(List<Object> list) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = MySqlSessionFactory.getSession();
+			result = dao.deleteCart(session,list);
+			session.commit();
+		}finally {
+			if(session!=null)session.close();
+		}
+		return result;
+	}
+
 
 }

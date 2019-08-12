@@ -11,6 +11,22 @@ public class ManagerDTO {
 
 	private String masteremail1;
 	private String masteremail2;
+	public ManagerDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ManagerDTO(String masteruserid, String masterpasswd, String masterusername, String masterphone1,
+			String masterphone2, String masterphone3, String masteremail1, String masteremail2) {
+		super();
+		this.masteruserid = masteruserid;
+		this.masterpasswd = masterpasswd;
+		this.masterusername = masterusername;
+		this.masterphone1 = masterphone1;
+		this.masterphone2 = masterphone2;
+		this.masterphone3 = masterphone3;
+		this.masteremail1 = masteremail1;
+		this.masteremail2 = masteremail2;
+	}
 	public String getMasteruserid() {
 		return masteruserid;
 	}
@@ -61,27 +77,11 @@ public class ManagerDTO {
 	}
 	@Override
 	public String toString() {
-		return "MasterDTO [masteruserid=" + masteruserid + ", masterpasswd=" + masterpasswd + ", masterusername="
+		return "ManagerDTO [masteruserid=" + masteruserid + ", masterpasswd=" + masterpasswd + ", masterusername="
 				+ masterusername + ", masterphone1=" + masterphone1 + ", masterphone2=" + masterphone2
 				+ ", masterphone3=" + masterphone3 + ", masteremail1=" + masteremail1 + ", masteremail2=" + masteremail2
 				+ "]";
 	}
-	public ManagerDTO(String masteruserid, String masterpasswd, String masterusername, String masterphone1,
-			String masterphone2, String masterphone3, String masteremail1, String masteremail2) {
-		super();
-		this.masteruserid = masteruserid;
-		this.masterpasswd = masterpasswd;
-		this.masterusername = masterusername;
-		this.masterphone1 = masterphone1;
-		this.masterphone2 = masterphone2;
-		this.masterphone3 = masterphone3;
-		this.masteremail1 = masteremail1;
-		this.masteremail2 = masteremail2;
-	}
-	public ManagerDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	
+
 }

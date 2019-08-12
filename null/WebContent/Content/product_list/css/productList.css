@@ -10,7 +10,19 @@ body{margin: 0;}
 /* 검색결과 */
 .body.result{position:relative; border: 1px solid blue;height: 360px;}
 /* 상세검색옵션 */
-.body.searching_option{position:relative; border: 1px solid skyblue;height: 360px;}
+.body.searching_option{
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	align-items:center;
+	justify-content:center;
+	
+	position:relative; 
+	height: 360px;
+	
+	margin: 40px 0 50px;
+	
+}
 /* 검색된 상품 */
 .body.searched_product{position:relative; border: 1px solid red;height: auto;}
 
@@ -102,9 +114,18 @@ body{margin: 0;}
 	
 	
 	/* 상품 리스트 진열 */
+		
+		/* 	없을경우 */
+		#null{
+			display: flex;
+			align-items: center;
+			justify-content:center;
+		
+			font-size: 25px;
+		}
+	
 	.body.searched_product>#searched_list{
 		position: relative;
-		min-height: 300px;
 		padding: 4%;
 	}
 		/*개별 상품*/

@@ -12,6 +12,6 @@ select * from Manager where masteruserid=#{masteruserid} and masterpasswd=#{mast
 </select>
 <select id="ManagerIdPwCheck" parameterType="map" resultType="int">
 select count(*) from MANAGER
-where masteruserid=#{masteruserid}and masterpasswd=#{masterpasswd}
+where masteruserid=#{masteruserid} and masterpasswd=#{masterpasswd}
 </select>
 </mapper>

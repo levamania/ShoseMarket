@@ -31,7 +31,7 @@
 				success : function (data,status,xhr){
 					console.log('확인');
 					console.log(data);
-					if(data==1||id.val("nullmart")){
+					if(data==1&&id.val("nullmart")){
 						alert("아이디 중복입니다.");
 						/* window.open("idCheck.jsp","idCheck","width=100,height=50,resizable=no,scrollbars=no"); */
 
@@ -112,7 +112,10 @@
 				var re2 = /^[0-9]{0,12}$/
 				var re3 = /^[a-zA-Z가-힝]{0,10}$/
 				var re4 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
+				
+			    var re5 = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*;:()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,20}$/;
 
+					
 				var id = $("#userid");
 				var pw = $("#passwd");
 				var pw2 =$("#passwd2");
@@ -122,8 +125,9 @@
 
 				}
 				
+	
 
-				if (!check(re1, pw, "패스워드는 4~12자의 영문 대소문자, 숫자, 특수문자(~,!,;,:)로 입력")) {
+				if (!check(re5, pw, "패스워드는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력")) {
 					return false;
 				}
 

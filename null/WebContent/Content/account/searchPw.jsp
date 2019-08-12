@@ -112,7 +112,7 @@ $(document).ready(function(){
 
 <body>
 
-<form action="/null/SendMailPWServlet" method="get" id="search" >
+<form action="/null/loginFrom.jsp" method="get" id="search" >
 		<div align="center" style="display: block; width: 1500px;">
 			<br> 
 			<br> <b style="font-size: 200%">비밀번호 찾기</b>

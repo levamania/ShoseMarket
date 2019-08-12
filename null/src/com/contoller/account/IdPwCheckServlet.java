@@ -26,6 +26,7 @@ public class IdPwCheckServlet extends HttpServlet {
 		
 		String userid = request.getParameter("userid");
 		String passwd = request.getParameter("passwd");
+		System.out.println(userid+passwd);
 		MemberService service = new MemberService();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userid", userid);
@@ -33,7 +34,6 @@ public class IdPwCheckServlet extends HttpServlet {
         int num = service.IdPwCheck(map);
 
         PrintWriter out = response.getWriter(); out.print(num);
-		
 	
 		
 		 

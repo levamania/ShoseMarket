@@ -18,15 +18,15 @@ DROP TABLE MANAGER CASCADE CONSTRAINTS;
 /* Create Tables */
 create table MANAGER
 (
-  userid varchar2(10) primary key,
-  passwd varchar2(10) not null,
-  username varchar2(10) not null,
+  masteruserid varchar2(10) primary key,
+  masterpasswd varchar2(10) not null,
+  masterusername varchar2(10) not null,
 
-  phone1 varchar2(3) not null,
-  phone2 varchar2(4) not null,
-  phone3 varchar2(4) not null,
-  email1 varchar2(20) not null,
-  email2 varchar2(20) not null
+  masterphone1 varchar2(3) not null,
+  masterphone2 varchar2(4) not null,
+  masterphone3 varchar2(4) not null,
+  masteremail1 varchar2(20) not null,
+  masteremail2 varchar2(20) not null
 );
 
 CREATE TABLE ACCOUNT

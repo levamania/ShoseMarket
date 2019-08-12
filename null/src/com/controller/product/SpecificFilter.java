@@ -13,27 +13,52 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.JSONParser;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @WebServlet("/SpecificFilter")
 public class SpecificFilter extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String searchedWord = request.getParameter("searchedWord");
+		String selected_atoms = request.getParameter("selected_atoms");
 		
-			//검색단어 가공
-		HashMap<String, Object> temp = new HashMap<>();
-		String [] entries = searchedWord.split(",");
-		for(String entry : entries) {
-			String key = entry.split(":")[0];
-			List<String> value = Arrays.asList(entry.split(":")[1].split("/"));//검색어 형식: 스타일미드:운동화/구두
-			temp.put(key, value);
-		}
+		//검색단어 가공 - json 파싱
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, Object> atom_lists = mapper.readValue(selected_atoms, HashMap.class);
+			//루핑용 카피
+		HashMap<String, Object> copy = (HashMap<String, Object>)atom_lists.clone();
+
 		//이전 스택
+		HttpSession session = request.getSession();
 		HashMap<String, Object> prev_stack = (HashMap<String,Object>)session.getAttribute("prev_stack");
 			//갈무리된 검색 조건
-		prev_stack.remove("listing_setup"); //기존 셋업 삭제(왜? 우리는 검열된 단어가 아닌 전달받은 단어로 다시 셋팅할꺼니까)
-		HashMap<String, Object> listing_setup = temp;
-		prev_stack.put("listing_setup", listing_setup);//셋팅 재설정 완료
+		HashMap<String, Object> established =  null;
+		if(session.getAttribute("basic_setup")==null) {
+			HashMap<String, Object> set_up = (HashMap<String, Object>)prev_stack.get("listing_setup"); //기존 셋업과 합쳐야한다.
+			established = set_up;
+			session.setAttribute("basic_setup",  (HashMap<String, Object>)set_up.clone());
+		}else {
+			established = (HashMap<String, Object>)session.getAttribute("basic_setup");
+		}
+		
+		//합치기
+		for(String key : copy.keySet()) {
+			for(String infe : established.keySet()) {
+				if(established.get(infe)!=null) {
+					List<String> lit_main  = (List<String>)atom_lists.get(key);
+					List<String> lit_sub  = (List<String>)established.get(infe);
+					if(key.equals(infe)) {
+					lit_main.addAll(lit_sub);
+					}else {
+						atom_lists.put(infe, lit_sub);
+					}
+				}
+			}
+		}
+		System.out.println(atom_lists);
+		prev_stack.remove("listing_setup"); //기존 셋업삭제
+		prev_stack.put("listing_setup", atom_lists);//셋팅 재설정 완료
 		
 		//디스패치
 		RequestDispatcher dis = request.getRequestDispatcher("/ProductListingServlet");

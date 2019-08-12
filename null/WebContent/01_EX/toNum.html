@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function toNum(price){
+	var regEx = /\d{1,100}/g;
+	var x = price.match(regEx);
+	console.log(x);
+	var string = "";
+	for(var i of x){
+		string+=i;
+	}
+	console.log(string);
+	return Number.parseInt(string);
+}
+toNum("10,000");
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
