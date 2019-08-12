@@ -15,10 +15,11 @@ nav{
 	display: inline-flex;
 	flex-basis: 100px;
 	flex-grow: 1;
+	flex-shrink: 0;
 }
 
 section{
-	display:inline-flex;
+	display:flex;
 	flex-direction: column;
 	flex-grow: 12;
 	border-left: 1px solid red;
@@ -31,5 +32,42 @@ section>div:first-child{
 	align-items: center;
 	justify-content: center;
 	flex-direction:row;
+	border-bottom: 1px solid red;
+	flex-shrink: 0;
 	
+}
+#input_pname,#selections{
+	display: flex;
+	flex-direction: row;
+	font-size: 24px;
+	height: 100px;
+	font-weight: bold;
+	align-items: stretch;
+}
+#input_pname>div,#selections>div{
+	display: inline-flex;
+	flex-grow: 1;
+	align-items: center;
+	flex-basis: 320px;
+	flex-shrink: 0;
+	padding: 20px;
+}
+#input_pname>div:nth-child(3){
+	display:flex;
+	flex-grow:1;
+	align-items: center;
+	justify-content: flex-start;
+}
+input[type=submit]{
+	font-size: 20px;
+	height: 30pt;
+	width: 60pt;
+	background-color: red;
+}
+
+
+@media (max-width:600px) {
+	#input_pname,#selections{
+		flex-direction: column;
+	}
 }

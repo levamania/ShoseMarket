@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=2" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=4" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -22,8 +23,26 @@
 	</nav>
 	<section>
 		<div>
-			<span>상품 검색하기</span>
-			
+			상품 검색하기
+		</div>
+		<div id="input_pname">
+			<div>상품명<input id="pname" name="pname"></div>
+			<div>상품코드<input type="text" disabled="disabled"></div>
+			<div><input type="submit" value="조회"></div>
+		</div>
+		<div id="selections">
+			<div>대분류
+				<select id="styletop">			
+				</select>
+			</div>
+			<div>중분류
+				<select id="stylemid">
+				</select>
+			</div>
+			<div>소분류
+				<select id="stylebot">
+				</select>
+			</div>
 		</div>
 	</section>
 </div>
