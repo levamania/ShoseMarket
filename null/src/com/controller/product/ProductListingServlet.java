@@ -1,6 +1,7 @@
 package com.controller.product;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import java.text.ParseException;
@@ -31,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.exception.CustomException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.service.ProductService;
 import com.model.service.RankingService;
 import com.util.ComparatorFactory;
@@ -40,7 +42,6 @@ import com.util.MapParamInputer;
 import com.util.QueryUtil;
 import com.util.WordInspector;
 
-import sun.jvm.hotspot.ui.Inspector;
 
 
 @WebServlet("/ProductListingServlet")
@@ -88,24 +89,28 @@ public class ProductListingServlet extends HttpServlet {
 		HashMap<String, List<String>> words_map = null;
 		List<HashMap<String, Object>> pList = null;
 		
-		WordInspector inspector = null;
+		WordInspector inspector =	new WordInspector(new File(ConfigGuide.getPath()+"Content/configuration/subsitution_dictionary.json"));
 		HashMap<String,Object> reposit = null;	
 		try {
 			ProductService service = new ProductService();
 			
 			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
-				inspector =	new WordInspector(new File(ConfigGuide.getPath()+"Content/configuration/subsitution_dictionary.json"));
 				words_map = inspector.translate(searchedWord);
 				//repository of category or name
 				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
 				
 				//기본 셋팅 삭제하기
-				if(session.getAttribute("basic_setup")!=null) {
-					session.removeAttribute("basic_setup");					
-				} 	
+				if(session.getAttribute("basic_setup")!=null)session.removeAttribute("basic_setup");					
+				if(session.getAttribute("clicked")!=null)session.removeAttribute("clicked");					
+				 
+				//처음 검색지표
+				session.setAttribute("basic", "baisc");
+				
 			}else {
 				reposit = listing_setup;
+				//계속된 검색 지표
+				session.removeAttribute("basic");
 			}
 			logger.debug("mesg{reposit:}"+reposit,"debug");
 			//list searching through category
@@ -124,20 +129,6 @@ public class ProductListingServlet extends HttpServlet {
 				String order_criteria = ordering_info.split(":")[0];
 				String direction = ordering_info.split(":")[1];
 				Comparator<HashMap<String, Object>> comparator = ComparatorFactory.generate(order_criteria, direction);
-				//extract column
-				List<HashMap<String, Object>> repo = new ArrayList<HashMap<String,Object>>();
-				for(HashMap<String, Object> indiv :raw_list) {
-					repo.addAll(service.selectProduct_info(indiv));
-				}
-				//선택된 제품 컬럼 정보 중복제거하여 저장
-				query.extractColumn(repo, request); //번역 필요
-				query.extractColumn(raw_list, request);
-				
-				//스타일 미드에 스타일 봇 바인딩
-				HashMap<String, Object> binded = query.bind(raw_list, "STYLEMID",new String[] {"STYLEBOT"});
-					//한글로 번역 & json 파싱 => 저장
-				JSONObject sonsang = new JSONObject(inspector.render(binded, Language.Korean));
-				request.setAttribute("BINDING", sonsang);
 			
 				//페이징 처리
 				pList = raw_list.stream().sorted(comparator) //정렬
@@ -146,6 +137,42 @@ public class ProductListingServlet extends HttpServlet {
 				request.setAttribute("page_size", Math.round((raw_list.size()/paging_quantity)+1));
 				request.setAttribute("items_size", raw_list.size());
 
+				//extract column
+				List<HashMap<String, Object>> repo = new ArrayList<HashMap<String,Object>>();
+				for(HashMap<String, Object> indiv :raw_list) {
+					repo.addAll(service.selectProduct_info(indiv));
+				}
+					//조건
+				if(session.getAttribute("basic")!=null) {
+					session.setAttribute("basic_repo", repo);
+					session.setAttribute("basic_raw", raw_list);
+				}else {
+					repo = (List<HashMap<String, Object>>)session.getAttribute("basic_repo");
+					raw_list = (List<HashMap<String, Object>>)session.getAttribute("basic_raw");
+				}
+				
+				//선택된 제품 컬럼 정보 중복제거하여 저장
+				query.extractColumn(repo,request); 
+				HashMap<String, Object> cols = query.extractColumn(raw_list);
+				ObjectMapper mapper = new ObjectMapper();
+				for(String key : cols.keySet()) {
+					String smep = mapper.writeValueAsString((List<String>)cols.get(key));
+					String ne = "";
+					ne = inspector.render(smep, Language.Korean);
+					request.setAttribute(key, mapper.readValue(ne, List.class));
+				}
+				//클릭된 리스팅셋업 저장
+				HashMap<String, Object> clicked = (HashMap<String, Object>)session.getAttribute("clicked");
+				if(clicked!=null) {
+					request.setAttribute("clicked", new JSONObject(inspector.render(clicked, Language.Korean) ));					
+				}
+				
+				//스타일 미드에 스타일 봇 바인딩
+				HashMap<String, Object> binded = query.bind(raw_list, "STYLEMID",new String[] {"STYLEBOT"});
+					//한글로 번역 & json 파싱 => 저장
+				JSONObject sonsang = new JSONObject(inspector.render(binded, Language.Korean));
+				request.setAttribute("BINDING", sonsang);
+				
 				//inserting keyword to ranking
 				if(source.equals("input")) {
 					RankingService ser = new RankingService();
@@ -159,6 +186,7 @@ public class ProductListingServlet extends HttpServlet {
 			logger.debug("mesg{"+e.getMessage()+"}", "debug");
 		} catch(IOException e){
 			System.out.println("경고: 파일이 없데요!");
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("너 또 왜!");
 			e.printStackTrace();

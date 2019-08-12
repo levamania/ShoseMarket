@@ -1,6 +1,7 @@
 package com.util;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -96,7 +97,7 @@ public class WordInspector {
 	}//end method
 
 	public String render(String raw, Language target_language) throws JsonParseException, JsonMappingException, IOException{
-		
+
 		//json to JSONObject
 		diction_reposit = mapper.readValue(dictionary, HashMap.class);
 		String regEx = "\\w";
@@ -115,19 +116,29 @@ public class WordInspector {
 		Pattern pattern = Pattern.compile(regEx+"{1,10}");
 		Matcher matcher = pattern.matcher(draft);
 		
-		Function<MatchResult, String> replacer = (finded)->{
-				String atom = draft.substring(finded.start(), finded.end());
-				List<String> word_list = (List<String>)diction_reposit.get(atom);
-				String replacment = atom;
-				if(word_list!=null)replacment = word_list.get(0);
-				return replacment;
-			};		
-		
-		return matcher.replaceAll(replacer);
+//		Function<MatchResult, String> replacer = (finded)->{
+//				String atom = draft.substring(finded.start(), finded.end());
+//				List<String> word_list = (List<String>)diction_reposit.get(atom);
+//				String replacment = atom;
+//				if(word_list!=null)replacment = word_list.get(0);
+//				return replacment;
+//			};		
+		//function을 인자로 받는 메소드가 없으므로 대체한다.
+		StringBuffer buffer = new StringBuffer();
+		while(matcher.find()) {
+			String atom = new String(draft.substring(matcher.start(), matcher.end()));
+			List<String> word_list = (List<String>)diction_reposit.get(atom);
+			if(word_list!=null) {
+				matcher.appendReplacement(buffer, word_list.get(0));
+			}
+		}
+		matcher.appendTail(buffer);
+		return (buffer.length()==0)?draft:new String(buffer);
 	}
 
 	public HashMap<String, Object> render(HashMap<String, Object> raw, Language target_language) throws JsonParseException, JsonMappingException, IOException{
 		String censored = this.render(mapper.writeValueAsString(raw), target_language);
+		System.out.println(censored);
 		return mapper.readValue(censored, HashMap.class);
 	}
 	

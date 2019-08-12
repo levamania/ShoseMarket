@@ -318,6 +318,11 @@ buttonSet();
 
 		//카테고리 확장 버튼 설정
 	var prev_clicked = null;
+	var sol = Array.of(${BINDING});
+	var binding = null;
+	if(sol.length!=0){	
+		[binding] = sol;
+	}
 	$("#stylemid .value>div:nth-child(2n)").on("click",function(){
 		//css
 		var style = $("#stylemid .value>div");
@@ -336,9 +341,7 @@ buttonSet();
 			deeper.children("div").remove();
 			
 			//consisting deeper
-			var sol = Array.of(${BINDING});
-			if(sol.length!=0){	
-				var [binding] = sol;
+			
 				$.each(binding,function(key, value){
 					if(key==partner.text()){
 						for(var o of value){
@@ -348,7 +351,7 @@ buttonSet();
 				})
 				//이벤트 부여
  				buttonSet();
-			}
+			
 		
 		}else{
 			if(prev_clicked!=this){
@@ -388,7 +391,70 @@ buttonSet();
 	
 	
 	//페이지 시작시 리스팅 셋업에 따라 클릭
-	
+	var [clicked] = Array.of(${clicked});
+	console.log(clicked);
+	if(clicked!=undefined){
+	$(".category_option").add(".deeper").each(function(){
+		var head = $(this).attr("id").toUpperCase();
+		var list = clicked[head];
+		console.log(list);
+		if(list!=null){
+			if(head=="MIN_PRICE" || head=="MAX_PRICE"){
+				$(this).find("input").val(list[0]);
+				$(this).find("input").trigger("keyup").trigger("blur");
+			}else if(head=="STYLEBOT"){
+				$.each(binding, function(key,value){		
+					for(var atom of list){
+						for(var name of value){
+							
+						if(atom==name["STYLEBOT"]){	
+							var top = $("#stylemid").find(".button:contains('"+key+"')");
+							console.log(top);
+							if(!top.hasClass("overed"))	top.next().trigger("mouseover").trigger("click");
+							top.end().find(".deeper>div:contains('"+name["STYLEBOT"]+"')").trigger("click");
+						}
+						
+						}
+					}
+				})//end fuc
+			}else{
+				for(var atom of list){				
+					$(this).find(".button").each(function(){
+						if($(this).text()==atom){
+							$(this).trigger("click");
+						}	
+					})		
+			}
+					
+			}//for
+		}//list 
+	})
+	}//end if
 
+
+	 	
+	  	//자동 스크롤 함수
+	  	var distance =0;
+	  	var temp =null;
+	  		$(".body").each(function(){
+	  			var height = toNum($(this).css("height"));
+	  			var margin = toNum($(this).css("margin-top"))+toNum($(this).css("margin-bottom"));
+	  			distance += height+margin;
+	  		});	
+	  	distance -= toNum($(".bottom").css("height")); 	
+	  	distance -= toNum($(".searched_product").css("height")); 	
+	  	
+		var position = 0;
+		function scroller(){	
+			if (position < distance){
+		    	position+=10;
+		    	scroll(0,position);
+		    	clearTimeout(timer);
+		    	var timer = setTimeout(scroller,0); timer;
+		    }
+		 }
+		scroller();	
+
+	
 })
 </script>

@@ -15,29 +15,6 @@
  
   	$().ready(function(){
 
-  	 	
-  	  	//자동 스크롤 함수
-  	  	var distance =0;
-  	  	var temp =null;
-  	  		$(".body").each(function(){
-  	  			var height = toNum($(this).css("height"));
-  	  			var margin = toNum($(this).css("margin-top"))+toNum($(this).css("margin-bottom"));
-  	  			distance += height+margin;
-  	  		});	
-  	  	distance -= toNum($(".bottom").css("height")); 	
-  	  	distance -= toNum($(".searched_product").css("height")); 	
-  	  	
-  		var position = 0;
-  		function scroller(){	
-  			if (position < distance){
-  		    	position+=10;
-  		    	scroll(0,position);
-  		    	clearTimeout(timer);
-  		    	var timer = setTimeout(scroller,0); timer;
-  		    }
-  		 }
-   		scroller();
-
   		
   	 //검색 셋팅 저자용 히든 인풋 태그 생성
 	  function form_generator(destination,scope){

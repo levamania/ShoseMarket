@@ -32,8 +32,7 @@
 			<c:forEach var="STYLE" items="${STYLEMID}">
 				<div class="button">${STYLE}</div><div></div>
 			</c:forEach>
-		<!-- AJAX 처리 -->
-		<div class="deeper"></div>
+		<div class="deeper" id="stylebot"></div>
 		</div>
 	</div>
 	<div class="category_option" id="psize">
@@ -42,25 +41,21 @@
 			<c:forEach var="SIZE" items="${PSIZE}">
 				<div class="button">${SIZE}</div>
 			</c:forEach>
-			<div class="button">210</div>
-			<div class="button">220</div>
-			<div class="button">230</div>
-			<div class="button">240</div>
-			<div class="button">250</div>
-			<div class="button">260</div>
 		</div>
 	</div>
 	<div class="category_option" id="pcolor">
 		<div class="head">색상</div>
 		<div class="value">
 			<c:forEach var="COLOR" items="${PCOLOR}">
-				<div class="button">${COLOR}</div>
+				<c:choose>
+					<c:when test="${COLOR=='WHITE'}">
+					<div class="button"  style="color:black">${COLOR}</div>
+					</c:when>
+					<c:otherwise>
+					<div class="button"  style="color:${COLOR};">${COLOR}</div>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
-			<div class="button">BLUE</div>
-			<div class="button">RED</div>
-			<div class="button">GREEN</div>
-			<div class="button">YELLOW</div>
-			<div class="button">BLACK</div>
 		</div>
 	</div>
 	<div class="category_option" id="collection">

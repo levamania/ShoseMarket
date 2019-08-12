@@ -11,6 +11,9 @@
  
 
 $().ready(()=>{
+	var initial = 1000+(screen.availWidth-1000)/2+screen.availWidth*0.02;
+	$("#floating_bar").css({"left":initial+"px"});
+	
 	//초기포지션 설정
 	var indent = 30;
 	var block = 210-indent;
