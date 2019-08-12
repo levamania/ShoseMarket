@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <Script>
 	//원화로 바꾸는 함수
-	function toWon(price){
+ 	function toWon(price){
 		if(typeof price=="number"){
 			price = price.toString();
 		}
@@ -242,11 +242,12 @@ $().ready(()=>{
 		.find("#close, #redirector>div:nth-child(1)")
 			.on("click",function(){
 				$(".layout").css({"display":"none"});
+				$(".reposit .delete").trigger("click");			
 			})
 		//리다이렉트
 		.end().find("#redirector>div:nth-child(2)")
 				.on("click",function(){
-				location.href="/null/Content/cart/cart.jsp";
+				location.href="/null/CartServlet";
 			  })
 			
 			  

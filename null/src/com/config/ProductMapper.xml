@@ -3,27 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.shoes.ProductMapper">
-	
+	<!-- keyset 구현 -->
+	<select id="keyset" resultType="hashmap" parameterType="hashmap">
+		select * from  
+		<foreach collection="TABLES" item="TABLE" separator=",">
+			${TABLE}	
+		</foreach>
+		where rownum = 1
+	</select>
 	<!-- Products_info list-->
-	<select id="selectProducts_info" parameterType="hashmap" resultType="string">
-		select
-		<choose>
-			<when test="style!=null">
-				distinct
-				<choose>
-					<when test="style=='styleMid'">
-					 styleMid 
-					</when>
-					<when test="style=='styleBot'">
-					 styleBot
-					</when>
-				</choose>
-				from product
-			</when>
-			<when test="pName!=null">
-				pName from product
-			</when>
-		</choose>
+	<select id="getCategory" parameterType="hashmap" resultType="string">
+		select	distinct ${HEAD} from
+		<foreach collection="TABLES" item="TABLE" separator=",">
+			${TABLE}	
+		</foreach> 
 	</select>
 	
 	<!-- 	개별 상품 정보 -->
@@ -41,38 +34,56 @@
 	
 	<!-- 상품 검색 리스트 -->
 	<select id="selectProductList" parameterType="hashmap" resultType="hashmap">
-		select p.pcode pcode, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice min_price , nvl(searchedCnt,0) popularity
+		select p.pcode pcode,   styletop, stylemid, stylebot, pname, pimage, pregitdate, m.pPrice min_price , nvl(searchedCnt,0) popularity
 		from product p, stock s , (select pCode,min(pPrice) pPrice
 								   				from stock
 								   				group by pCode) m, searchedWord w
 		where p.pcode = s.pcode and s.pcode = m.pcode and p.pname = w.sword(+)
-			<if test="styleMid!=null">and styleMid in
-			 	<foreach collection="styleMid" item="item" open="(" close=")"  separator=",">
+			<if test="STYLEMID!=null">and styleMid in
+			 	<foreach collection="STYLEMID" item="item" open="(" close=")"  separator=",">
 			 		#{item}	
 			 	</foreach>
 			 </if>
-			<if test="styleBot!=null">and styleBot in
-			 	<foreach collection="styleBot" item="item" open="(" close=")"  separator=",">
+			<if test="STYLEBOT!=null">and styleBot in
+			 	<foreach collection="STYLEBOT" item="item" open="(" close=")"  separator=",">
 			 		#{item}	
 			 	</foreach>
 			 </if>
-			<if test="pName!=null">and 
-				<foreach collection="pName" item="item"  separator="or">
+			<if test="PNAME!=null">and 
+				<foreach collection="PNAME" item="item"  separator="or">
 			 		pName like '%'||#{item}||'%'	
 			 	</foreach>
 			</if>
-			<if test="pSize!=null">and pSize in
-			 	<foreach collection="pSize" item="item" open="(" close=")"  separator=",">
+			<if test="PSIZE!=null">and pSize 
+				<choose>
+					<when test="PSIZE.size==1"> =
+			 			<foreach collection="PSIZE" item="item" >
+			 				#{item}	
+			 			</foreach>
+			 		</when>
+				 	<otherwise> between
+			 			<foreach collection="PSIZE" item="item" separator="and">
+			 				#{item}	
+			 			</foreach>
+			 		</otherwise>
+			 	</choose>
+			</if>
+			<if test="PCOLOR!=null">and pColor in 
+				 <foreach collection="PCOLOR" item="item" open="(" close=")"  separator=",">
 			 		#{item}	
 			 	</foreach>
 			</if>
-			<if test="pColor!=null">and pColor in 
-				 <foreach collection="pColor" item="item" open="(" close=")"  separator=",">
-			 		#{item}	
-			 	</foreach>
+			<if test="MIN_PRICE!=null">
+				<foreach collection="MIN_PRICE" item="item" >
+					and m.pPrice > to_number(#{item})
+				</foreach>
 			</if>
-			<if test="pPrice!=null">and m.pPrice between #{pPrice_min} and #{pPrice_max}</if>
-			<if test="deliverFee_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
+			<if test="MAX_PRICE!=null">
+				<foreach collection="MAX_PRICE" item="item" >
+					and m.pPrice &lt; to_number(#{item})
+				</foreach>
+			</if>
+			<if test="DELIVERFEE_YN!=null">and deliverFee_YN = #{deliverFee_YN}</if>
 			<if test="PCODE!=null">and p.pcode = #{PCODE}</if>
 		order by to_number(p.pcode)
 	</select>

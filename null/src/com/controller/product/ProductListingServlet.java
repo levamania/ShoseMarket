@@ -1,5 +1,6 @@
 package com.controller.product;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.text.ParseException;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,14 +52,14 @@ public class ProductListingServlet extends HttpServlet {
 			//info from 현재 페이지 정보
 		HashMap<String, Object> listing_setup = null;
 		String back_word = "default";
-		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
 		
 		if(prev_stack!=null) {
 			back_word = (String)prev_stack.get("back_word");
 			listing_setup = (HashMap<String, Object>)prev_stack.get("listing_setup");
 			session.removeAttribute("prev_stack");
 		}
-		logger.debug("mesg{listing_setup:}"+listing_setup,"debug");
+		logger.debug("mesg{listing_setup}"+listing_setup,"debug");
+
 			//매 페이지 마다 갱신
 		session.removeAttribute("prev_stack");
 				
@@ -79,36 +81,25 @@ public class ProductListingServlet extends HttpServlet {
 		
 		//setting
 		RequestDispatcher dis = null;
-		Map<String, ArrayList<String>> words_map = null;
+		HashMap<String, List<String>> words_map = null;
 		List<HashMap<String, Object>> pList = null;
-		
+			
 		HashMap<String,Object> reposit = null;	
 		try {
 			ProductService service = new ProductService();
 			
 			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
-				words_map = WordInspector.inspect(searchedWord);
+				WordInspector inspector =
+						new WordInspector(new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt"));
+				words_map = inspector.translate(searchedWord);
 				//repository of category or name
-				reposit = new HashMap<String, Object>(); 
-				//data for comparison
-				List<String> stylemid = service.getProducts_info(MapParamInputer.set("style","styleMid"));
-				List<String> stylebot = service.getProducts_info(MapParamInputer.set("style","styleBot"));
-				List<String> pname = service.getProducts_info(MapParamInputer.set("pName","pName"));			
-				//comparing to figure out category
-				List<String> styleMid = (List<String>)new ArrayList<String>();
-				List<String> styleBot = (List<String>)new ArrayList<String>();
-				List<String> pName = (List<String>)new ArrayList<String>();
+				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
 				
-				for(String word: words_map.get("searching")) {
-					for(String mid: stylemid) {if(mid.contains(word))styleMid.add(word);}
-					for(String bot: stylebot) {if(bot.contains(word))styleBot.add(word);	}
-					for(String name: pname) {	if(name.contains(word))pName.add(word);}
+				//기본 셋팅 삭제하기
+				if(session.getAttribute("basic_setup")!=null) {
+					session.removeAttribute("basic_setup");					
 				}
-				reposit.put("styleMid",(styleMid.size()!=0)?styleMid:null);
-				reposit.put("styleBot",(styleBot.size()!=0)?styleBot:null);
-				reposit.put("pName",(pName.size()!=0)?pName:null);
-			
 			}else {
 				reposit = listing_setup;
 			}
@@ -129,7 +120,21 @@ public class ProductListingServlet extends HttpServlet {
 				String order_criteria = ordering_info.split(":")[0];
 				String direction = ordering_info.split(":")[1];
 				Comparator<HashMap<String, Object>> comparator = ComparatorFactory.generate(order_criteria, direction);
+				//extract column
+				List<HashMap<String, Object>> repo = new ArrayList<HashMap<String,Object>>();
+				for(HashMap<String, Object> indiv :raw_list) {
+					repo.addAll(service.selectProduct_info(indiv));
+				}
+				//선택된 제품 컬럼 정보 중복제거하여 저장
+				query.extractColumn(repo, request);
+				query.extractColumn(raw_list, request);
 				
+				//스타일 미드에 스타일 봇 바인딩
+				HashMap<String, Object> binded = query.bind(raw_list, "STYLEMID",new String[] {"STYLEBOT"});
+					//json 파싱 => 저장
+				JSONObject sonsang = new JSONObject(binded);
+				request.setAttribute("BINDING", sonsang);
+			
 				//페이징 처리
 				pList = raw_list.stream().sorted(comparator) //정렬
 						   .skip((cur_page-1)*paging_quantity).limit(paging_quantity).collect(Collectors.toList()); //페이징->리스트
@@ -147,7 +152,7 @@ public class ProductListingServlet extends HttpServlet {
 			}// end_ser
 		
 		} catch (CustomException e) {
-			e.getMessage();
+			logger.debug("mesg{"+e.getMessage()+"}", "debug");
 		} catch(IOException e){
 			System.out.println("경고: 파일이 없데요!");
 		} catch (Exception e) {

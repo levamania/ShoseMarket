@@ -9,15 +9,32 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.exception.CustomException;
+import com.model.service.ModelService;
 
 public class WordInspector {
-	public static Map<String, ArrayList<String>>  inspect(String input) throws IOException {
+	
+	private File dictionary;
+	
+	public WordInspector(File dictionary) {
+		this.dictionary = dictionary;
+	}
+	/**
+	 *  입력한 단어를 JSON 형식으로 작성된 파일에 맞추어
+	 *  번역한다
+	 * 
+	 * @param input 번역이 필요한 단어
+	 * @return 번역된 맵과 번역되지 않은 맵 두개를 리턴
+	 * @throws IOException
+	 */
+	public  HashMap<String, List<String>>  translate(String input) throws IOException {
 		
 		//word_inspecting -- excepting special literal
 		Pattern pattern = Pattern.compile("[가-힣A-Za-z]{1,10}");
@@ -36,8 +53,7 @@ public class WordInspector {
 		if(list==null)throw new CustomException("검색가능 단어 없음");
 			
 		//file loading
-		File dictionary = 
-				new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt");
+		File dictionary = this.dictionary;
 		BufferedReader buff = new BufferedReader(new FileReader(dictionary));
 		
 		//collection copy
@@ -61,9 +77,25 @@ public class WordInspector {
 				}
 			}
 		}//end translating
-		
+		buff.close();
 		//lists 저장, copy = 랭킹 저장용 | list = 검색용	
 		return MapParamInputer.set("searching", list, "ranking", forRank);
 	}//end method
 
+	
+	public HashMap<String,Object> auto_categorize(ModelService service, List<String> word_list, List<String> tables ){
+		HashMap<String, Object> harry = new HashMap<String, Object>();
+		Set<String> categories = service.getKeyset(MapParamInputer.set("TABLES",tables));
+		for(String key: categories) {
+			List<String> single = service.getCategory(MapParamInputer.set("HEAD",key,"TABLES",tables));
+			List<String> lone = new ArrayList<String>();
+			for(String atom : single) {
+				for(String word : word_list) {
+					if(atom.contains(word))lone.add(word);
+				}
+			}
+			harry.put(key, (lone.size()!=0)?lone:null );
+		}
+		return harry;
+	}
 }//end class
