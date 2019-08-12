@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <script>
+//숫자변환 함수
+ function toNum(price){
+ 	var regEx = /\d{1,100}/g;
+ 	var x = price.match(regEx);
+ 	var string = "";
+ 	for(var i of x){
+ 		string+=i;
+ 	}
+ 	return Number.parseInt(string);
+ }
+ 
+ 
   	$().ready(function(){
 
   	 	
@@ -8,7 +20,9 @@
   	  	var distance =0;
   	  	var temp =null;
   	  		$(".body").each(function(){
-  	  			temp = $(this).css("height");
+  	  			var height = toNum($(this).css("height"));
+  	  			var margin = toNum($(this).css("margin-top"));
+  	  			console.log($(this).css("margin-top"));
   	  			distance += Number.parseInt(temp.substr(0,temp.length-2));
   	  		});	
   	  	distance -= Number.parseInt($(".bottom").css("height").substr(0,temp.length-2)); 	
@@ -23,7 +37,7 @@
   		    	var timer = setTimeout(scroller,0); timer;
   		    }
   		 }
-  		scroller();
+   		scroller();
 
   		
   	 //검색 셋팅 저자용 히든 인풋 태그 생성

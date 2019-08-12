@@ -2,6 +2,7 @@ package com.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -10,20 +11,35 @@ import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.model.dao.ProductDAO;
 
-public class ProductService {
+public class ProductService implements ModelService {
 	ProductDAO dao;
 	//DAO get
 	public ProductService(){
 		dao = new ProductDAO();
 	}
-	
+		
+	@Override
+	public Set<String> getKeyset(HashMap<String, Object> map) {
+		Set<String> set = null;
+		SqlSession session = null;
+		try {
+			session = MySqlSessionFactory.getSession();
+			set = dao.getKeyset(session,map);
+			session.commit();
+		}finally {
+			if(session!=null)session.close();
+		}
+		return set;
+	}
+
+	@Override
 	//products info - style, name 
-	public List<String> getProducts_info(HashMap<String, String> map) {
+	public List<String> getCategory(HashMap<String, Object> map) {
 		List<String> list = null;
 		SqlSession session = null;
 		try {
 			session = MySqlSessionFactory.getSession();
-			list = dao.selectProducts_info(session,map);
+			list = dao.getCategory(session,map);
 			session.commit();
 		}finally {
 			if(session!=null)session.close();

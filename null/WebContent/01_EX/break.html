@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+$().ready(()=>{
+
+var count = 0;
+$("div").each(function(){
+	count ++;
+	 if($(this).text()=="하위"){
+		return false;
+	}
+ })
+console.log(count);
+
+})
+</script>
+</head>
+<body>
+<div></div>
+<div>하위</div>
+<div>안녕</div>
+<div></div>
+</body>
+</html>

@@ -13,11 +13,26 @@
 
 	<!-- 	DML -->
 	<insert id="stackProduct" parameterType="list">
-		insert all 
-		<foreach collection="list" item="item">
-			into cart  values(car(),#{item.USERID },#{item.PCODE },#{item.PNAME },
-											    #{item.PSIZE },#{item.PCOLOR },#{item.PPRICE },#{item.PAMOUNT })
-		</foreach>
-		select * from dual       
+		merge into cart c
+ 		using
+ 		  	<foreach collection="list" item="item"  open="(" close=")" separator="union"> 
+ 		  		select #{item.USERID } USERID ,#{item.PCODE } PCODE,#{item.PNAME } PNAME, #{item.PSIZE } PSIZE,
+ 		  				  #{item.PCOLOR } PCOLOR,#{item.PPRICE } PPRICE, #{item.PAMOUNT } PAMOUNT, #{item.SCODE} SCODE
+ 		  				  from DUAL
+            </foreach>	 s
+        on (c.userid = s.userid and c.pcode = s.pcode and c.psize = s.psize and c.pcolor = s.pcolor) 
+		when  matched then
+			update set c.pamount  = c.pamount + s.pamount
+		when not matched	then 
+			insert (cno, userid, pcode, pname, psize, pcolor, pprice, pamount,scode) 
+			values(car(), s.userid, s.pcode, s.pname, s.psize, s.pcolor, s.pprice, s.pamount, s.scode)       
 	</insert>
+	
+	<delete id="deleteCart" parameterType="list">
+		delete from cart
+		where cno in
+		<foreach collection="list" item="ITEM" open="(" close=")" separator=",">
+			#{ITEM}
+		</foreach>
+	</delete>
 </mapper>
