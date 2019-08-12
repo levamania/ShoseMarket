@@ -22,6 +22,7 @@ public class LoginIndicator {
 				PrintWriter out = response.getWriter();
 				out.print("invaild_login");
 				session.setAttribute("warnning", "로그인이 필요합니다.");
+				response.sendRedirect("/null/LoginUIServlet");
 			} catch (IOException e) {
 				e.printStackTrace();			
 			}

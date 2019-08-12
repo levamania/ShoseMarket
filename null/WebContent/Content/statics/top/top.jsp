@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript" src="/null/Content/statics/top/js/top.js"></script>
 <link rel="stylesheet" type="text/css" href="/null/Content/statics/top/css/top.css">
-<div class="body top1">
+<div class="body top1" id="upper_yard">
 <jsp:include page="/Content/statics/top/parts/menu.jsp" flush="true"/>
 <jsp:include page="/Content/statics/top/parts/search.jsp" flush="true"/>
 </div>

@@ -51,12 +51,14 @@ public class CartService {
 		return result;
 	}
 
-	public int deleteCart(List<Object> list) {
+	public int deleteCart(List<HashMap<String, Object>> list) {
 		SqlSession session = null;
 		int result = 0;
 		try {
 			session = MySqlSessionFactory.getSession();
 			result = dao.deleteCart(session,list);
+			ProductService service = new ProductService();
+			service.updateProducts(list);
 			session.commit();
 		}finally {
 			if(session!=null)session.close();
