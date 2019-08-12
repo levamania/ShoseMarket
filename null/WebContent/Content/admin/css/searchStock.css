@@ -15,7 +15,7 @@
 
 #body_left{
 	display: inline-flex;
-	width: 150px;
+	flex-basis: 150px;
 	flex-grow: 1;
 	border-right:1px solid red;
 }
