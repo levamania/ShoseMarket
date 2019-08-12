@@ -16,5 +16,7 @@
 <jsp:include page="/Content/main/parts/main_body.jsp" flush="true"/>
 <!-- 바텀 -->
 <jsp:include page="/Content/statics/bottom/bottom.jsp" flush="true"/>
+<!-- 툴바 -->
+<jsp:include page="/Content/statics/floating_bar/floating_bar.jsp" flush="true"/>
 </body>
 </html>

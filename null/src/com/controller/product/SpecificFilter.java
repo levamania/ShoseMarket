@@ -1,5 +1,6 @@
 package com.controller.product;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,16 +17,21 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.parser.JSONParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.util.ConfigGuide;
+import com.util.Language;
+import com.util.WordInspector;
 
 @WebServlet("/SpecificFilter")
 public class SpecificFilter extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String selected_atoms = request.getParameter("selected_atoms");
+		//유틸 셋팅
+		WordInspector inspector = new WordInspector(new File(ConfigGuide.getPath()+"/Content/configuration/subsitution_dictionary.json"));
 		
 		//검색단어 가공 - json 파싱
 		ObjectMapper mapper = new ObjectMapper();
-		HashMap<String, Object> atom_lists = mapper.readValue(selected_atoms, HashMap.class);
+		HashMap<String, Object> atom_lists = mapper.readValue(inspector.render(selected_atoms, Language.English), HashMap.class);
 			//루핑용 카피
 		HashMap<String, Object> copy = (HashMap<String, Object>)atom_lists.clone();
 

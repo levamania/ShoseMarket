@@ -34,9 +34,13 @@ import com.exception.CustomException;
 import com.model.service.ProductService;
 import com.model.service.RankingService;
 import com.util.ComparatorFactory;
+import com.util.ConfigGuide;
+import com.util.Language;
 import com.util.MapParamInputer;
 import com.util.QueryUtil;
 import com.util.WordInspector;
+
+import sun.jvm.hotspot.ui.Inspector;
 
 
 @WebServlet("/ProductListingServlet")
@@ -83,15 +87,15 @@ public class ProductListingServlet extends HttpServlet {
 		RequestDispatcher dis = null;
 		HashMap<String, List<String>> words_map = null;
 		List<HashMap<String, Object>> pList = null;
-			
+		
+		WordInspector inspector = null;
 		HashMap<String,Object> reposit = null;	
 		try {
 			ProductService service = new ProductService();
 			
 			if(!back_word.equals(searchedWord)) {
 				//검증되고 번역된 단어얻기
-				WordInspector inspector =
-						new WordInspector(new File("C:/ShoseMarket/null/WebContent/Content/configuration/subsitution_dictionary.txt"));
+				inspector =	new WordInspector(new File(ConfigGuide.getPath()+"Content/configuration/subsitution_dictionary.json"));
 				words_map = inspector.translate(searchedWord);
 				//repository of category or name
 				reposit = inspector.auto_categorize(service,words_map.get("searching"),Arrays.asList(new String[]{"PRODUCT"}));
@@ -99,7 +103,7 @@ public class ProductListingServlet extends HttpServlet {
 				//기본 셋팅 삭제하기
 				if(session.getAttribute("basic_setup")!=null) {
 					session.removeAttribute("basic_setup");					
-				}
+				} 	
 			}else {
 				reposit = listing_setup;
 			}
@@ -126,13 +130,13 @@ public class ProductListingServlet extends HttpServlet {
 					repo.addAll(service.selectProduct_info(indiv));
 				}
 				//선택된 제품 컬럼 정보 중복제거하여 저장
-				query.extractColumn(repo, request);
+				query.extractColumn(repo, request); //번역 필요
 				query.extractColumn(raw_list, request);
 				
 				//스타일 미드에 스타일 봇 바인딩
 				HashMap<String, Object> binded = query.bind(raw_list, "STYLEMID",new String[] {"STYLEBOT"});
-					//json 파싱 => 저장
-				JSONObject sonsang = new JSONObject(binded);
+					//한글로 번역 & json 파싱 => 저장
+				JSONObject sonsang = new JSONObject(inspector.render(binded, Language.Korean));
 				request.setAttribute("BINDING", sonsang);
 			
 				//페이징 처리

@@ -1,4 +1,31 @@
 @charset "UTF-8";
+
+/* 공통 대분류 설정 */
+.body#featured{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:flex-start;
+	
+	height: 1000px; 
+	
+	border: 1px solid red;
+}
+
+.body#info_desk{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:flex-start;
+	
+	height: 500px; 
+	
+	border: 1px solid red;
+}
+
+
+
+
 /* main 물품 홍보창 */
 .body.main.advertise{
 	position:relative;

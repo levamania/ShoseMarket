@@ -47,6 +47,9 @@ function push_atom(ele){
 	}
 	//사이즈 셀렉트
 	if(category=="PSIZE"&&reposit[category].length==2){
+		//배열 정렬
+		reposit[category].sort();
+		
 		var small_one = Number.parseInt(reposit[category].shift());
 		var large_one = Number.parseInt(reposit[category].pop());
 		var size = Number.parseInt(text);
@@ -100,11 +103,11 @@ function push_atom(ele){
 			for(var i of arr){
 				str += i;
 			}
-			console.log(str);
 			reposit[category].push(str);
 			
 		}else{
-			reposit[category].push(text);		
+			reposit[category].push(text);
+			reposit[category].sort();
 		}
 	}
 
@@ -112,10 +115,29 @@ function push_atom(ele){
 	var html = "<div class='optical'>"+
 							"<div>"+text+"</div><span style='display:none;'>"+category+"</span>"+
 							"<div></div>"+
-					  "</div>";
+				"</div>";
 	$("#collection>.value").append(html);
 	
 	// 정렬
+	var order_list = ["STYLETOP","STYLEMID","STYLEBOT","PSIZE","PCOLOR"];
+	var position = 0;
+	for(var order of order_list){
+		if(reposit[order]!=undefined){
+			for(var i=0;i<reposit[order].length;i++){
+				while(true){
+					var lox = $("#collection>.value");
+					var focus = lox.children().eq(position);
+					if(focus.children(":first-child").text()==reposit[order][i]
+						&& focus.children("span").text()==order){
+						position++;break;
+					}
+					lox.append(focus);
+				}
+				
+			}
+		}
+	}
+	
 	
 	//min_price , max_price 정렬
 	if(reposit['MAX_PRICE']!=undefined && reposit['MIN_PRICE']!=undefined){
@@ -144,8 +166,14 @@ function add_delete(){
 		//객체에서 제거
 		var id = $(this).find("span").text();
 		var text = $(this).find("div:first-child").text();
+		if(id.includes("PRICE")){
+			var num = "";
+			for(var o of text.match(/\d{1,10}/g)){
+				num += o;
+			}
+			text = num;
+		}
 		var count =0;
-		
 		if(reposit[id]!=undefined){			
 			for(var atom of  reposit[id]){
 				if(atom==text)break;
@@ -165,10 +193,11 @@ function add_delete(){
 		}else{
 			temp = "#"+id;
 		}
-		var x = $(temp.toLowerCase()).find(".button:contains('"+text+"')").add(".price>.value");
+		var x = $(temp.toLowerCase()).find(".button:contains('"+text+"')")
+				.add(temp.toLowerCase());
 		x.removeClass("pushed");
  		
-		var io = x.find("input").val("");
+		x.find("input").val("");
  		x.find("span").text("");
 		
 		//자기삭제
@@ -242,7 +271,7 @@ buttonSet();
 		.filter("[id='min']").on("blur",function(){
 			var ele = $(this).next();
 			//내부 스팬에 가격 설정
-			$(this).next().text($(this).val()+"~");
+			$(this).next().text($(this).val()+"원~");
 
 			//의미없는 값 입력 방지
 			if($(this).val().length!=0){
@@ -266,7 +295,7 @@ buttonSet();
 		.end().filter("[id='max']").on("blur",function(){
 			var ele = $(this).next();
 			//내부 스팬에 가격 설정
-			$(this).next().text("~"+$(this).val());
+			$(this).next().text("~"+$(this).val()+"원");
 			//optical 생성
 			if($(this).val().length!=0){
 				push_atom(ele);	
@@ -356,6 +385,10 @@ buttonSet();
 		form.action = "/null/SpecificFilter";
 		form.submit();
 	})
+	
+	
+	//페이지 시작시 리스팅 셋업에 따라 클릭
+	
 
 })
 </script>

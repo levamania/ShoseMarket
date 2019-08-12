@@ -5,7 +5,7 @@
 <!-- <script src="/null/Content/product_list/js/searchingOption.js"></script> -->
 <jsp:include page="/Content/product_list/js/searchingOption.jsp" flush="true"/>
 
-<c:if test="${!empty listing_setup || !empty pList}">
+<%-- <c:if test="${!empty listing_setup || !empty pList}"> --%>
 <div class="body searching_option">
 	<div class="category_option" id="styletop">
 		<div class="head">테마</div>
@@ -42,6 +42,12 @@
 			<c:forEach var="SIZE" items="${PSIZE}">
 				<div class="button">${SIZE}</div>
 			</c:forEach>
+			<div class="button">210</div>
+			<div class="button">220</div>
+			<div class="button">230</div>
+			<div class="button">240</div>
+			<div class="button">250</div>
+			<div class="button">260</div>
 		</div>
 	</div>
 	<div class="category_option" id="pcolor">
@@ -50,6 +56,11 @@
 			<c:forEach var="COLOR" items="${PCOLOR}">
 				<div class="button">${COLOR}</div>
 			</c:forEach>
+			<div class="button">BLUE</div>
+			<div class="button">RED</div>
+			<div class="button">GREEN</div>
+			<div class="button">YELLOW</div>
+			<div class="button">BLACK</div>
 		</div>
 	</div>
 	<div class="category_option" id="collection">
@@ -63,4 +74,4 @@
 		<input type="hidden" name="searchedWord" value="${searchedWord}"> 
 	</form>
 </div>
-</c:if>
+<%-- </c:if> --%>
