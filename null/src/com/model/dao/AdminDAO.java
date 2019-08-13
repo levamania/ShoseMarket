@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.util.SessionCheckInterface;
 
@@ -51,6 +52,10 @@ public class AdminDAO {
 
 	public List<String> searchPname(SqlSession session) {
 		return session.selectList("com.dto.Admin.searchPname");
+	}
+
+	public ProductDTO searchProduct(SqlSession session, String pname) {
+		return session.selectOne("com.dto.Admin.searchProduct", pname);
 	}
 
 	
