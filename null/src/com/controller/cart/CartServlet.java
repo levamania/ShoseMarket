@@ -47,7 +47,7 @@ public class CartServlet extends HttpServlet {
 			request.setAttribute("KEY_SET", key_set);
 			request.setAttribute("PCODE_MAPPED", pcode_mapped);
 				// 사출
-//			dis.forward(request, response);
+			dis.forward(request, response);
 
 	}
 

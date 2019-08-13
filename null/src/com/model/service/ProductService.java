@@ -78,12 +78,12 @@ public class ProductService implements ModelService {
 
 	
 	//DML - UPDATE
-	public int updateProducts(List<HashMap<String, Object>> reposits) {
+	public int updateProducts(HashMap<Object, Object> hashMap) {
 		SqlSession session = null;
 		int result = 0;
 		try {
 			session = MySqlSessionFactory.getSession();
-			result = dao.updateProducts(session,reposits);
+			result = dao.updateProducts(session,hashMap);
 			session.commit();
 		}finally {
 			if(session!=null)session.close();

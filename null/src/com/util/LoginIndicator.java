@@ -26,7 +26,7 @@ public class LoginIndicator extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public  String check(HttpServletRequest request, HttpServletResponse response){
+	public static String check(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(60 * 60);
 		MemberDTO member = (MemberDTO) session.getAttribute("login");
@@ -41,7 +41,7 @@ public class LoginIndicator extends HttpServlet {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return "broth59";
+			return "null";
 		}
 	}
 

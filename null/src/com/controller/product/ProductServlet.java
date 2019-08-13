@@ -93,17 +93,18 @@ public class ProductServlet extends HttpServlet {
 					if(tep.get("PCODE").equals(product.get("PCODE")))reiteration = true;
 				}
 			}
-				
-			if(cook.size()>=4) {
-				Collections.sort(cook, (c1,c2)->c1.getName().compareTo(c2.getName()));				
-				cook.get(0).setMaxAge(0);	
-				// 쿠키 삭제시 같은 패스 설정과 다시 쿠키를 관리자에게 넘겨줘 수명에따라 관리시킨다.
-				cook.get(0).setPath("/");	
-				response.addCookie(cook.get(0));	
-				
-			}
-					
+								
 			if(!reiteration) {
+				
+				if(cook.size()>=4) {
+					Collections.sort(cook, (c1,c2)->c1.getName().compareTo(c2.getName()));				
+					cook.get(0).setMaxAge(0);	
+					// 쿠키 삭제시 같은 패스 설정과 다시 쿠키를 관리자에게 넘겨줘 수명에따라 관리시킨다.
+					cook.get(0).setPath("/");	
+					response.addCookie(cook.get(0));	
+					
+				}
+				
 				HashMap<String, String> rio =
 						MapParamInputer.set("STYLEMID",product.get("STYLEMID"),"STYLEBOT",product.get("STYLEBOT"),
 														  "PIMAGE",product.get("PIMAGE"),"PNAME",product.get("PNAME"),

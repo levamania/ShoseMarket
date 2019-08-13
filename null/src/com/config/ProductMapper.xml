@@ -90,7 +90,7 @@
 	
 	
 <!-- 	DML -->
-	<insert id="updateProducts" parameterType="list">
+	<insert id="updateProducts" parameterType="hashmap">
 		  merge into stock s
  		  using
  		  	<foreach collection="list" item="item"  open="(" close=")" separator="union"> 
@@ -99,7 +99,12 @@
             	 e
     	  on (s.scode = e.scode)
     	  when matched then 
-       	  update set s.pamount = s.pamount + e.pamount
+       	  update set s.pamount = s.pamount 
+		  <choose>
+		 		<when test="direction=='minus'">	-</when>
+		  		<when test="direction=='plus'">+</when>		  
+		  </choose>
+		   e.pamount
 	</insert>
 	
 </mapper>
