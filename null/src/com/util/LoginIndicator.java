@@ -41,7 +41,7 @@ public class LoginIndicator extends HttpServlet {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return "null";
+			throw new CustomException("로그인필요");
 		}
 	}
 

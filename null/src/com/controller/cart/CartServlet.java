@@ -25,8 +25,9 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			// 세션 처리
-			LoginIndicator indo = new LoginIndicator();
-			String userid = indo.check(request, response);
+			try {
+				
+			String userid = LoginIndicator.check(request, response);
 
 			// 유틸 셋팅
 			QueryUtil util = new QueryUtil();
@@ -49,6 +50,9 @@ public class CartServlet extends HttpServlet {
 				// 사출
 			dis.forward(request, response);
 
+			}catch (Exception e) {
+				System.out.println("로그인으로 리다이렉트");
+			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

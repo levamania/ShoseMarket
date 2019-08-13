@@ -39,6 +39,8 @@ public class StackProductServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		//세션 처리
+		try {
+		
 		String userid = LoginIndicator.check(request, response);
 		//수용
 			//string to json
@@ -111,7 +113,9 @@ public class StackProductServlet extends HttpServlet {
 	    	out.print(array);
 	    }
 	    
-
+		}catch (CustomException e) {
+			System.out.println("로그인필요");
+		}
         
 		
 	}
