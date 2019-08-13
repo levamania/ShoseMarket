@@ -4,6 +4,7 @@ import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,7 @@ public class GetInitSearchStockServlet extends HttpServlet {
 		if (pname != null) { 
 			ProductDTO product = service.searchProduct(pname);
 			if(product==null) {
-				
+				out.print(0);
 			}else {
 				JSONObject productInfo = new JSONObject();
 				productInfo.put("pcode", product.getpCode());
@@ -45,12 +46,41 @@ public class GetInitSearchStockServlet extends HttpServlet {
 				out.print(productInfo);
 			}
 		}else {
-			List<String> keywordList = service.searchPname();
+			//JSONArray를  저장할 jsonobject
 			JSONObject jsonObject = new JSONObject();
-
-
+			Map<String, List<String>> map = service.getSearchStockOptions();
+			//style
+			List<String> styletopList = map.get("styletop");
+			List<String> stylemidList = map.get("stylemid");
+			List<String> stylebotList = map.get("stylebot");
+			System.out.println(stylebotList);
+			//keyword
+			List<String> keywordList = service.searchPname();
+			//분류에 따른 select option 검색 
+			
+			
 			JSONArray keywords = new JSONArray();
-
+			JSONArray styletops = new JSONArray();
+			JSONArray stylemids = new JSONArray();
+			JSONArray stylebots = new JSONArray();
+			
+			styletopList.stream().forEach(s->{
+				JSONObject obj = new JSONObject();
+				obj.put("option", s);
+				styletops.add(obj);
+			});
+			
+			stylemidList.stream().forEach(s->{
+				JSONObject obj = new JSONObject();
+				obj.put("option", s);
+				stylemids.add(obj);
+			});
+			
+			stylebotList.stream().forEach(s->{
+				JSONObject obj = new JSONObject();
+				obj.put("option", s);
+				stylebots.add(obj);
+			});
 
 			keywordList.stream().forEach(s -> {
 				JSONObject obj = new JSONObject();
@@ -59,6 +89,9 @@ public class GetInitSearchStockServlet extends HttpServlet {
 			});
 
 			jsonObject.put("keywords", keywords);
+			jsonObject.put("styletops", styletops);
+			jsonObject.put("stylemids", stylemids);
+			jsonObject.put("stylebots", stylebots);
 			System.out.println(jsonObject);
 			out.print(jsonObject);
 		}

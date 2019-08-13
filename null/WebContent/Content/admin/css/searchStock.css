@@ -10,7 +10,7 @@
 	flex-direction: row;
 	align-items: stretch;
 }
-
+/*좌측 구조 css(details)*/
 nav{
 	display: inline-flex;
 	flex-basis: 100px;
@@ -18,11 +18,13 @@ nav{
 	flex-shrink: 0;
 }
 
+/*주요  내용*/
 section{
 	display:flex;
 	flex-direction: column;
 	flex-grow: 12;
 	border-left: 1px solid red;
+	background-color: #F6F6F6;
 }
 section>div:first-child{
 	display: flex;
@@ -44,6 +46,8 @@ section>div:first-child{
 	height: 100px;
 	font-weight: bold;
 	align-items: stretch;
+	
+	border-top: 1px solid #EAEAEA;
 }
 #input_pname>div,#selections>div{
 	display: inline-flex;
@@ -59,22 +63,49 @@ section>div:first-child{
 	align-items: center;
 	justify-content: flex-start;
 }
+select{
+	margin: 20px;
+	font-size: 16px;
+}
+/*날짜 입력  조상 태그*/
 #order_search{
 	display: flex;
 	flex-direction: row;
-	height: 60px;
+	height: 100px;
 	align-items: stretch;
-	background-color: red;
-}
+	
+	border-top: 1px solid #EAEAEA;
+	border-bottom: 1px solid red;
+} 
+/* 날짜 버튼 css 부모 div */
 #order_search>div{
 	display: flex;
 	flex-grow: 1;
 	align-items: center;
+	justify-content: space-around;
 }
+/* 날짜  date 부모 div*/
 #order_search>div:nth-child(2){
 	flex-grow: 1;
-	background-color: blue;
 }
+#order_search>div>button{
+	font-size: 18px;
+	font-weight: bold;
+	width: 70pt;
+	height: 30pt;
+}
+/*date input 태그 css*/
+.input_date{
+	display: flex;
+	font-size: 16px;
+	font-weight: bold;
+	width: 150px;
+	height: 20px;
+	align-items: center;
+	flex-basis: 150px;
+	flex-shrink: 0;
+}
+/* submit 버튼 css*/
 input[type=submit]{
 	font-size: 20px;
 	height: 30pt;
@@ -82,7 +113,26 @@ input[type=submit]{
 	background-color: red;
 }
 
-input, select{
-	margin: 10px;
+input:not(#submitbtn){
+	margin: 20px;
 }
 
+input[type=submti]{
+	margin: 0;
+}
+
+/*재고  검색*/
+#search_title{
+	display: flex;
+	height: 60px;
+	align-items: stretch;
+	border-bottom: #EAEAEA;
+}
+#search_title>div{
+	display: flex;
+	flex-grow: 1;
+	font-size: 18px;
+	font-weight: bold;
+	align-items: center;
+	padding: 20px;
+}

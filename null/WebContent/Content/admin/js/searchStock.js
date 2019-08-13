@@ -2,13 +2,21 @@
  * 
  */
 
-//function initSelector(selector,options){
-//	for(var optionObj of options){
-//		var optionName = optionObj.option;
-//		var option = $("<option>"+optionName+"</option>");
-//		selector.append(option);
-//	}
-//}
+//select 태그 초기화
+function initSelector(selector,options){
+	selector.append($("<option>select</option>"));
+	for(var optionObj of options){
+		var optionName = optionObj.option;
+		var option = $("<option>"+optionName+"</option>");
+		selector.append(option);
+	}
+}
+
+//select 태그 삭제
+function selectEmpt(selector){
+	selector.empty();
+	selector.append($("<option>select</option>"));
+}
 
 //페이지 로딩시 실행 함수 
 //ajax로 상품이름을 가져옴
@@ -17,27 +25,47 @@ $(document).ready(function(){
 	var keywords = [];
 	var keyupflag = false;
 	var pname = $("#pname");
-	$.ajax({
-		type: "get",
-		url: "/null/GetInitSearchStockServlet",
-		dataType: "json",
-		success: function(data,status,xhr){
-			for(var value of data.keywords){
-				keywords.push(value.keyword);
-			}
-			console.log(data);
-			$(function(){
-				$("#pname").autocomplete({
-					source:keywords
+	
+	var pcode = $("#pcode");
+	var styletop = $("#styletop");
+	var stylemid = $("#stylemid");
+	var stylebot = $("#stylebot");
+	var pregitdate = $("#pregitdate");
+	
+	var submitbtn = $("input[type=submit]");
+	
+	//정규식 객체
+	var pnameReg =/^[가-힝A-Za-z0-9]{1,20}$/;
+	
+	
+	function searchInitSelector(){
+		$.ajax({
+			type: "get",
+			url: "/null/GetInitSearchStockServlet",
+			dataType: "json",
+			success: function(data,status,xhr){
+				initSelector(styletop,data.styletops);
+				initSelector(stylemid,data.stylemids);
+				initSelector(stylebot,data.stylebots);
+				for(var value of data.keywords){
+					keywords.push(value.keyword);
+				}
+				console.log(keywords);
+				$(function(){
+					$("#pname").autocomplete({
+						source:keywords
+					});
 				});
-			});
-			
-		},
-		error: function(xhr,status,e){
-			console.log("error: ",e);
-			console.log("status: ",status);
-		}
-	});
+				
+			},
+			error: function(xhr,status,e){
+				console.log("error: ",e);
+				console.log("status: ",status);
+			}
+		});
+	}
+	
+	searchInitSelector();
 	//pnanme keyup event
 	//keyup 이벤트 후 입력된 값있으면 외부 변수(keyupflag)설정 
 	pname.on("keyup",function(){
@@ -45,9 +73,21 @@ $(document).ready(function(){
 			console.log("keyup");
 			keyupflag=true;
 		}else{
-			keyupflag=false;
+			initInput();
 		}
 	});
+	
+	//input tag 초기화
+	function initInput(){
+		keywords=[];
+		styletop.empty();
+		stylemid.empty();
+		stylebot.empty();
+		pname.val("");
+		pcode.val("");
+		searchInitSelector();
+		keyupflag=false;
+	}
 	//pname blur event
 	//외부 변수에 따라 ajax. 호출 
 	pname.on("blur",function(){
@@ -61,13 +101,13 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(data,status,xhr){
 					if(data==0){
-						alert("없는값");
+						alert("상품명을 찾 을 수 없습니다.");
+						initInput();
 					}else{
-						console.log(data.pcode);
-						console.log(data.styletop);
-						console.log(data.stylemid);
-						console.log(data.stylebot);
-						console.log(data.pregitdate);
+						pcode.val(data.pcode);
+						selectEmpt(styletop);
+						selectEmpt(stylemid);
+						selectEmpt(stylebot);
 					}
 					
 				},

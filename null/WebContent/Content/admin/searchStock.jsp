@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=3" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=1" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -27,15 +27,22 @@
 		</div>
 		<div id="input_pname">
 			<div>상품명<input id="pname" name="pname"></div>
-			<div>상품코드<input type="text" disabled="disabled"></div>
-			<div><input type="submit" value="조회"></div>
+			<div>상품코드<input id="pcode" name="pcode" type="text" readonly="readonly"></div>
+			<div><input type="submit" value="조회" id="submitbtn"></div>
 		</div>
 		<div id="selections">
-			<div>대분류<input type="text" id="styletop" name="styletop" disabled="disabled">
+			<div>대분류
+				<select id="styletop" >
+				</select>
 			</div>
-			<div>중분류<input type="text" id="stylemid" name="stylemid" disabled="disabled">
+			<div>중분류
+				<select id="stylemid">
+				</select>
 			</div>
-			<div>소분류<input type="text" id="stylebot" name="stylebot" disabled="disabled">
+			<div>소분류
+				<select id="stylebot">
+				</select>
+				<input type="hidden" id="pregitdate" name="pregitdate">
 			</div>
 		</div>
 		<div id="order_search">
@@ -48,10 +55,20 @@
 				<button type="button" class="dateValue">전체</button>
 			</div>
 			<div>
-				<input type="date" id="date1" >~
-				<input type="date" id="date2" >
+				<input class="input_date" type="date" id="date1" >~
+				<input class="input_date" type="date" id="date2" >
 				<input type="hidden" id="searchDate" name="searchDate" value="">
+				<div class="input_date" style="width: 150px;">상품 등록날짜입력</div>
 			</div>
+		</div>
+		
+		<div id="search_title">
+			<div>재고코드</div>
+			<div>상품코드</div>
+			<div>상품명</div>
+			<div>가격</div>
+			<div>수량</div>
+			<div>등록날짜</div>
 		</div>
 	</section>
 </div>
@@ -131,6 +148,6 @@
 	
 </div> --%>
 </form>
-<script src="/null/Content/admin/js/searchStock.js?ver=1"></script>
+<script src="/null/Content/admin/js/searchStock.js?ver=2"></script>
 </body>
 </html>
