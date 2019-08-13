@@ -169,8 +169,12 @@ $().ready(()=>{
 		
 		if(deleteList(cno,pamount,scode)){
 			//버튼 삭제
+			var content = $(this).parents(".content");
 			var sibling = $(this).parents(".group").siblings();
 			$(this).parents(".group").remove();
+			//content 삭제
+			if(content.find(".group").length==0)content.remove();
+			
 			//투명도 설정
 			var solo = true;
 			sibling.each(function(){

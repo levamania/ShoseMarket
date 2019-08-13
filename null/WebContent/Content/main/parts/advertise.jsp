@@ -5,9 +5,9 @@
 	<!-- 	중간 사진 -->
 	<div id="ad_img">
 		<ul>
-			<li><img src="/null/Content/img/advertise/3.jpg" alt="" width="1000px" height="auto	"></li>
-			<li><img src="/null/Content/img/advertise/1.jpg" alt="" width="1000px" height="auto	"></li>
-			<li><img src="/null/Content/img/advertise/2.jpg" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
 		</ul>
 		<img width="1000px" height="auto">
 	</div>

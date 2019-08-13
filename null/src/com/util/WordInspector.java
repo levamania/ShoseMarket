@@ -123,7 +123,7 @@ public class WordInspector {
 //				if(word_list!=null)replacment = word_list.get(0);
 //				return replacment;
 //			};		
-		//function을 인자로 받는 메소드가 없으므로 대체한다.
+		//function을 인자로 받는 메소드가 버젼이 달라 없으므로 대체한다.
 		StringBuffer buffer = new StringBuffer();
 		while(matcher.find()) {
 			String atom = new String(draft.substring(matcher.start(), matcher.end()));
@@ -138,7 +138,6 @@ public class WordInspector {
 
 	public HashMap<String, Object> render(HashMap<String, Object> raw, Language target_language) throws JsonParseException, JsonMappingException, IOException{
 		String censored = this.render(mapper.writeValueAsString(raw), target_language);
-		System.out.println(censored);
 		return mapper.readValue(censored, HashMap.class);
 	}
 	

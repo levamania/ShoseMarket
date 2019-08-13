@@ -392,12 +392,10 @@ buttonSet();
 	
 	//페이지 시작시 리스팅 셋업에 따라 클릭
 	var [clicked] = Array.of(${clicked});
-	console.log(clicked);
 	if(clicked!=undefined){
 	$(".category_option").add(".deeper").each(function(){
 		var head = $(this).attr("id").toUpperCase();
 		var list = clicked[head];
-		console.log(list);
 		if(list!=null){
 			if(head=="MIN_PRICE" || head=="MAX_PRICE"){
 				$(this).find("input").val(list[0]);
@@ -409,7 +407,6 @@ buttonSet();
 							
 						if(atom==name["STYLEBOT"]){	
 							var top = $("#stylemid").find(".button:contains('"+key+"')");
-							console.log(top);
 							if(!top.hasClass("overed"))	top.next().trigger("mouseover").trigger("click");
 							top.end().find(".deeper>div:contains('"+name["STYLEBOT"]+"')").trigger("click");
 						}
@@ -454,7 +451,6 @@ buttonSet();
 		    }
 		 }
 		scroller();	
-
 	
 })
 </script>

@@ -37,6 +37,11 @@ $().ready(()=>{
 	var cover_img = $(".main>#ad_img>img");//덮어쓸 이미지
 	var animation_status = "end";//애니메이션 상태 저장용
 	
+	//초기화면 설정
+	imgs_temp.first().children().attr({"src":"/null/Content/img/advertise/"+list[list.length-1]});
+	imgs_temp.eq(1).children().attr({"src":"/null/Content/img/advertise/"+list[1]});
+	imgs_temp.last().children().attr({"src":"/null/Content/img/advertise/"+list[2]});
+	
 	//시간 딜레이 함수 - ms 단위
 	function delay(setTime){
 		var curr_time = new Date();

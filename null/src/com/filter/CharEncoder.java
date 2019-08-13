@@ -1,7 +1,6 @@
 package com.filter;
 
 import java.io.IOException;
-import java.io.ObjectInputFilter.Config;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

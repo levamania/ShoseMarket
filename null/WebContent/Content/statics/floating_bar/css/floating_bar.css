@@ -34,7 +34,7 @@
 }
 
 #floating_bar>#head{
-	height:10%;
+	height:7%;
 	width:100%;
 		
 	font-size: 12px;
@@ -43,9 +43,10 @@
 #floating_bar>#body{
 	justify-content:flex-start; 
 	
-	height:83%;
+	height:86%;
 	width:100%;
 }
+
 #floating_bar>#body>div{
 	display:flex;
 	flex-wrap:wrap;
@@ -59,6 +60,10 @@
 	border: 1px soild blue;
 	
 }
+#floating_bar>#body>div:first-child{
+	margin-top:-10%;
+}
+
 #floating_bar>#body>div>img{
 	width:80%;
 	height:75%;
