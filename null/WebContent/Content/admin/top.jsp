@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@
 
 <div style="display: inline; position: fixed; right: 0; top: 70px;">
 	<a>係員のページ&nbsp;&nbsp;&nbsp;</a>
-=======
+
 
 <style type="text/css">
 	#top_body{
@@ -48,17 +48,11 @@
 }
 </style>
 
-<div id="top_body">
-	<img src="/null/Content/img/account/NULL-Mart(LOGO).PNG"> 
-</div>
-<div id="welcome">
-	<span>~관리지님 환영합니다.</span>
->>>>>>> branch 'master' of https://github.com/levamania/ShoseMarket.git
-</div>
-<<<<<<< HEAD
+
+
 </div>
 
 </body>
 </html>
-=======
->>>>>>> branch 'master' of https://github.com/levamania/ShoseMarket.git
+
+
