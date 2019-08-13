@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="body main advertise">
+<div class="body main advertise block">
 	<!-- 	중간 사진 -->
 	<div id="ad_img">
 		<ul>
-			<li><img src="/null/Content/img/advertise/3.jpg" alt="" width="1000px" height="auto	"></li>
-			<li><img src="/null/Content/img/advertise/1.jpg" alt="" width="1000px" height="auto	"></li>
-			<li><img src="/null/Content/img/advertise/2.jpg" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
+			<li><img src="" alt="" width="1000px" height="auto	"></li>
 		</ul>
 		<img width="1000px" height="auto">
 	</div>

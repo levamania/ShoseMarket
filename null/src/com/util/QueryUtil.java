@@ -120,12 +120,23 @@ public class QueryUtil {
 	 */
 	public HashMap<String,Object> extractColumn(List<HashMap<String,Object>> list){		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
 		Set<String> column_set =  list.get(0).keySet();
 		for(String temp_key: column_set) {
 			this.key = temp_key;
-			List<Object> temp_list = list.stream().map(m->m.get(this.key)).distinct()
-									 .sorted((o1,o2)->o1.toString().compareTo(o2.toString())).collect(Collectors.toList());
+			List<Object> temp_list = list.stream().map(m->m.get(this.key))
+												   .sorted((o1,o2)->{
+													   Object alpha = o1;
+													   int result = 0;
+													   if(alpha instanceof Date) {
+														     Date date1 = (Date)alpha;
+															 result =  ((Date) alpha).compareTo((Date)o2); 
+														  }else if(alpha instanceof Integer || alpha instanceof Float || alpha instanceof Double) {
+															  result =  Integer.compare((Integer)alpha,(Integer)o2);
+														  }else {
+															  result = alpha.toString().compareTo(o2.toString());
+														  }
+													   return result;
+												   }).distinct().collect(Collectors.toList());
 			map.put(temp_key, temp_list);
 		}
 		
@@ -140,7 +151,6 @@ public class QueryUtil {
 	 */
 	public HashMap<String,Object> extractColumn(List<HashMap<String,Object>> list, HttpServletRequest request){		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.debug("mesg: headers"+ list.get(0)+"","debug");
 		Set<String> column_set =  list.get(0).keySet();
 		for(String temp_key: column_set) {
 			this.key = temp_key;

@@ -22,7 +22,36 @@
 		return string; 
 	}
 
+ 	//숫자변환 함수
+ 	function toNum(price){
+ 		var regEx = /\d{1,100}/g;
+ 		var x = price.match(regEx);
+ 		var string = "";
+ 		for(var i of x){
+ 			string+=i;
+ 		}
+ 		return Number.parseInt(string);
+ 	}
+	
 $().ready(()=>{
+	
+	//자동 스크롤 함수
+		var distance = 0;
+	  		$(".top1, .top2").each(function(){
+	  			distance += toNum($(this).css("height"));
+	  		})
+		var position = 0;
+		function scroller(){	
+			if (position < distance){
+		    	position+=10;
+		    	scroll(0,position);
+		    	clearTimeout(timer);
+		    	var timer = setTimeout(scroller,0); timer;
+		    }
+		 }
+		scroller();
+	
+	
 	
 	//가져온 데이터 가공
 	var map = ${json};
@@ -217,7 +246,7 @@ $().ready(()=>{
 									}else{
 										var [son] = JSON.parse(data); //destructing
 										let warnning = ` \n 죄송합니다. 상품이 부족합니다.
-																  \n *상품: `+son["SCODE"]+`  *선택하신 수량: `+son["PICK_QUAN"]+`  *부족한 수량: `+son["DIFFER"];
+													   \n *상품: `+son["SCODE"]+`  *선택하신 수량: `+son["PICK_QUAN"]+`  *부족한 수량: `+son["DIFFER"];
 										alert(warnning);
 										
 									}
