@@ -23,52 +23,46 @@ public class GetInitSearchStockServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
+		response.setContentType("text/plain;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		response.setContentType("text/html;charset=utf-8");
 		AdminService service = new AdminService();
-
-//		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
-//		map = service.getSearchStockOptions();
-
 		// 검색 키워드 생성
-		List<String> keywordList = service.searchPname();
-		JSONObject jsonObject = new JSONObject();
+		
+		String pname = request.getParameter("pname");
+		if (pname != null) { 
+			ProductDTO product = service.searchProduct(pname);
+			if(product==null) {
+				
+			}else {
+				JSONObject productInfo = new JSONObject();
+				productInfo.put("pcode", product.getpCode());
+				productInfo.put("styletop", product.getStyleTop());
+				productInfo.put("stylemid", product.getStyleMid());
+				productInfo.put("stylebot", product.getStyleBot());
+				productInfo.put("pregitdate", product.getpRegitDate());
+				out.print(productInfo);
+			}
+		}else {
+			List<String> keywordList = service.searchPname();
+			JSONObject jsonObject = new JSONObject();
 
-//		JSONArray styletopOptions = new JSONArray();
-//		JSONArray stylemidOptions = new JSONArray();
-//		JSONArray stylebotOptions = new JSONArray();
-		JSONArray keywords = new JSONArray();
 
-//		List<String> styletopList = map.get("styletop");
-//		List<String> stylemidList = map.get("stylemid");
-//		List<String> stylebotList = map.get("stylebot");
-//		
-//		styletopList.stream().forEach(s->{
-//			JSONObject obj = new JSONObject();
-//			obj.put("option", s);
-//			styletopOptions.add(obj);
-//		});
-//		stylemidList.stream().forEach(s->{
-//			JSONObject obj = new JSONObject();
-//			obj.put("option", s);
-//			stylemidOptions.add(obj);
-//		});
-//		stylebotList.stream().forEach(s->{
-//			JSONObject obj = new JSONObject();
-//			obj.put("option", s);
-//			stylebotOptions.add(obj);
-//		});
-		keywordList.stream().forEach(s -> {
-			JSONObject obj = new JSONObject();
-			obj.put("keyword", s);
-			keywords.add(obj);
-		});
-//		jsonObject.put("styletop", styletopOptions);
-//		jsonObject.put("stylemid", stylemidOptions);
-//		jsonObject.put("stylebot", stylebotOptions);
-		jsonObject.put("keywords", keywords);
-		System.out.println(jsonObject);
-		out.print(jsonObject);
+			JSONArray keywords = new JSONArray();
+
+
+			keywordList.stream().forEach(s -> {
+				JSONObject obj = new JSONObject();
+				obj.put("keyword", s);
+				keywords.add(obj);
+			});
+
+			jsonObject.put("keywords", keywords);
+			System.out.println(jsonObject);
+			out.print(jsonObject);
+		}
+		
 
 	}
 

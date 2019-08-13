@@ -21,8 +21,8 @@ public class AutoInputInfoServlet extends HttpServlet {
    //pname으로 product 검색 
 	//ajax 응답
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		response.setContentType("text/plain;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		AdminService service = new AdminService();
 		String pname = request.getParameter("pname");
 		if (pname != null) {

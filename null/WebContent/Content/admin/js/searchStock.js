@@ -56,7 +56,7 @@ $(document).ready(function(){
 			//ajax json 응답 처리 
 			$.ajax({
 				type: "get",
-				url: "/null/AutoInputInfoServlet",
+				url: "/null/GetInitSearchStockServlet",
 				data: {pname:pname.val()},
 				dataType: "json",
 				success: function(data,status,xhr){
