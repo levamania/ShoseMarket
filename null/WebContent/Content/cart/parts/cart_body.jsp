@@ -95,7 +95,14 @@
 							</div>
 							<div class="sell num">${ATOM.PPRICE}</div>
 							<div class="count">
-								<div>"${ATOM.PAMOUNT}" ea</div>
+								<div class="figure">
+									<span class="estate">"<span>${ATOM.PAMOUNT}</span>" ea</span>
+									<span style="display: none" class="origin">${ATOM.PAMOUNT}</span>
+								</div>
+								<div class="modi">
+									<div class="up"></div>
+									<div class="down"></div>
+								</div>
 							</div>
 							<div class="decart num">${ATOM.PPRICE * ATOM.PAMOUNT}</div>
 							<c:set var="SUM" value="${SUM+ATOM.PPRICE * ATOM.PAMOUNT}" />
@@ -150,3 +157,4 @@
 		</div>
 	</div>
 </div>
+<div style="display: none" id="login">${login.userid}</div>

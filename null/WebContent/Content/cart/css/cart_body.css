@@ -131,6 +131,8 @@
 		height:auto;
 		
 		margin: 50px 0 70px;
+		
+		font-size: 15px;
 	}
 	#cart_list>.content{
 		justify-content: flex-start;
@@ -182,7 +184,7 @@
 			text-align: center;
 		}
 		#cart_list>.content>div:nth-child(1){flex:5;}
-		#cart_list>.content>div:nth-child(2){flex:15}
+		#cart_list>.content>div:nth-child(2){flex:15;}
 		#cart_list>.content>div:nth-child(3){flex:75}
 		#cart_list>.content>.calc>div{width:25%;}
 			
@@ -218,6 +220,8 @@
 			position: relative;
 		}
 		
+		#cart_list>.content:nth-child(n+2) .item{padding-top:10px; margin-bottom:30px;}
+		
 		#cart_list .revision{
 			position:absolute;
 			left:0;right:0;
@@ -234,8 +238,7 @@
 			cursor: pointer;
 		}
 		#cart_list .revision:hover{
-			color: black;
-			border: 1px solid red;
+			border: 1px solid #ff6565;
 		}
 		
 		/* calc */
@@ -271,7 +274,7 @@
 				position: absolute;
 				top:0;right:0;
 				
-				width:6%;height: 90%;
+				width:6%;height: 80%;
 				
 				border:1px solid black;
 				
@@ -285,6 +288,56 @@
 				background-image: url("/null/Content/img/common/red_x.png");
 				border:1px solid #ff3333;
 			}
+		
+		/* 수량 */
+		.group>.count{
+			position: relative;
+			height: 15px;
+		}
+		.group>.count>div{
+			display: inline-flex;
+			flex-direction: column;
+		
+			position: absolute;
+			
+			width:20%;
+		}
+			/* 수량 수치  */
+			.group>.count>.figure{
+				width: 30%;
+				left:25%;
+				align-items: center;	
+			}
+			.group>.count>.figure>.estate>span.changed{	 font-weight:bold; color: #cc0000;}
+			.group>.count>.figure>.estate>span.changed.down{color:  #00394d;}
+		
+			/* 모디 버튼 */
+			.group>.count>.modi{
+				flex-direction:row;
+				align-items:center;
+			
+				right:20%;
+
+				width: 20%;
+				height: 100%;
+			}
+			.group>.count>.modi>div{
+				height:90%;
+				width: 50%;
+				
+				border:1px solid white;
+				cursor: pointer;
+			}
+			.group>.count>.modi>.up{
+				background-image:   url("/null/Content/img/cart/up.png");
+				background-size: 100% 100%;
+				background-repeat: no-repeat;	
+			}		
+			.group>.count>.modi>.down{
+				background-image:   url("/null/Content/img/cart/down.png");
+				background-size: 100% 100%;
+				background-repeat: no-repeat;	
+			}		
 		
 		/* 	판매가 */
 		.content .cell, .content .decart{font-weight: bold;}

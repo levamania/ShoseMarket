@@ -67,5 +67,23 @@ public class CartService {
 		return result;
 	}
 
+	public int updateCart(List<HashMap<String, Object>> list) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = MySqlSessionFactory.getSession();
+			result = dao.upadateCart(session, list);
+			ProductService service = new ProductService();
+			if(result!=service.updateProducts(MapParamInputer.set("list",list,"direction","plus"))) {
+				session.rollback();
+			}else {
+				session.commit();				
+			}
+		}finally {
+			if(session!=null)session.close();
+		}
+		return result;
+	}
+
 
 }

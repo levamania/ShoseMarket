@@ -8,6 +8,8 @@
 	align-items:flex-start;
 	justify-content:flex-end;
 	
+	position:relative;
+	
 	height: auto; 
 	border: 1px solid red;
 
