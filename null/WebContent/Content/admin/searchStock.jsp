@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=4" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=3" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -31,17 +31,26 @@
 			<div><input type="submit" value="조회"></div>
 		</div>
 		<div id="selections">
-			<div>대분류
-				<select id="styletop">			
-				</select>
+			<div>대분류<input type="text" id="styletop" name="styletop" disabled="disabled">
 			</div>
-			<div>중분류
-				<select id="stylemid">
-				</select>
+			<div>중분류<input type="text" id="stylemid" name="stylemid" disabled="disabled">
 			</div>
-			<div>소분류
-				<select id="stylebot">
-				</select>
+			<div>소분류<input type="text" id="stylebot" name="stylebot" disabled="disabled">
+			</div>
+		</div>
+		<div id="order_search">
+			<div>
+				<button type="button" class="dateValue">오늘</button>
+				<button type="button" class="dateValue">15일</button>
+				<button type="button" class="dateValue">1개월</button>
+				<button type="button" class="dateValue">3개월</button>
+				<button type="button" class="dateValue">1년</button>
+				<button type="button" class="dateValue">전체</button>
+			</div>
+			<div>
+				<input type="date" id="date1" >~
+				<input type="date" id="date2" >
+				<input type="hidden" id="searchDate" name="searchDate" value="">
 			</div>
 		</div>
 	</section>
@@ -122,6 +131,6 @@
 	
 </div> --%>
 </form>
-<script src="/null/Content/admin/js/searchStock.js"></script>
+<script src="/null/Content/admin/js/searchStock.js?ver=1"></script>
 </body>
 </html>
