@@ -5,7 +5,7 @@
 <!-- <script src="/null/Content/product_list/js/searchingOption.js"></script> -->
 <jsp:include page="/Content/product_list/js/searchingOption.jsp" flush="true"/>
 
-<c:if test="${!empty listing_setup || !empty pList}">
+<%-- <c:if test="${!empty listing_setup || !empty pList}"> --%>
 <div class="body searching_option">
 	<div class="category_option" id="styletop">
 		<div class="head">테마</div>
@@ -32,8 +32,7 @@
 			<c:forEach var="STYLE" items="${STYLEMID}">
 				<div class="button">${STYLE}</div><div></div>
 			</c:forEach>
-		<!-- AJAX 처리 -->
-		<div class="deeper"></div>
+		<div class="deeper" id="stylebot"></div>
 		</div>
 	</div>
 	<div class="category_option" id="psize">
@@ -48,7 +47,14 @@
 		<div class="head">색상</div>
 		<div class="value">
 			<c:forEach var="COLOR" items="${PCOLOR}">
-				<div class="button">${COLOR}</div>
+				<c:choose>
+					<c:when test="${COLOR=='WHITE'}">
+					<div class="button"  style="color:black">${COLOR}</div>
+					</c:when>
+					<c:otherwise>
+					<div class="button"  style="color:${COLOR};">${COLOR}</div>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</div>
 	</div>
@@ -63,4 +69,4 @@
 		<input type="hidden" name="searchedWord" value="${searchedWord}"> 
 	</form>
 </div>
-</c:if>
+<%-- </c:if> --%>

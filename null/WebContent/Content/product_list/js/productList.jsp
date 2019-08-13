@@ -15,30 +15,6 @@
  
   	$().ready(function(){
 
-  	 	
-  	  	//자동 스크롤 함수
-  	  	var distance =0;
-  	  	var temp =null;
-  	  		$(".body").each(function(){
-  	  			var height = toNum($(this).css("height"));
-  	  			var margin = toNum($(this).css("margin-top"));
-  	  			console.log($(this).css("margin-top"));
-  	  			distance += Number.parseInt(temp.substr(0,temp.length-2));
-  	  		});	
-  	  	distance -= Number.parseInt($(".bottom").css("height").substr(0,temp.length-2)); 	
-  	  	distance -= Number.parseInt($(".searched_product").css("height").substr(0,temp.length-2)); 	
-  	  	
-  		var position = 0;
-  		function scroller(){	
-  			if (position < distance){
-  		    	position+=10;
-  		    	scroll(0,position);
-  		    	clearTimeout(timer);
-  		    	var timer = setTimeout(scroller,0); timer;
-  		    }
-  		 }
-   		scroller();
-
   		
   	 //검색 셋팅 저자용 히든 인풋 태그 생성
 	  function form_generator(destination,scope){
@@ -46,7 +22,6 @@
   		 //form 태그 생성
    		  if(scope==undefined)scope = $(".searched_product");
 	  	  html += "<form name='product_form' action=' ' method='get' style='display:none'>";
-  		 console.log(scope.find("input[name='pCode']").val().trim());
 	  	  switch(destination){
 	  	  	 case "ProductListingServlet":{ 
 	  	  		 data ={

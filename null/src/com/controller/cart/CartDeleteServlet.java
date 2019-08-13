@@ -2,7 +2,9 @@ package com.controller.cart;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.model.service.CartService;
 import com.util.LoginIndicator;
+import com.util.MapParamInputer;
 
 
 @WebServlet("/CartDeleteServlet")
@@ -31,22 +34,18 @@ public class CartDeleteServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		//수용
 		String userid = LoginIndicator.check(request, response);
-		String temp = request.getParameter("cno_list");
-		logger.debug("mesg{카트:"+temp+"}");
+
+		HashMap<String, Object> reposit 
+				= MapParamInputer.set("CNO",request.getParameter("CNO") ,"PAMOUNT",request.getParameter("PAMOUNT"),
+													 "SCODE",request.getParameter("SCODE"));
+		logger.debug("mesg{임시저장:"+reposit+"}");
 		
-		JSONParser parser = new JSONParser();
-		JSONArray json = null;
-		try {
-			json = (JSONArray)parser.parse(temp);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		logger.debug("mesg{카트 넘버리스트:"+json+"}");
-		
-		List<Object> list = Arrays.asList(json.toArray());
+		List<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		list.add(reposit);
 		
 		//with model
 		CartService ser = new CartService();
+			//삭제와 동시에 재고에 다시 쌓기
 		int result = ser.deleteCart(list);
 		
 		if(result==list.size()) {

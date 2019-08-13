@@ -29,22 +29,21 @@ function toNum(price){
 }
 
 //상품삭제함수
-function deleteList(cno){
+function deleteList(cno,pamount,scode){
 	//성공여부결정
 	var success = false;	
 	var temp = new Array();
-	if(typeof cno != "object"){
-		temp = Array.of(cno)
-	}else{
-		temp = cno;
-	}
+	
+	console.log(cno, pamount, scode);
 	//ajax
 	$.ajax({
 		method:"post",
 		url: "/null/CartDeleteServlet",
 		async:false,
 		data: {
-			cno_list :JSON.stringify(temp)
+			CNO : cno,
+			PAMOUNT : pamount,
+			SCODE : scode
 		},
 		type:"text",
 		success:function(data){
@@ -99,6 +98,22 @@ function fill_blank(){
 
 $().ready(()=>{
 
+	//자동 스크롤 함수
+	var distance = 0;
+  		$(".top1, .top2").each(function(){
+  			distance += toNum($(this).css("height"));
+  		})
+	var position = 0;
+	function scroller(){	
+		if (position < distance){
+	    	position+=10;
+	    	scroll(0,position);
+	    	clearTimeout(timer);
+	    	var timer = setTimeout(scroller,0); timer;
+	    }
+	 }
+	scroller();
+	
 	
 	//css 설정
 	function gap_sizing(){
@@ -148,12 +163,18 @@ $().ready(()=>{
 		})
 		var [a,b,c] = temp;
 		var scode = a+"/"+b+"/"+c;
+		var pamount = toNum($(this).parent(".option").siblings(".count").text());
 		var cno = $(this).siblings(".cno").text();
 		
-		if(deleteList(cno)){
+		
+		if(deleteList(cno,pamount,scode)){
 			//버튼 삭제
+			var content = $(this).parents(".content");
 			var sibling = $(this).parents(".group").siblings();
 			$(this).parents(".group").remove();
+			//content 삭제
+			if(content.find(".group").length==0)content.remove();
+			
 			//투명도 설정
 			var solo = true;
 			sibling.each(function(){

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.model.dao.CartDAO;
+import com.util.MapParamInputer;
 
 public class CartService {
 	private CartDAO dao;
@@ -38,7 +39,7 @@ public class CartService {
 			result = dao.stackProduct(session,reposits);
 			
 			ProductService service = new ProductService();
-			int com = service.updateProducts(reposits);
+			int com = service.updateProducts(MapParamInputer.set("list", reposits, "direction", "minus"));
 			if(result!=com) {
 				session.rollback();
 				result = 0;
@@ -51,12 +52,14 @@ public class CartService {
 		return result;
 	}
 
-	public int deleteCart(List<Object> list) {
+	public int deleteCart(List<HashMap<String, Object>> list) {
 		SqlSession session = null;
 		int result = 0;
 		try {
 			session = MySqlSessionFactory.getSession();
-			result = dao.deleteCart(session,list);
+			result = dao.deleteCart(session, list);
+			ProductService service = new ProductService();
+			service.updateProducts(MapParamInputer.set("list",list,"direction","plus"));
 			session.commit();
 		}finally {
 			if(session!=null)session.close();

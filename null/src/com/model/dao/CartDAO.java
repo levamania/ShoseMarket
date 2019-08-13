@@ -16,7 +16,7 @@ public class CartDAO {
 		return session.insert("stackProduct", reposits);
 	}
 
-	public int deleteCart(SqlSession session, List<Object> list) {
+	public int deleteCart(SqlSession session, List<HashMap<String, Object>> list) {
 		return session.delete("deleteCart",list);
 	}
 

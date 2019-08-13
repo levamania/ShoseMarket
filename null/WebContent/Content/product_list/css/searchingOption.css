@@ -97,6 +97,10 @@
 	
 	text-align: center;
 }
+.price>.value>div>input:focus{
+	outline: none;
+}
+
 
 #max_price>.value{width:100%}
 
@@ -110,6 +114,7 @@
 #stylemid .value>div.overed{
 	color:#009999;
 	border:1px solid  #009999;
+	background-color: white;
 }
 
 
@@ -176,6 +181,8 @@
 }
 /* 선택한 조건 설정 */
 #collection>.value>.optical{
+	width:auto;
+	margin: 0 6px 0 ;
 	border:none;
 }
 #collection>.value>.optical>div:first-child{
