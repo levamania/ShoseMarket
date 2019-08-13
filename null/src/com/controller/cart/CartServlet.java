@@ -24,9 +24,9 @@ public class CartServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
 			// 세션 처리
-			String userid = LoginIndicator.check(request, response);
+			LoginIndicator indo = new LoginIndicator();
+			String userid = indo.check(request, response);
 
 			// 유틸 셋팅
 			QueryUtil util = new QueryUtil();
@@ -47,11 +47,8 @@ public class CartServlet extends HttpServlet {
 			request.setAttribute("KEY_SET", key_set);
 			request.setAttribute("PCODE_MAPPED", pcode_mapped);
 				// 사출
-			dis.forward(request, response);
+//			dis.forward(request, response);
 
-		} catch (CustomException e) {
-			response.sendRedirect("/null/LoginUIServlet");
-		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

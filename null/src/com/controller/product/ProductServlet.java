@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,7 +31,6 @@ import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.service.ProductService;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import com.util.QueryUtil;
 import com.util.MapParamInputer;
 
@@ -91,28 +91,28 @@ public class ProductServlet extends HttpServlet {
 					cook.add(c);
 					HashMap<String,String> tep = mapper.readValue(URLDecoder.decode(c.getValue() , "utf-8"), HashMap.class) ;
 					if(tep.get("PCODE").equals(product.get("PCODE")))reiteration = true;
+				}
 			}
-	
-			if(!reiteration&&cook.size()!=0) {
-				cook.sort((c1,c2)->{
-					HashMap<String, String> alpha = 
 				
+			if(cook.size()>=4) {
+				Collections.sort(cook, (c1,c2)->c1.getName().compareTo(c2.getName()));				
+				cook.get(0).setMaxAge(0);	
+				// 쿠키 삭제시 같은 패스 설정과 다시 쿠키를 관리자에게 넘겨줘 수명에따라 관리시킨다.
+				cook.get(0).setPath("/");	
+				response.addCookie(cook.get(0));	
 				
-				});
-				
-			
+			}
+					
+			if(!reiteration) {
 				HashMap<String, String> rio =
 						MapParamInputer.set("STYLEMID",product.get("STYLEMID"),"STYLEBOT",product.get("STYLEBOT"),
 														  "PIMAGE",product.get("PIMAGE"),"PNAME",product.get("PNAME"),
 														  "PCODE",product.get("PCODE"));
 				Cookie cookie  = new Cookie("Product"+(++serial), URLEncoder.encode(mapper.writeValueAsString(rio), "utf-8")); 				
+				cookie.setPath("/");
+				response.addCookie(cookie);
 			}
-			
-			
-			cookie.setPath("/");
-			response.addCookie(cookie);
-			
-			
+				
 			//WITH JSP
 			RequestDispatcher dis = request.getRequestDispatcher("/Content/product/product.jsp");
 				//정보저장

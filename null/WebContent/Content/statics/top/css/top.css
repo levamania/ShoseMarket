@@ -4,12 +4,13 @@
 
 /* top */
 html{
-	
+
 }
 body {
 	width:1000px;
 	margin: auto;
 	overflow-x:hidden;
+	overflow-y: scroll;	
 }
 
 .body {
