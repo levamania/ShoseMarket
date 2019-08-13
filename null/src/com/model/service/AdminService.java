@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
+import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.model.dao.AdminDAO;
 
@@ -94,6 +95,19 @@ public class AdminService {
 			session.close();
 		}
 		return pnames;
+	}
+
+
+
+	public ProductDTO searchProduct(String pname) {
+		ProductDTO product =null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			product = adminDAO.searchProduct(session,pname);
+		} finally {
+			session.close();
+		}
+		return product;
 	}
 	
 	

@@ -798,9 +798,10 @@ function check(re3, what, message) {
   <br />
   <input type="text" id="answer" name="answer" value="" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/>
   <input type="button" id="frmSubmit" value="확인" class="test_btn1" style="width:45pt;height:11pt;font-size:56%;background-color: white;border: 1px solid lightgray;"/>
+</td>
 </tr>
 </table>
-</td>
+
 <hr>
 <br>
 <div id="btn_group" class="align-center vi">

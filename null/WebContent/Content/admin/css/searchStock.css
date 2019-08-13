@@ -1,59 +1,88 @@
 @charset "UTF-8";
-#top_body{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-bottom: 1px solid red;
-	height: 100px;
-}
 
-#body{
-	display: flex;
+*{
 	box-sizing: border-box;
-	border-top: 1px solid #EAEAEA;
 }
 
-#body_left{
-	display: inline-flex;
-	flex-basis: 150px;
-	flex-grow: 1;
-	border-right:1px solid red;
-}
-/*left.jsp의 summary */
 
-summary{
-	font-size: 20px;
-	font-weight: bold;
-}
-.left_content{
-	font-size: 18px;
-	font-weight: bold;
-	padding-left: 40px;
-}
-.left_content>a{
-	text-decoration: none;
-}
-
-#body_content{
-	display: inline-flex;
-	flex-grow: 9;
-	flex-direction: column;
-}
-#body_content>div:nth-child(1){
+#container{
 	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+nav{
+	display: inline-flex;
+	flex-basis: 100px;
+	flex-grow: 1;
+	flex-shrink: 0;
+}
+
+section{
+	display:flex;
+	flex-direction: column;
+	flex-grow: 12;
+	border-left: 1px solid red;
+}
+section>div:first-child{
+	display: flex;
+	font-size: 30px;
+	font-weight: bold;
 	height: 100px;
 	align-items: center;
 	justify-content: center;
-	font-size: 30px;
-	font-weight: bold;
-	border-bottom: 1px solid #EAEAEA;
+	flex-direction:row;
+	border-bottom: 1px solid red;
+	flex-shrink: 0;
+	
 }
-tr{
-	font-size: 30px;
-	font-weight: bold;
-}
-.content_title{
+#input_pname,#selections{
 	display: flex;
-	align-items: center;
-	padding-left: 20px;
+	flex-shrink: 0;
+	flex-direction: row;
+	font-size: 24px;
+	height: 100px;
+	font-weight: bold;
+	align-items: stretch;
 }
+#input_pname>div,#selections>div{
+	display: inline-flex;
+	flex-grow: 1;
+	align-items: center;
+	flex-shrink: 0;
+	padding: 20px;
+	flex-basis: 420px;
+}
+#input_pname>div:nth-child(3){
+	display:flex;
+	flex-grow:1;
+	align-items: center;
+	justify-content: flex-start;
+}
+#order_search{
+	display: flex;
+	flex-direction: row;
+	height: 60px;
+	align-items: stretch;
+	background-color: red;
+}
+#order_search>div{
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+}
+#order_search>div:nth-child(2){
+	flex-grow: 1;
+	background-color: blue;
+}
+input[type=submit]{
+	font-size: 20px;
+	height: 30pt;
+	width: 60pt;
+	background-color: red;
+}
+
+input, select{
+	margin: 10px;
+}
+

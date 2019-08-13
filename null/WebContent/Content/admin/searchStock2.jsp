@@ -5,59 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=3" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=2">
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
 <script src="/null/Content/api/jquery/jquery-ui/jquery-ui.js"></script>
 <body>
-<header>
-	<jsp:include page="top.jsp"/>
-</header>
+<div><jsp:include page="top.jsp"/></div>
 <form action="/null/SearchStockServlet" method="get">
-<div id="container">
-	<nav>
-		<jsp:include page="left.jsp"/>
-	</nav>
-	<section>
-		<div>
-			상품 검색하기
-		</div>
-		<div id="input_pname">
-			<div>상품명<input id="pname" name="pname"></div>
-			<div>상품코드<input type="text" disabled="disabled"></div>
-			<div><input type="submit" value="조회"></div>
-		</div>
-		<div id="selections">
-			<div>대분류<input type="text" id="styletop" name="styletop" disabled="disabled">
-			</div>
-			<div>중분류<input type="text" id="stylemid" name="stylemid" disabled="disabled">
-			</div>
-			<div>소분류<input type="text" id="stylebot" name="stylebot" disabled="disabled">
-			</div>
-		</div>
-		<div id="order_search">
-			<div>
-				<button type="button" class="dateValue">오늘</button>
-				<button type="button" class="dateValue">15일</button>
-				<button type="button" class="dateValue">1개월</button>
-				<button type="button" class="dateValue">3개월</button>
-				<button type="button" class="dateValue">1년</button>
-				<button type="button" class="dateValue">전체</button>
-			</div>
-			<div>
-				<input type="date" id="date1" >~
-				<input type="date" id="date2" >
-				<input type="hidden" id="searchDate" name="searchDate" value="">
-			</div>
-		</div>
-	</section>
-</div>
-
-
-<%-- <div id="body">
+<div id="body">
 	<div id="body_left"><jsp:include page="left.jsp"/></div>
 	<div id="body_content">
 		<div>
@@ -129,8 +86,8 @@
 
 	</div>
 	
-</div> --%>
+</div>
 </form>
-<script src="/null/Content/admin/js/searchStock.js?ver=1"></script>
+<script src="/null/Content/admin/js/searchStock.js"></script>
 </body>
 </html>
