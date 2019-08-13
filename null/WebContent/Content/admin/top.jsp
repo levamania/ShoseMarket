@@ -17,9 +17,9 @@
 	
 <a id="/null/MainServlet" href="/null/MainServlet"><img src="/null/Content/img/account/NULL-Mart(LOGO).PNG"></a>
 
-</div>
 <div style="display: inline; position: fixed; right: 0; top: 70px;">
-	<span>係員様　こんにちは。</span>
+	<a>係員のページ&nbsp;&nbsp;&nbsp;</a>
+</div>
 </div>
 
 </body>
