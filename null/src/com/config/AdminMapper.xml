@@ -40,4 +40,8 @@
 	<select id="searchPname" resultType="string">
 		select distinct pname from product
 	</select>
+	
+	<select id="searchProduct" resultType="product">
+		select * from product where pname= #{pname}
+	</select>
 </mapper>
