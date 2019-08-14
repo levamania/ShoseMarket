@@ -91,6 +91,7 @@ $().ready(()=>{
 		           .end().children("div:eq(3)").html("<div class='delete'></div>");
 				$("#option").append(ele);
 			}
+
 			//reposit delete 기능 추가
 			setDelete_reposit(ele);
 			//reposit input 유효성 검사기능 추가
@@ -148,6 +149,7 @@ $().ready(()=>{
 			  superior.remove();
 			  //총합 다시 구하기
 			  setTotal_price();
+
 		});
 	}
 	//reposit input 버튼 설정

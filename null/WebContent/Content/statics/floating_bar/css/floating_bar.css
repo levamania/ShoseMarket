@@ -13,11 +13,11 @@
 	 width: 80px;
 	 height: 350px;
 	 
-	 border: 1px solid red;
+	 border: 2px solid #ff1a1a;
 	 box-sizing: border-box;
 	 
 	 background-color: white;
-	
+	 z-index: 0;
 }
 
 #floating_bar>*{
@@ -82,7 +82,7 @@
 
 #floating_bar>#tail{
 	position:relative;
-	top:0;
+	top:1px;left:-1px;
 	
 	height:7%;
 	width:100%;
@@ -90,7 +90,12 @@
 	font-size: 12px;
 	color:white;
 
-	background-color: #ff8080;
+	border: 1px solid  #ff1a1a;
+	border-top: 1px solid red;
+	background-color:  #ff1a1a;
 	cursor: pointer;
+	
+	z-index: 1;
+	box-sizing: content-box;
 }
 #floating_bar>#tail:hover{text-decoration: underline;}

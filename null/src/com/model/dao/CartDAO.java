@@ -20,5 +20,9 @@ public class CartDAO {
 		return session.delete("deleteCart",list);
 	}
 
+	public int upadateCart(SqlSession session, List<HashMap<String, Object>> list) {
+		return session.update("updateCart", list);
+	}
+
 
 }

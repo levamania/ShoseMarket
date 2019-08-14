@@ -106,15 +106,16 @@
 									success: function(data, status, xhr){
 												var arr = data;
 												var html = "<div style='position:absolute;left:-10%;top:100%;width:108%;height:auto;" +
-																					"display:flex;flex-direction:column;align-items:center;"+
+																					"display:flex;flex-direction:column;align-items:space-between;"+
 																					"background-color:white;z-index:11;" +
-																					"padding: 0 5px 5px; 5px;border: 1px solid black;color:black;" + "'>\n";
+																					"padding: 0 5px 5px;border: 1px solid black;color:black;" + "'>\n";
 																					
 												for(var color in arr){
-													var font_color = color;
-													if(color=="WHITE")font_color = "BLACK";
-													html += "<div style='height:20px;margin-top:5px;font-family:san-serif;"+
-																					 "color:"+font_color+";font-size:15px;align-self:center;'>"+
+													var background_color = "";
+													if(color=="WHITE")background_color = "BLACK";
+													html += "<div style='line-height:14px;margin-top:5px;background-color:"+ background_color +
+																					 ";color:"+color+";font-size:13px;font-weight:bold;align-self:center;" +
+																					 "'>"+
 													              color+"</div>";
 		
 													for(var atom of arr[color]){
@@ -125,8 +126,11 @@
 														var nbsp = "";	//사이즈 재고간의 간격
 														for(var i=0;i<5;i++)nbsp+="&nbsp;";
 														
-														html+= "<div clas='spec' style=';height:15px;font-size:13px;'>"+
-																	  size+nbsp+checker+"</div>";
+														html+= "<div clas='spec' style=';height:15px;font-size:13px;width:100%" +
+																	 "display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between; '>"+
+																	  	"<div style='display:inline-block;width:49%'>"+size+"</div>" +
+																	  	"<div style='display:inline-block;width:49%'>"+checker+"</div>" +																	  
+																	  "</div>";														
 														
 													}
 												}		

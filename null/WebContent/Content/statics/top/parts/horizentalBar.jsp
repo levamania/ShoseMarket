@@ -74,7 +74,7 @@
 					</div>
 					<div id="two">
 						<a >옥스퍼드</a><br>
-						<a >힐</a>
+						<a >하이힐</a>
 					</div>
 				</div>
 			</div>

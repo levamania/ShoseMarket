@@ -68,7 +68,7 @@ function setPrice(){
 		$(this).find(".group").each(function(){
 			var decart = $(this).find(".decart");
 			var sell = $(this).find(".sell");
-			var count = $(this).find(".count");
+			var count = $(this).find(".count").find(".estate");
 			
 			var temp = toNum(count.text())*toNum(sell.text());
 			decart.text(toWon(temp));
@@ -163,7 +163,7 @@ $().ready(()=>{
 		})
 		var [a,b,c] = temp;
 		var scode = a+"/"+b+"/"+c;
-		var pamount = toNum($(this).parent(".option").siblings(".count").text());
+		var pamount = toNum($(this).parent(".option").siblings(".count").find(".estate").text());
 		var cno = $(this).siblings(".cno").text();
 		
 		
@@ -198,7 +198,81 @@ $().ready(()=>{
 	})//end fuc
 	
 	
-
+	//변경 버튼 설정
+	$(".revision").on("click", function(){
+		var vacteria = [];
+		var ruvido = [];
+		$(this).parents(".content").find(".group").each(function(){
+			var selector = $(this).find(".estate>span");
+			if(selector.hasClass("changed")){
+				//변한 그룹 저장
+				ruvido.push($(this));
+				
+				var pamount = toNum(selector.text());
+				var origin = toNum(selector.parent().next().text());
+				var differ = origin-pamount;
+				var userid = $("#login").text();
+				
+				var prompt = [];
+				$(this).find(".option>div>span").each(function(){prompt.push($(this).text())})
+				var [color, size, name] = prompt;
+				var scode = color+"/"+size+"/"+name;
+				//저장소에 추가
+				vacteria.push({"USERID": userid, "SCODE":scode, "PAMOUNT":pamount, "DIFFER":differ});
+			}		
+		})//end looping
+		
+		console.log(vacteria);
+		//ajax
+		$.ajax({
+			method:"post",
+			url:"/null/CartUpdateServlet",
+			async:false,
+			data:{list:JSON.stringify(vacteria)},
+			type:"text",
+			success:function(data){
+				if(data=="success"){
+					for(var atom of ruvido){			
+						var selector = atom.find(".estate>span");
+						var pamount = toNum(selector.text());
+						var origin = selector.parent().next();
+						
+						origin.text(pamount);
+						selector.removeClass("changed").removeClass("down");			
+					}	
+				}
+			},
+			error:function(error){
+				
+			}	
+		})//end ajax
+		
+		
+	})
+	
+	//수량 변경 버튼 설정
+	$(".count>.modi").children().on("click",function(){
+		var estate_num = $(this).parents(".count").find(".estate>span");
+		var spec = toNum(estate_num.text());
+		var origin = estate_num.parent(".estate").next().text();
+		if($(this).hasClass("up")){
+			spec++;
+			if(spec>=100)spec=99;
+		}else if($(this).hasClass("down")){
+			spec--;
+			if(spec<=0)spec=1;
+		}
+		estate_num.text(spec);
+		console.log(origin);
+		if(spec!=origin && !estate_num.hasClass("changed")){
+			estate_num.addClass("changed");
+			if(spec<origin)estate_num.addClass("down");
+		}else if(spec==origin){
+			estate_num.removeClass("changed").removeClass("down");
+		}
+		setPrice();
+		
+	})
 	
 
 	

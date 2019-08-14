@@ -31,12 +31,12 @@ body {
 /*top menu: 상단에 고정되어 있는 로그인,장바구니, 마이페이지 등*/
 .top.menu {
 	position: relative;
-	left: 80%;
+	left: 75%;
 	top: 1%;
 }
 
 .static_menu {
-	font-size: 10px;
+	font-size: 11px;
 	color: gray;
 	cursor: pointer;
 }

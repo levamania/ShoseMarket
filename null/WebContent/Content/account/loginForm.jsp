@@ -196,8 +196,8 @@
 	
   <ul style="background-color: white;" >
   
-    <li><a href="#tabs-1" style="background-color: white;border-color: red;border: 1px;color: black;outline-color: red;">회원 로그인</a></li>
-    <li><a href="#tabs-2"style="background-color: white;border-color: red;border: 1px;color: black;outline-color: red;">관리자 로그인</a></li>
+    <li><a href="#tabs-1" style="background-color: white;border-color: red;border: 1px;color: black;outline: none;">회원 로그인</a></li>
+    <li><a href="#tabs-2"style="background-color: white;border-color: red;border: 1px;color: black;outline: none">관리자 로그인</a></li>
   
   </ul>
  
