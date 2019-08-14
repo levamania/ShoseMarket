@@ -8,6 +8,12 @@
 		select cno, pcode, pname, psize, pcolor, pprice, pamount
 		from cart
 		where userid = #{USERID}
+		<if test="PCODE_LIST!=null">
+			and pcode in
+			<foreach collection="PCODE_LIST" item="ITEM"  open="(" close=")" separator=",">
+				#{ITEM}
+			</foreach>
+		</if>
 		order by pcode, pcolor
 	</select>
 

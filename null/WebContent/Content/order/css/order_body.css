@@ -72,9 +72,10 @@
 			
 			font-size: 13px;
 			font-weight: bold;
+			color:gray;
 		}
 				
-		.phase:nth-child(n+2){color: gray;}
+		.phase:nth-child(2){color: black;}
 		.phase:nth-child(4){width: 7%;}
 			
 		.phase>.img{
@@ -95,8 +96,8 @@
 			
 		}
 		
-		.phase:nth-child(1)>.img{background-image: url("/null/Content/img/cart/yellow_round.png");}
-		.phase:nth-child(n+2)>.img{background-image: url("/null/Content/img/cart/gray_round.png");}
+		.phase:nth-child(n)>.img{background-image: url("/null/Content/img/cart/gray_round.png");}
+		.phase:nth-child(2)>.img{background-image: url("/null/Content/img/cart/yellow_round.png");}
 		.phase:nth-child(4)>.img{width: 100%;}
 
 			.phase>.img>img{
@@ -129,7 +130,7 @@
 	#cart_list{
 		height:auto;
 		
-		margin: 50px 0 70px;
+		margin: 50px 0 30px;
 		
 		font-size: 15px;
 	}
@@ -146,19 +147,8 @@
 		background-color: #f8f8f8;
 	}
 	#cart_list>.content:nth-child(n+2){height:auto;}
-	#cart_list>.content:last-child{
-		height:30px;
-		
-		padding:0;
-		border-bottom: 1px solid #d9cbcb;
-	}
-	#cart_list>.content:last-child>div{
-		display:inline-flex;
-		align-items:center;
-		justify-content:center;
-	
-		height:100%;
-	}
+	#cart_list>.content:last-child{border-bottom: 1px solid #d9cbcb;}
+
 	#cart_list>.content:last-child>div:last-child{justify-content:flex-start;}
 	
 	/* 	선택적 상품 삭제 */
@@ -182,14 +172,14 @@
 		#cart_list>.content>div{
 			text-align: center;
 		}
-		#cart_list>.content>div:nth-child(1){flex:5;}
-		#cart_list>.content>div:nth-child(2){flex:15;}
-		#cart_list>.content>div:nth-child(3){flex:75}
+		#cart_list>.content>div:nth-child(1){flex:20;}
+		#cart_list>.content>div:nth-child(2){flex:80;}
+
 		#cart_list>.content>.calc>div{width:25%;}
 			
 			#cart_list>.content>.calc>div>div:nth-child(6n+1){width:25%;}
 			#cart_list>.content:nth-child(n+2)>.calc>.group>div:nth-child(4n+1){
-				padding-left:30px;
+				padding-left:45px;
 				
 				text-align: left;
 			}
@@ -199,27 +189,13 @@
 		
 			#cart_list>.content>.calc>.group{width:100%;}
 		
-		#cart_list>.content>div:nth-child(4){
-			display:inline-flex;
-			flex-direction:column;
-			align-items:center;
-			justify-content:center;
-			
-			width:100%;
-			height:100%;
-			
-			flex:10;align-self: center;
-		}
-		
-		#cart_list>.content:last-child>div:nth-child(1){flex:5}
-		#cart_list>.content:last-child>div:nth-child(2){flex:95; text-align: left; padding-left: 5%;}
-		
+
 		/* 	옵션변경버튼 */
 		#cart_list .item{
 			position: relative;
 		}
 		
-		#cart_list>.content:nth-child(n+2) .item{padding-top:10px; margin-bottom:30px;}
+		#cart_list>.content:nth-child(n+2) .item{padding-top:10px;}
 		
 		#cart_list .revision{
 			position:absolute;
@@ -304,66 +280,16 @@
 			/* 수량 수치  */
 			.group>.count>.figure{
 				width: 30%;
-				left:25%;
+				left:35%;
 				align-items: center;	
 			}
-			.group>.count>.figure>.estate>span.changed{	 font-weight:bold; color: #cc0000;}
-			.group>.count>.figure>.estate>span.changed.down{color:  #00394d;}
-		
-			/* 모디 버튼 */
-			.group>.count>.modi{
-				flex-direction:row;
-				align-items:center;
-			
-				right:20%;
-
-				width: 20%;
-				height: 100%;
-			}
-			.group>.count>.modi>div{
-				height:90%;
-				width: 50%;
-				
-				border:1px solid white;
-				cursor: pointer;
-			}
-			.group>.count>.modi>.up{
-				background-image:   url("/null/Content/img/cart/up.png");
-				background-size: 100% 100%;
-				background-repeat: no-repeat;	
-			}		
-			.group>.count>.modi>.down{
-				background-image:   url("/null/Content/img/cart/down.png");
-				background-size: 100% 100%;
-				background-repeat: no-repeat;	
-			}		
 		
 		/* 	판매가 */
 		.content .cell, .content .decart{font-weight: bold;}
 		/* 수학부호 */
 		.math{position: absolute;}
-		.math.multi{right:45%;}
-		.math.equal{right:27%;}
-		
-		
-		/* 	결정 */
-		.calc~.decision{
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-		.content .decision>div{
-			width: 80%;
-			height: 30%;
-			
-			margin: 2px 0 2px;
-		
-			text-align: center;
-			cursor: pointer;
-		}
-		
-		.content .decision>div:first-child{background-color: red;color: white;}		
-		.content .decision>div:last-child{border:1px solid #e6e6e6; color: gray;}		
+		.math.multi{right:40%;}
+		.math.equal{right:20%;}
 		
 		
 	
@@ -388,7 +314,7 @@
 			position:absolute;
 			right: 15%;top:2px;
 			
-			width:65%;
+			width:63%;
 			height: 3px;
 
 			background-image: url("/null/Content/img/cart/wave-line.png");
@@ -397,13 +323,14 @@
 		
 	/* 	합계 및 결제 */
 	#cart_total{
-		height:200px;
+		height:60px;
+		margin-bottom:30px;
 	}
 	#cart_total>.content{
 		justify-content: space-around;
 	}
 	#cart_total>.content:nth-child(1){
-		height:30%;
+		height:100%;
 			
 		border: 1px solid black;
 	}
@@ -483,3 +410,6 @@
 		color: gray;			
 	}
 	#cart_total>.content:nth-child(2)>div:nth-child(2){margin: 0 20px 0 20px}
+	
+	
+/* **************결제창 *********************/

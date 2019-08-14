@@ -39,6 +39,11 @@
 								   				from stock
 								   				group by pCode) m, searchedWord w
 		where p.pcode = s.pcode and s.pcode = m.pcode and p.pname = w.sword(+)
+			<if test="STYLETOP!=null">and styletop in
+			 	<foreach collection="STYLETOP" item="item" open="(" close=")"  separator=",">
+			 		#{item}	
+			 	</foreach>
+			 </if>
 			<if test="STYLEMID!=null">and styleMid in
 			 	<foreach collection="STYLEMID" item="item" open="(" close=")"  separator=",">
 			 		#{item}	

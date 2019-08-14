@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" style="text/css"
-	href="/null/Content/cart/css/cart_body.css">
-<script src="/null/Content/cart/js/cart_body.js"></script>
+	href="/null/Content/order/css/order_body.css">
+<script src="/null/Content/order/js/order_body.js"></script>
 
 <div class="body cart">
 	<div class="container" id="cart_logo">
@@ -13,13 +13,14 @@
 		<div class="content">
 			<div class="phase">
 				<div class="img">
-					<img src="/null/Content/img/cart/basket.png">
 				</div>
 				<div class="text">01</div>
 				<div class="text">장바구니</div>
 			</div>
 			<div class="phase">
-				<div class="img"></div>
+				<div class="img">
+					<img src="/null/Content/img/cart/basket.png">
+				</div>
 				<div class="text">02</div>
 				<div class="text">주문서작성/결제</div>
 			</div>
@@ -36,9 +37,6 @@
 	</div>
 	<div class="container" id="cart_list">
 		<div class="content">
-			<div>
-				<input type="checkbox" class="chief">
-			</div>
 			<div>상품명</div>
 			<div class="calc">
 				<div>옵션</div>
@@ -46,18 +44,13 @@
 				<div>수량</div>
 				<div>주문금액</div>
 			</div>
-			<div>선택</div>
 		</div>
 		<c:set var="TOTAL" value="0" />
 		<c:forEach var="ITEM" items="${KEY_SET}">
-			<div class="content product">
-				<div>
-					<input type="checkbox" class="selection">
-				</div>
+			<div class="content">
 				<div class="item">
-					<span>${ITEM}</span>
+					<span>${ITEM}.</span>
 					<span class="pname"></span>
-					<div class="revision">변경</div>
 				</div>
 				<div class="calc">
 					<!-- 변수설정 -->
@@ -91,17 +84,12 @@
 									</c:otherwise>
 								</c:choose>
 								<div class="cno">${ATOM.CNO}</div>
-								<div class="quak"></div>
 							</div>
 							<div class="sell num">${ATOM.PPRICE}</div>
 							<div class="count">
 								<div class="figure">
 									<span class="estate">"<span>${ATOM.PAMOUNT}</span>" ea</span>
 									<span style="display: none" class="origin">${ATOM.PAMOUNT}</span>
-								</div>
-								<div class="modi">
-									<div class="up"></div>
-									<div class="down"></div>
 								</div>
 							</div>
 							<div class="decart num">${ATOM.PPRICE * ATOM.PAMOUNT}</div>
@@ -110,10 +98,6 @@
 							<div class="math equal">=</div>
 						</div>
 					</c:forEach>
-				</div>
-				<div class="decision">
-					<div>바로구매</div>
-					<div>삭제</div>
 				</div>
 				<div class="sum">
 					<div>
@@ -124,14 +108,6 @@
 				</div>
 			</div>
 		</c:forEach>
-		<div class="content last">
-			<div>
-				<input type="checkbox" class="chief">
-			</div>
-			<div>
-				<div  id="optional_delete">선택상품 삭제</div>
-			</div>
-		</div>
 	</div>
 	<div class="container" id="cart_total">
 		<div class="content">
@@ -149,11 +125,6 @@
 				<div>결정예정금액</div>
 				<div id="final" class="num">${TOTAL + 2500}</div>
 			</div>
-		</div>
-		<div class="content">
-			<div>계속 쇼핑하기</div>
-			<div id="selectable">선택상품 주문하기</div>
-			<div id="entire">전체상품 주문하기</div>
 		</div>
 	</div>
 </div>

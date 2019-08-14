@@ -5,7 +5,7 @@
 <!-- <script src="/null/Content/product_list/js/searchingOption.js"></script> -->
 <jsp:include page="/Content/product_list/js/searchingOption.jsp" flush="true"/>
 
-<%-- <c:if test="${!empty listing_setup || !empty pList}"> --%>
+<c:if test="${!empty listing_setup || !empty pList}">
 <div class="body searching_option">
 	<div class="category_option" id="styletop">
 		<div class="head">테마</div>
@@ -69,4 +69,4 @@
 		<input type="hidden" name="searchedWord" value="${searchedWord}"> 
 	</form>
 </div>
-<%-- </c:if> --%>
+</c:if>
