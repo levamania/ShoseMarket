@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 <header>
 	<jsp:include page="top.jsp"/>
 </header>
-<form action="/null/SearchStockServlet" method="get">
+<form action="/null/SearchStockServlet" method="post">
 <div id="container">
 	<nav>
 		<jsp:include page="left.jsp"/>
@@ -32,15 +33,15 @@
 		</div>
 		<div id="selections">
 			<div>대분류
-				<select id="styletop" >
+				<select id="styletop" name="styletop">
 				</select>
 			</div>
 			<div>중분류
-				<select id="stylemid">
+				<select id="stylemid" name="stylemid">
 				</select>
 			</div>
 			<div>소분류
-				<select id="stylebot">
+				<select id="stylebot" name="stylebot">
 				</select>
 				<input type="hidden" id="pregitdate" name="pregitdate">
 			</div>
@@ -70,84 +71,23 @@
 			<div>수량</div>
 			<div>등록날짜</div>
 		</div>
+		<c:if test="${empty orders}">
+			<div>없음</div>
+		</c:if>
+		<c:if test="${!empty orders}">
+			<div class="search_body">
+				<div>재고코드</div>
+				<div>상품코드</div>
+				<div>상품명</div>
+				<div>가격</div>
+				<div>수량</div>
+				<div>등록날짜</div>
+			</div>
+		</c:if>
 	</section>
 </div>
 
-
-<%-- <div id="body">
-	<div id="body_left"><jsp:include page="left.jsp"/></div>
-	<div id="body_content">
-		<div>
-			<span>상품 검색하기</span>
-		</div>
-		<div>
-			<table>
-				<tr>
-					<td>상품명</td>
-					<td><input id="pname" name="pname"></td>
-					<td>상품코드</td>
-					<td><input type="text" disabled="disabled"></td>
-					<td colspan="2"><input type="submit" value="조회"></td>
-				</tr>
-				<tr>
-					<td>대분류</td>
-					<td>
-						<select id="styletop">
-							
-						</select>
-					</td>
-					<td>중분류</td>
-					<td>
-						<select id="stylemid">
-							
-						</select>
-					</td>
-					<td>소분류</td>
-					<td>
-						<select id="stylebot">
-							
-						</select>
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="6">
-						<div id="order_search">
-							<button type="button" class="dateValue">오늘</button>
-							<button type="button" class="dateValue">15일</button>
-							<button type="button" class="dateValue">1개월</button>
-							<button type="button" class="dateValue">3개월</button>
-							<button type="button" class="dateValue">1년</button>
-							<button type="button" class="dateValue">전체</button>
-							<input type="date" id="date1" >~
-							<input type="date" id="date2" >
-							<input type="hidden" id="searchDate" name="searchDate" value="">
-						</div>
-					</td>
-				</tr>
-			</table>
-			<table>
-				<tr>
-					<td colspan="6"><div style="border-top: 1px solid red;"></div></td>
-				</tr>
-				<tr>
-					<th>scode</th>
-					<th>pcode</th>
-					<th>상품명</th>
-					<th>가격</th>
-					<th>재고</th>
-					<th>등록일</th>
-				</tr>
-				<tr>
-					<td colspan="6"><div style="border-bottom: 1px solid red;"></div></td>
-				</tr>
-			</table>
-		</div>
-
-	</div>
-	
-</div> --%>
 </form>
-<script src="/null/Content/admin/js/searchStock.js?ver=2"></script>
+<script src="/null/Content/admin/js/searchStock.js?ver=11"></script>
 </body>
 </html>

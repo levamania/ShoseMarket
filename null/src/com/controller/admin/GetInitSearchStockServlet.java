@@ -92,7 +92,6 @@ public class GetInitSearchStockServlet extends HttpServlet {
 			jsonObject.put("styletops", styletops);
 			jsonObject.put("stylemids", stylemids);
 			jsonObject.put("stylebots", stylebots);
-			System.out.println(jsonObject);
 			out.print(jsonObject);
 		}
 		

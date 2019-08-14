@@ -13,6 +13,7 @@
 		<typeAlias type="com.dto.OrderEvalListDTO" alias="OrderEvalListDTO"/>
 		<typeAlias type="com.dto.EvalDTO" alias="EvalDTO"/>
 		<typeAlias type="com.dto.ManagerDTO" alias="ManagerDTO"/>
+		<typeAlias type="com.dto.StockJoinProductDTO" alias="StockJoinProductDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

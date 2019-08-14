@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.config.MySqlSessionFactory;
 import com.dto.ProductDTO;
 import com.dto.StockDTO;
+import com.dto.StockJoinProductDTO;
 import com.model.dao.AdminDAO;
 
 public class AdminService {
@@ -109,6 +110,20 @@ public class AdminService {
 		}
 		return product;
 	}
+
+
+
+	public List<StockJoinProductDTO> searchStock(HashMap<String, String> map) {
+		List<StockJoinProductDTO> list = null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			list =  adminDAO.searchStock(session,map);
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+
 	
 	
 }

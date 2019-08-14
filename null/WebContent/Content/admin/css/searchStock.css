@@ -136,3 +136,19 @@ input[type=submti]{
 	align-items: center;
 	padding: 20px;
 }
+
+.search_body{
+	display: flex;
+	height: 60px;
+	align-items: stretch;
+	border-bottom: #EAEAEA;
+}
+.search_body>div{
+	display: flex;
+	flex-grow: 1;
+	font-size: 18px;
+	font-weight: bold;
+	align-items: center;
+	padding: 20px;
+}
+

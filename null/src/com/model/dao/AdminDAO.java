@@ -1,11 +1,13 @@
 package com.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.ProductDTO;
 import com.dto.StockDTO;
+import com.dto.StockJoinProductDTO;
 import com.util.SessionCheckInterface;
 
 public class AdminDAO {
@@ -56,6 +58,10 @@ public class AdminDAO {
 
 	public ProductDTO searchProduct(SqlSession session, String pname) {
 		return session.selectOne("com.dto.Admin.searchProduct", pname);
+	}
+
+	public List<StockJoinProductDTO> searchStock(SqlSession session, HashMap<String, String> map) {
+		return session.selectList("com.dto.Admin.searchStock", map);
 	}
 
 	

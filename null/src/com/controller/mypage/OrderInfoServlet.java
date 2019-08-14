@@ -37,7 +37,7 @@ public class OrderInfoServlet extends HttpServlet implements SessionCheckInterfa
 			HashMap<String, String> map = new HashMap<String,String>();
 			String day = request.getParameter("day");
 			if(day==null ||day.equals("15일")) {
-				map= SearchOrderCalDate.getDate("", SearchOrderCalDate.DAYS);
+				map= SearchOrderCalDate.getDate("15", SearchOrderCalDate.DAYS);
 				selectDays="15일";
 			}else if(day.equals("오늘")) {
 				map = SearchOrderCalDate.getDate("", SearchOrderCalDate.TODAY);

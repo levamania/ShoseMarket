@@ -44,4 +44,37 @@
 	<select id="searchProduct" resultType="product">
 		select * from product where pname= #{pname}
 	</select>
+	
+	<select id="searchStock" parameterType="hashmap" resultType="StockJoinProductDTO">
+		select sCode, pCode ,pSize, pColor, pPrice, pAmount,
+		deliverFee_YN, styleTop, styleMid, styleBot, pName, pImage, pRegitDate
+		from stock join product
+		using(pCode)
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<if test="pname!=null">
+				pname = #{pname}
+			</if>
+			<if test="pname==null">
+				<if test="styletop!=null">
+					and styletop=#{styletop}
+				</if>
+				<if test="stylemid!=null">
+					and stylemid=#{stylemid}
+				</if>
+				<if test="stylebot!=null">
+					and stylebot=#{stylebot}
+				</if>
+			</if>
+			<if test="start!=null">
+				and pregitdate between #{start} and #{end}
+			</if>
+			<if test="start==null">
+				<if test="end!=null">
+					and pregitdate = #{pregidate}
+				</if>
+				
+			</if>
+		</trim>
+		order by pCode
+	</select>
 </mapper>

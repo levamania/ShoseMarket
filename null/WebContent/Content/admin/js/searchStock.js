@@ -4,7 +4,7 @@
 
 //select 태그 초기화
 function initSelector(selector,options){
-	selector.append($("<option>select</option>"));
+	selector.append($("<option >select</option>"));
 	for(var optionObj of options){
 		var optionName = optionObj.option;
 		var option = $("<option>"+optionName+"</option>");
@@ -50,7 +50,7 @@ $(document).ready(function(){
 				for(var value of data.keywords){
 					keywords.push(value.keyword);
 				}
-				console.log(keywords);
+				
 				$(function(){
 					$("#pname").autocomplete({
 						source:keywords
@@ -70,7 +70,7 @@ $(document).ready(function(){
 	//keyup 이벤트 후 입력된 값있으면 외부 변수(keyupflag)설정 
 	pname.on("keyup",function(){
 		if(pname.val().length!=0){
-			console.log("keyup");
+			
 			keyupflag=true;
 		}else{
 			initInput();
@@ -92,7 +92,7 @@ $(document).ready(function(){
 	//외부 변수에 따라 ajax. 호출 
 	pname.on("blur",function(){
 		if(keyupflag){
-			console.log("blur");
+			
 			//ajax json 응답 처리 
 			$.ajax({
 				type: "get",
@@ -133,6 +133,14 @@ function dateValueRemoveCss(){
 //날짜 버튼 클릭시 css 설정 
 // dateValue 설정
 $(document).ready(function() {
+var pname = $("#pname");
+	
+	var pcode = $("#pcode");
+	var styletop = $("#styletop");
+	var stylemid = $("#stylemid");
+	var stylebot = $("#stylebot");
+	var pregitdate = $("#pregitdate");
+	
 	var searchDate = $("#searchDate");
 	var date1 = $("#date1");
 	var date2 = $("#date2");
@@ -142,6 +150,8 @@ $(document).ready(function() {
 	$(".dateValue").each(function(idx,button) {
 		$(this).on("click",function(){
 			dateValueRemoveCss();
+			date1.val("");
+			date2.val("");
 			$(this).css("background-color","red");
 			var date= $(this).text();
 			searchDate.val(date);
@@ -181,9 +191,40 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("form").on("submit",function(){
+	/*$("form").on("submit",function(){
 		if(!searchDate.val()){
 			alert("등록일 검색 옵션을 선택하세요.");
+			return false;
+		}
+	});*/
+	
+});
+
+//입력 태그 value값 확인
+function sumValue(...tags){
+	var sum="";
+	for(var tag of tags){
+		sum+=tag.val();
+	}
+	return sum;
+}
+
+//submit 유효성 검
+//searchDate, pname, styletop,stylemid, sytlebot중 하나라도 없다면
+$(document).ready(function(){
+	var pname = $("#pname");
+	var pcode = $("#pcode");
+	var styletop = $("#styletop");
+	var stylemid = $("#stylemid");
+	var stylebot = $("#stylebot");
+	var pregitdate = $("#pregitdate");
+	var searchDate = $("#searchDate");
+	
+	//submit event 검사
+	$("form").on("submit",function(){
+		var outdata=sumValue(pname,styletop,stylemid,stylebot,searchDate);
+		if(outdata=='selectselectselect'){
+			alert("검색할 상품명, 스타일, 등록일 지정해주세요");
 			return false;
 		}
 	});
