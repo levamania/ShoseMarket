@@ -5,14 +5,16 @@
 <script src="/null/Content/order/js/order_address.js"></script>
 	
 <div class="body" >
-	<span>주문 고객 정보</span>
+	<span class="title">주문 고객 정보</span>
 	<div id="customer" class="box">
-		<div class="boxer">
-			<div class="head"><span>*</span>주문하시는 분</div>
-			<div class="context"><input type="text">  <input type="checkbox"> 주문자 변경</div>
+		<div class="boxer name">
+			<div class="head"><div class="star">*</div><div>주문하시는 분</div></div>
+			<div class="context" style="width:90%;">
+				<input type="text" style="width:10%;"> <input type="checkbox"> 주문자 변경
+			</div>
 		</div>
-		<div class="boxer">
-			<div class="head"><span>*</span>휴대폰 번호</div>
+		<div class="boxer phone">
+			<div class="head"><div class="star">*</div>휴대폰 번호</div>
 			<div class="context">
 				<select>
 					<option>010</option>
@@ -26,27 +28,30 @@
 			</div>
 		</div>
 		<div class="boxer">
-			<div class="head"><span>*</span>이메일 주소</div>
-			<div class="context"><input type="text">@<input type="text"></div>
+			<div class="head"><div class="star">*</div>이메일 주소</div>
+			<div class="context"><input type="text"> @ <input type="text"></div>
 		</div>
 	</div>
 
-	<span>배송지 정보</span>
+	<span class="title">배송지 정보</span>
 	<div id="address" class="box">
 		<div class="boxer">
 			<div class="head">배송방법</div>
-			<div class="context"></div>
-		</div>
-		<div class="boxer">
-			<div class="head"><span>*</span>이름</div>
 			<div class="context">
-				<input type="text">
-				<input type="radio" name="copy"><input type="radio" name="copy"><input type="radio" name="copy">
-				<span>내 주소록</span>
+				<input type="radio" name="deliver" checked="checked"> <span>일반택배</span>
+				<input type="radio" name="deliver"> <span>매장수령</span>
+				</div>
+		</div>
+		<div class="boxer name">
+			<div class="head"><div class="star">*</div>이름</div>
+			<div class="context">
+				<input type="text" style="width:10%;">
+				<input type="radio" name="copy"> 주문자와 동일 <input type="radio" name="copy"> 신규 입력 <input type="radio" name="copy"> 최근 배송지
+				<span id="book">내 주소록</span>
 			</div>
 		</div>
-		<div class="boxer">
-			<div class="head"><span>*</span>휴대폰 번호</div>
+		<div class="boxer phone">
+			<div class="head"><div class="star">*</div>휴대폰 번호</div>
 			<div class="context">
 				<select>
 					<option>010</option>
@@ -56,11 +61,11 @@
 					<option>018</option>
 					<option>019</option>
 				</select>
-				-<input type="text">-<input type="text">
+				- <input type="text"> - <input type="text">
 			</div>
 		</div>
-		<div class="boxer">
-			<div class="head"><span>*</span>전화 번호</div>
+		<div class="boxer bell">
+			<div class="head">전화 번호</div>
 			<div class="context">
 				<select>
 					<option>02</option>
@@ -70,18 +75,97 @@
 					<option>041</option>
 					<option>042</option>
 				</select>
-				-<input type="text">-<input type="text">
+				- <input type="text"> - <input type="text">
 			</div>
 		</div>
-		<div class="boxer">
-			<div class="head"><span>*</span>주소</div>
-			<div class="context"></div>
+		<div class="boxer address">
+			<div class="head"><div class="star">*</div>주소</div>
+			<div class="context">
+				<input type="text" id="postcode" placeholder="우편번호" style="width: 15%;">
+				<div onclick="execDaumPostcode()">우편번호 찾기</div><br>
+				<input type="text" id="roadAddress" style="width: 30%;">
+				<span id="guide" style="color:#999;display:none"></span>
+				<input type="text" id="detailAddress" placeholder="상세주소" style="width: 25%;">
+			</div>
 		</div>
-		<div class="boxer">
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<script>
+		    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+		    function execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var addr = ''; // 도로명 주소 변수
+		                var extraAddr = ''; // 참고 항목 변수
+		
+		             	//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		                    addr = data.roadAddress;
+		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                    addr = data.jibunAddress;
+		                }
+		                
+		                if (data.userSelectedType === 'R'){
+		                	
+		                	 // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		               		 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                	if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                   		 extraAddr += data.bname;
+		               		 }
+		               		 // 건물명이 있고, 공동주택일 경우 추가한다.
+		               		 if(data.buildingName !== '' && data.apartment === 'Y'){
+		                   		extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                	}
+		                } else{
+		   	             // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			                extraAddr = ' (' + extraAddr + ')';
+		                }
+		
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('postcode').value = data.zonecode;
+		                document.getElementById("roadAddress").value = addr;
+		                
+		                var guideTextBox = document.getElementById("guide");
+		                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+		                if(data.autoRoadAddress) {
+		                    var expRoadAddr = data.autoRoadAddress + extraAddr;
+		                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+		                    guideTextBox.style.display = 'block';
+		
+		                } else if(data.autoJibunAddress) {
+		                    var expJibunAddr = data.autoJibunAddress;
+		                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+		                    guideTextBox.style.display = 'block';
+		                } else {
+		                    guideTextBox.innerHTML = '';
+		                    guideTextBox.style.display = 'none';
+		                }
+		            }
+		        }).open();
+		    }
+		</script>
+		<div class="boxer request">
 			<div class="head">배송시 요청사항</div>
-			<div class="context"><input type="text"></div>
+			<div class="context"><input type="text" placeholder="배송 메세지는 40자 이내로 입력해주세요"></div>
 		</div>
 	</div>
-
-	#customer>div.boxer*3>div.head+div.context
+	
+	<span class="title">결제수탄 선택</span>
+	<div id="payment" class="box">
+		<div class="boxer">
+			<input class="method" type="radio" name="payment"><span>신용카드</span>
+			<input class="method" type="radio" name="payment"><span>무통장</span>
+			<input class="method" type="radio" name="payment"><span>계좌이체</span>
+			<input class="method" type="radio" name="payment"><span>휴대폰</span>
+			<input class="method" type="radio" name="payment"><span>네이버 페이</span>
+		</div>
+	</div>
+	
+	<div id="decision" class="box">
+		<div>결제하기</div>
+	</div>
+		#payment>div.boxer>input.method
 </div>
