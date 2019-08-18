@@ -1,5 +1,7 @@
 package com.dto;
 
+import com.util.CreatePaging;
+
 public class StockJoinProductDTO {
 	public String sCode;
 	public String pCode;
@@ -14,6 +16,9 @@ public class StockJoinProductDTO {
 	private String pName;
 	private String pImage;
 	private String pRegitDate;
+	
+
+	
 	
 	public StockJoinProductDTO() {
 	}
@@ -115,7 +120,7 @@ public class StockJoinProductDTO {
 	}
 
 	public String getpRegitDate() {
-		return pRegitDate;
+		return pRegitDate.substring(0, 10);
 	}
 
 	public void setpRegitDate(String pRegitDate) {
@@ -129,6 +134,7 @@ public class StockJoinProductDTO {
 				+ styleTop + ", styleMid=" + styleMid + ", styleBot=" + styleBot + ", pName=" + pName + ", pImage="
 				+ pImage + ", pRegitDate=" + pRegitDate + "]";
 	}
+	
 	
 	
 }

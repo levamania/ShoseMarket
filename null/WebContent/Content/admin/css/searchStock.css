@@ -9,6 +9,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
+	border-bottom: 1px solid red;
 }
 /*좌측 구조 css(details)*/
 nav{
@@ -36,7 +37,6 @@ section>div:first-child{
 	flex-direction:row;
 	border-bottom: 1px solid red;
 	flex-shrink: 0;
-	
 }
 #input_pname,#selections{
 	display: flex;
@@ -126,7 +126,7 @@ input[type=submti]{
 	display: flex;
 	height: 60px;
 	align-items: stretch;
-	border-bottom: #EAEAEA;
+	border-bottom: 1px solid red;
 }
 #search_title>div{
 	display: flex;
@@ -135,13 +135,43 @@ input[type=submti]{
 	font-weight: bold;
 	align-items: center;
 	padding: 20px;
+	justify-content: flex-start;
+	
+}
+/*정렬 item css*/
+#search_title>div:nth-child(1){
+	
+	flex-basis: 150px;
+	
+}
+#search_title>div:nth-child(2){
+	
+	flex-basis: 30px;
+}
+#search_title>div:nth-child(3){
+	
+	flex-basis: 100px;
+}
+
+#search_title>div:nth-child(4){
+	
+	flex-basis: 100px;
+}
+#search_title>div:nth-child(5){
+	
+	flex-basis: 50px;
+}
+
+#search_title>div:nth-child(6){
+	
+	flex-basis:200px;
 }
 
 .search_body{
 	display: flex;
 	height: 60px;
 	align-items: stretch;
-	border-bottom: #EAEAEA;
+	border-bottom: 1px solid #EAEAEA;
 }
 .search_body>div{
 	display: flex;
@@ -150,5 +180,43 @@ input[type=submti]{
 	font-weight: bold;
 	align-items: center;
 	padding: 20px;
+	justify-content: flex-start;
+}
+/*정렬 item css*/
+.search_body>div:nth-child(1){
+	
+	flex-basis: 150px;
+	
+}
+.search_body>div:nth-child(2){
+	
+	flex-basis: 30px;
+}
+.search_body>div:nth-child(3){
+	
+	flex-basis: 100px;
 }
 
+.search_body>div:nth-child(4){
+	
+	flex-basis: 100px;
+}
+.search_body>div:nth-child(5){
+	
+	flex-basis: 50px;
+}
+
+.search_body>div:nth-child(6){
+	
+	flex-basis:200px;
+}
+
+/*초기 결과값이 없을 시  css*/
+#empty_body{
+	height: 300px; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center;
+	font-size: 18px;
+	font-weight: bold;
+}

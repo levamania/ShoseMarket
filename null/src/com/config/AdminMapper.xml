@@ -70,11 +70,42 @@
 			</if>
 			<if test="start==null">
 				<if test="end!=null">
-					and pregitdate = #{pregidate}
+					and pregitdate = #{end}
 				</if>
 				
 			</if>
 		</trim>
-		order by pCode
+		order by pRegitDate, sCode
+	</select>
+	
+	<select id="searchCount" parameterType="hashmap" resultType="int">
+		select count(*)
+		from stock join product
+		using(pCode)
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<if test="pname!=null">
+				pname = #{pname}
+			</if>
+			<if test="pname==null">
+				<if test="styletop!=null">
+					and styletop=#{styletop}
+				</if>
+				<if test="stylemid!=null">
+					and stylemid=#{stylemid}
+				</if>
+				<if test="stylebot!=null">
+					and stylebot=#{stylebot}
+				</if>
+			</if>
+			<if test="start!=null">
+				and pregitdate between #{start} and #{end}
+			</if>
+			<if test="start==null">
+				<if test="end!=null">
+					and pregitdate = #{end}
+				</if>
+				
+			</if>
+		</trim>
 	</select>
 </mapper>

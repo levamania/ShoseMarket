@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dto.StockJoinProductDTO;
 import com.model.service.AdminService;
+import com.util.CreatePaging;
 import com.util.SearchOrderCalDate;
 
 
@@ -43,6 +44,7 @@ public class SearchStockServlet extends HttpServlet {
 		String stylemid = request.getParameter("stylemid");
 		String stylebot = request.getParameter("stylebot");
 		String searchDate = request.getParameter("searchDate");
+		String cursor = request.getParameter("cursor");
 		
 		//날짜 계산용 mod 오늘 15일 1개월 3개월 1년 구분용
 		int mod=99;
@@ -71,6 +73,7 @@ public class SearchStockServlet extends HttpServlet {
 					map.put("end", null);
 				}
 			}
+			
 		}
 		
 		//상품명으로 검색
@@ -94,10 +97,17 @@ public class SearchStockServlet extends HttpServlet {
 			map.put("styletop", styletop);
 			map.put("stylemid", stylemid);
 			map.put("stylebot", stylebot);
-			System.out.println(map.get("stylebot"));
+			
 		}
+		int totalRows = service.searchCount(map);
+		CreatePaging paging = new CreatePaging(Integer.parseInt(cursor));
+		//paging 객체 생성
+		paging.setTotalPage(totalRows);
+		int searchRow = paging.getSearchRow();
+		int rows = paging.getRows();
+		System.out.println(paging);
 		
-		List<StockJoinProductDTO> list = service.searchStock(map);
+		List<StockJoinProductDTO> list = service.searchStock(map,searchRow,rows);
 		request.setAttribute("orders", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Content/admin/searchStock.jsp");
 		dispatcher.forward(request, response);

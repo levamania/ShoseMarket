@@ -10,6 +10,7 @@ import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.dto.StockJoinProductDTO;
 import com.model.dao.AdminDAO;
+import com.util.CreatePaging;
 
 public class AdminService {
 	private AdminDAO adminDAO=null;
@@ -113,17 +114,31 @@ public class AdminService {
 
 
 
-	public List<StockJoinProductDTO> searchStock(HashMap<String, String> map) {
+	public List<StockJoinProductDTO> searchStock(HashMap<String, String> map, int searchRow, int rows) {
 		List<StockJoinProductDTO> list = null;
 		SqlSession session = MySqlSessionFactory.getSession();
 		try {
-			list =  adminDAO.searchStock(session,map);
+			list =  adminDAO.searchStock(session,map,searchRow,rows);
 		} finally {
 			session.close();
 		}
 		return list;
 	}
 
-	
+
+	/*
+	 * 페이징 처리를 위한 select 결과값 개수 확인
+	 * */
+	public int searchCount(HashMap<String, String> map) {
+		int num=0;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			num = AdminDAO.searchCount(session,map);
+		} finally {
+			session.close();
+		}
+		return num;
+	}
+
 	
 }

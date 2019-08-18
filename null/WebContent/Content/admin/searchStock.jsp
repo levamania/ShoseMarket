@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=1" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=4" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -59,6 +59,7 @@
 				<input class="input_date" type="date" id="date1" >~
 				<input class="input_date" type="date" id="date2" >
 				<input type="hidden" id="searchDate" name="searchDate" value="">
+				<input type="hidden" id="cursor" name="cursor" value="1">
 				<div class="input_date" style="width: 150px;">상품 등록날짜입력</div>
 			</div>
 		</div>
@@ -72,17 +73,20 @@
 			<div>등록날짜</div>
 		</div>
 		<c:if test="${empty orders}">
-			<div>없음</div>
+			<div id="empty_body">
+			상품검색 결과 없음</div>
 		</c:if>
 		<c:if test="${!empty orders}">
-			<div class="search_body">
-				<div>재고코드</div>
-				<div>상품코드</div>
-				<div>상품명</div>
-				<div>가격</div>
-				<div>수량</div>
-				<div>등록날짜</div>
-			</div>
+			<c:forEach items="${orders}" var="order">
+				<div class="search_body">
+					<div>${order.sCode}</div>
+					<div>${order.pCode}</div>
+					<div>${order.pName}</div>
+					<div>${order.pPrice}</div>
+					<div>${order.pAmount}</div>
+					<div>${order.pRegitDate}</div>
+				</div>
+			</c:forEach>
 		</c:if>
 	</section>
 </div>

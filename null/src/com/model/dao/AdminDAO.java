@@ -3,11 +3,13 @@ package com.model.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dto.ProductDTO;
 import com.dto.StockDTO;
 import com.dto.StockJoinProductDTO;
+import com.util.CreatePaging;
 import com.util.SessionCheckInterface;
 
 public class AdminDAO {
@@ -60,8 +62,14 @@ public class AdminDAO {
 		return session.selectOne("com.dto.Admin.searchProduct", pname);
 	}
 
-	public List<StockJoinProductDTO> searchStock(SqlSession session, HashMap<String, String> map) {
-		return session.selectList("com.dto.Admin.searchStock", map);
+	public List<StockJoinProductDTO> searchStock(SqlSession session, HashMap<String, String> map, int searchRow, int rows) {
+		List<StockJoinProductDTO> list = null;
+		list = session.selectList("com.dto.Admin.searchStock", map,new RowBounds(searchRow, rows));
+		return list;
+	}
+
+	public static int searchCount(SqlSession session, HashMap<String, String> map) {
+		return session.selectOne("com.dto.Admin.searchCount", map);
 	}
 
 	
