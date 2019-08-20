@@ -39,15 +39,15 @@
 		<div class="boxer">
 			<div class="head">배송방법</div>
 			<div class="context">
-				<input type="radio" name="order_deliver" checked="checked"> <span>일반택배</span>
-				<input type="radio" name="order_deliver"> <span>매장수령</span>
+				<input type="radio" name="order_deliver" checked="checked" value="post"> <span>일반택배</span>
+				<input type="radio" name="order_deliver" value="manual"> <span>매장수령</span>
 				</div>
 		</div>
 		<div class="boxer name">
 			<div class="head"><div class="star">*</div>이름</div>
 			<div class="context">
 				<input type="text"  name="order_name" style="width:10%;" >
-				<input type="radio" name="copy"> 주문자와 동일 <input type="radio" name="copy" checked="checked"> 신규 입력 <input type="radio" name="copy"> 최근 배송지
+				<input type="radio" name="copy" id="same_radio"> 주문자와 동일 <input type="radio" name="copy" checked="checked" id="new_radio"> 신규 입력 <input type="radio" name="copy"> 최근 배송지
 				<span id="book">내 주소록</span>
 			</div>
 		</div>
@@ -84,7 +84,7 @@
 			<div class="context">
 				<input type="text" id="order_postcode" name="order_postcode" placeholder="우편번호" style="width: 15%;" readonly>
 				<div onclick="execDaumPostcode()">우편번호 찾기</div><br>
-				<input type="text" id="order_address" name="order_address" style="width: 30%;" readonly>
+				<input type="text" id="order_address" name="order_address" style="width: 30%;" readonly >
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" id="order_detailAddress" name="order_detailAddress"  placeholder="상세주소" style="width: 25%;">
 			</div>
@@ -126,8 +126,8 @@
 		                }
 		
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('postcode').value = data.zonecode;
-		                document.getElementById("roadAddress").value = addr;
+		                document.getElementById('order_postcode').value = data.zonecode;
+		                document.getElementById("order_address").value = addr;
 		                
 		                var guideTextBox = document.getElementById("guide");
 		                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -157,11 +157,9 @@
 	<span class="title">결제수탄 선택</span>
 	<div id="payment" class="box">
 		<div class="boxer">
-			<input class="method" type="radio" name="payment" checked="checked"><span>신용카드</span>
-			<input class="method" type="radio" name="payment"><span>무통장</span>
-			<input class="method" type="radio" name="payment"><span>계좌이체</span>
-			<input class="method" type="radio" name="payment"><span>휴대폰</span>
-			<input class="method" type="radio" name="payment"><span>네이버 페이</span>
+			<input class="method" type="radio" name="payment" checked="checked" value="credit"><span>신용카드</span>
+			<input class="method" type="radio" name="payment" value="bankbook"><span>계좌이체</span>
+			<input class="method" type="radio" name="payment" value="cellphone"><span>휴대폰</span>
 		</div>
 	</div>
 	

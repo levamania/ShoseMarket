@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,8 +40,6 @@ import com.util.MapParamInputer;
 public class ProductServlet extends HttpServlet {
 	private Logger logger = LoggerFactory.getLogger(ProductServlet.class);
 	private String key;
-	
-	private static int serial = 0;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//셋팅
@@ -88,6 +88,7 @@ public class ProductServlet extends HttpServlet {
 			Cookie[] cookies = request.getCookies();
 			for(Cookie c : cookies) {
 				if(c.getName().contains("Product")) {
+					System.out.println(c.getName());
 					cook.add(c);
 					HashMap<String,String> tep = mapper.readValue(URLDecoder.decode(c.getValue() , "utf-8"), HashMap.class) ;
 					if(tep.get("PCODE").equals(product.get("PCODE")))reiteration = true;
@@ -109,7 +110,7 @@ public class ProductServlet extends HttpServlet {
 						MapParamInputer.set("STYLEMID",product.get("STYLEMID"),"STYLEBOT",product.get("STYLEBOT"),
 														  "PIMAGE",product.get("PIMAGE"),"PNAME",product.get("PNAME"),
 														  "PCODE",product.get("PCODE"));
-				Cookie cookie  = new Cookie("Product"+(++serial), URLEncoder.encode(mapper.writeValueAsString(rio), "utf-8")); 				
+				Cookie cookie  = new Cookie("Product"+System.currentTimeMillis(), URLEncoder.encode(mapper.writeValueAsString(rio), "utf-8")); 				
 				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
