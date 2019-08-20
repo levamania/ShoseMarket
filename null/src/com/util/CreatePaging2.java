@@ -3,7 +3,7 @@ package com.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatePaging {
+public class CreatePaging2 {
 	/*
 	 * cursors: 페이지를 나타내는 인덱스 번호 
 	 * rows: 한페이지에 표시하는 결과값 
@@ -22,7 +22,7 @@ public class CreatePaging {
 	private int searchRow;
 	
 	//기본값이 있는 생성자
-	public CreatePaging(int cur) {
+	public CreatePaging2(int cur) {
 		this.cur=cur;
 		this.rows=10;
 		this.cols=10;
@@ -30,7 +30,7 @@ public class CreatePaging {
 	}
 	
 	//rows와 cols 초기화 생성자
-	public CreatePaging(int cur, int rows ,int cols) {
+	public CreatePaging2(int cur, int rows ,int cols) {
 		this.cur=cur;
 		this.rows=rows;
 		this.cols=cols;
@@ -44,8 +44,7 @@ public class CreatePaging {
 		for(int i=initCursor;i<=endCourser&&i<=totalPage;i++) {
 			curors.add(i);
 		}
-		//this.searchRow=(this.cur-1)*rows;
-		this.searchRow=cur-1;
+		this.searchRow=(this.cur-1)*rows;
 	}
 
 	public int getInitCursor() {
