@@ -5,18 +5,19 @@
 <script src="/null/Content/order/js/order_address.js"></script>
 	
 <div class="body" >
+	<form name="form1">
 	<span class="title">주문 고객 정보</span>
 	<div id="customer" class="box">
 		<div class="boxer name">
 			<div class="head"><div class="star">*</div><div>주문하시는 분</div></div>
 			<div class="context" style="width:90%;">
-				<input type="text" style="width:10%;"> <input type="checkbox"> 주문자 변경
+				<input  id="user" name="user"  type="text"  readonly="readonly" style="width:10%;"> <input type="checkbox"> 주문자 변경
 			</div>
 		</div>
 		<div class="boxer phone">
 			<div class="head"><div class="star">*</div>휴대폰 번호</div>
 			<div class="context">
-				<select>
+				<select name="user_phone1" >
 					<option>010</option>
 					<option>011</option>
 					<option>016</option>
@@ -24,12 +25,12 @@
 					<option>018</option>
 					<option>019</option>
 				</select>
-				-<input type="text">-<input type="text">
+				-<input type="text" name="user_phone2" >-<input type="text" name="user_phone3">
 			</div>
 		</div>
 		<div class="boxer">
 			<div class="head"><div class="star">*</div>이메일 주소</div>
-			<div class="context"><input type="text"> @ <input type="text"></div>
+			<div class="context"><input type="text" name="user_email1"> @ <input type="text" name="user_email2"></div>
 		</div>
 	</div>
 
@@ -38,22 +39,22 @@
 		<div class="boxer">
 			<div class="head">배송방법</div>
 			<div class="context">
-				<input type="radio" name="deliver" checked="checked"> <span>일반택배</span>
-				<input type="radio" name="deliver"> <span>매장수령</span>
+				<input type="radio" name="order_deliver" checked="checked"> <span>일반택배</span>
+				<input type="radio" name="order_deliver"> <span>매장수령</span>
 				</div>
 		</div>
 		<div class="boxer name">
 			<div class="head"><div class="star">*</div>이름</div>
 			<div class="context">
-				<input type="text" style="width:10%;">
-				<input type="radio" name="copy"> 주문자와 동일 <input type="radio" name="copy"> 신규 입력 <input type="radio" name="copy"> 최근 배송지
+				<input type="text"  name="order_name" style="width:10%;" >
+				<input type="radio" name="copy"> 주문자와 동일 <input type="radio" name="copy" checked="checked"> 신규 입력 <input type="radio" name="copy"> 최근 배송지
 				<span id="book">내 주소록</span>
 			</div>
 		</div>
 		<div class="boxer phone">
 			<div class="head"><div class="star">*</div>휴대폰 번호</div>
 			<div class="context">
-				<select>
+				<select name="order_phone1">
 					<option>010</option>
 					<option>011</option>
 					<option>016</option>
@@ -61,13 +62,13 @@
 					<option>018</option>
 					<option>019</option>
 				</select>
-				- <input type="text"> - <input type="text">
+				- <input type="text" name="order_phone2"> - <input type="text" name="order_phone3" re>
 			</div>
 		</div>
 		<div class="boxer bell">
 			<div class="head">전화 번호</div>
 			<div class="context">
-				<select>
+				<select name="order_telephone1">
 					<option>02</option>
 					<option>031</option>
 					<option>032</option>
@@ -75,17 +76,17 @@
 					<option>041</option>
 					<option>042</option>
 				</select>
-				- <input type="text"> - <input type="text">
+				- <input type="text" name="order_telephone2"> - <input type="text" name="order_telephone3"> 
 			</div>
 		</div>
 		<div class="boxer address">
 			<div class="head"><div class="star">*</div>주소</div>
 			<div class="context">
-				<input type="text" id="postcode" placeholder="우편번호" style="width: 15%;">
+				<input type="text" id="order_postcode" name="order_postcode" placeholder="우편번호" style="width: 15%;" readonly>
 				<div onclick="execDaumPostcode()">우편번호 찾기</div><br>
-				<input type="text" id="roadAddress" style="width: 30%;">
+				<input type="text" id="order_address" name="order_address" style="width: 30%;" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
-				<input type="text" id="detailAddress" placeholder="상세주소" style="width: 25%;">
+				<input type="text" id="order_detailAddress" name="order_detailAddress"  placeholder="상세주소" style="width: 25%;">
 			</div>
 		</div>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -149,14 +150,14 @@
 		</script>
 		<div class="boxer request">
 			<div class="head">배송시 요청사항</div>
-			<div class="context"><input type="text" placeholder="배송 메세지는 40자 이내로 입력해주세요"></div>
+			<div class="context"><input type="text"  name="order_mesg" placeholder="배송 메세지는 40자 이내로 입력해주세요"></div>
 		</div>
 	</div>
 	
 	<span class="title">결제수탄 선택</span>
 	<div id="payment" class="box">
 		<div class="boxer">
-			<input class="method" type="radio" name="payment"><span>신용카드</span>
+			<input class="method" type="radio" name="payment" checked="checked"><span>신용카드</span>
 			<input class="method" type="radio" name="payment"><span>무통장</span>
 			<input class="method" type="radio" name="payment"><span>계좌이체</span>
 			<input class="method" type="radio" name="payment"><span>휴대폰</span>
@@ -167,5 +168,5 @@
 	<div id="decision" class="box">
 		<div>결제하기</div>
 	</div>
-		#payment>div.boxer>input.method
+	</form>	
 </div>
