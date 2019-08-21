@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=4" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=10" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -59,7 +59,18 @@
 				<input class="input_date" type="date" id="date1" >~
 				<input class="input_date" type="date" id="date2" >
 				<input type="hidden" id="searchDate" name="searchDate" value="">
-				<input type="hidden" id="cursor" name="cursor" value="1">
+				<c:choose>
+				<c:when test="${empty page}">
+					<input type="hidden" id="cur" name="cur" value="1">
+					<input type="hidden" id="startCur" name="startCur" value="1">
+					<input type="hidden" id="endCur" name="endCur" value="0">
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" id="cur" name="cur" value="${page.cur}">
+					<input type="hidden" id="startCur" name="startCur" value="${page.startCur}">
+					<input type="hidden" id="endCur" name="endCur" value="${page.endCur}">
+				</c:otherwise>
+				</c:choose>
 				<div class="input_date" style="width: 150px;">상품 등록날짜입력</div>
 			</div>
 		</div>
@@ -88,10 +99,17 @@
 				</div>
 			</c:forEach>
 		</c:if>
+		<c:if test="${!empty page}">
+			<div id="group_a">
+				<c:forEach items="${page.nums}" var="num">
+					<a href="#">${num}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				</c:forEach>
+			</div>
+		</c:if>
 	</section>
 </div>
 
 </form>
-<script src="/null/Content/admin/js/searchStock.js?ver=11"></script>
+<script src="/null/Content/admin/js/searchStock.js?ver=1"></script>
 </body>
 </html>

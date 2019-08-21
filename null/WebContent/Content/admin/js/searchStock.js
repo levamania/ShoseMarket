@@ -231,4 +231,13 @@ $(document).ready(function(){
 	
 });
 
+//page 처리
+$(document).ready(function(){
+	var cur = $("#cur");
+	var startCur = $("#startCur");
+	var endCur= $("#endCur");
+	
+	console.log(cur.val(),startCur.val(),endCur.val());
+});
+
 

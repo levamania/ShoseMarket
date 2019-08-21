@@ -114,11 +114,11 @@ public class AdminService {
 
 
 
-	public List<StockJoinProductDTO> searchStock(HashMap<String, String> map, int searchRow, int rows) {
+	public List<StockJoinProductDTO> searchStock(HashMap<String, String> map) {
 		List<StockJoinProductDTO> list = null;
 		SqlSession session = MySqlSessionFactory.getSession();
 		try {
-			list =  adminDAO.searchStock(session,map,searchRow,rows);
+			list =  adminDAO.searchStock(session,map);
 		} finally {
 			session.close();
 		}

@@ -62,9 +62,11 @@ public class AdminDAO {
 		return session.selectOne("com.dto.Admin.searchProduct", pname);
 	}
 
-	public List<StockJoinProductDTO> searchStock(SqlSession session, HashMap<String, String> map, int searchRow, int rows) {
+	public List<StockJoinProductDTO> searchStock(SqlSession session, HashMap<String, String> map) {
 		List<StockJoinProductDTO> list = null;
-		list = session.selectList("com.dto.Admin.searchStock", map,new RowBounds(searchRow, rows));
+		int offset = Integer.parseInt(map.get("offset"));
+		int limit = Integer.parseInt(map.get("limit"));
+		list = session.selectList("com.dto.Admin.searchStock", map,new RowBounds(offset, limit));
 		return list;
 	}
 

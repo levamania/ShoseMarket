@@ -4,120 +4,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatePaging {
-	/*
-	 * cursors: 페이지를 나타내는 인덱스 번호 
-	 * rows: 한페이지에 표시하는 결과값 
-	 * cols: 페이지 인텍스 갱신 단위 
-	 * totalPage: 전체 페이지 검사 
-	 * cur: 현재 페이지 번호  
-	 * searchRow: rowbound 시작 위치 
-	 * */
-	private int initCursor;
-	private int endCourser;;
-	private List<Integer> curors;
+	private int startCur=1;
+	private int endCur=0;
+	private int cur;
 	private int rows;
 	private int cols;
-	private int totalPage;
-	private int cur;
-	private int searchRow;
+	private List<Integer> nums;
+	private int maxPage;
+	private int curColumn;
 	
-	//기본값이 있는 생성자
-	public CreatePaging(int cur) {
-		this.cur=cur;
+	public CreatePaging(int maxColumn) {
 		this.rows=10;
 		this.cols=10;
-		
+		setMaxPage(maxColumn);
 	}
-	
-	//rows와 cols 초기화 생성자
-	public CreatePaging(int cur, int rows ,int cols) {
-		this.cur=cur;
+	public CreatePaging(int rows, int cols, int maxColumn) {
 		this.rows=rows;
 		this.cols=cols;
+		setMaxPage(maxColumn);
 	}
 	
-	private void createCursors() {
-		int result = cur/cols;
-		this.initCursor = result*cols+1;
-		this.endCourser = (result+1)*cols;
-		this.curors = new ArrayList<Integer>();
-		for(int i=initCursor;i<=endCourser&&i<=totalPage;i++) {
-			curors.add(i);
+	public void setCur(int cur, int startCur, int endCur) {
+		this.cur=cur;
+		this.startCur=startCur;
+		this.endCur=endCur;
+		this.setNums();
+		this.curColumn=(cur-1)*rows;
+	}
+	
+	
+	//cur위치가 양옆인 경우 범위 변경
+	public void setNums() {
+		if(startCur==1) {
+			this.endCur=cols;
+			creatRangeNum();
+		}else {
+			if(cur==startCur) {
+				this.startCur-=(cols-1);
+				this.endCur=startCur;
+			}else if(cur==endCur) {
+				this.startCur=endCur;
+				this.endCur+=(cols-1);
+			}
+			creatRangeNum();
 		}
-		//this.searchRow=(this.cur-1)*rows;
-		this.searchRow=cur-1;
 	}
-
-	public int getInitCursor() {
-		return initCursor;
+	
+	private void creatRangeNum(){
+		nums = new ArrayList<Integer>();
+		for(int i=startCur;i<=endCur&&i<=maxPage;i++) {
+			nums.add(i);
+		}
 	}
-
-	public void setInitCursor(int initCursor) {
-		this.initCursor = initCursor;
+	
+	private void setMaxPage(int maxColumn) {
+		this.maxPage=(maxColumn-1)/rows+1;
 	}
-
-	public int getEndCourser() {
-		return endCourser;
+	
+	//startCur 반환
+	public int getStartCur() {
+		return startCur;
 	}
-
-	public void setEndCourser(int endCourser) {
-		this.endCourser = endCourser;
+	
+	//endCur반환
+	public int getEndCur() {
+		return endCur;
 	}
-
-	public List<Integer> getCurors() {
-		return curors;
-	}
-
-	public void setCurors(List<Integer> curors) {
-		this.curors = curors;
-	}
-
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	public int getCols() {
-		return cols;
-	}
-
-	public void setCols(int cols) {
-		this.cols = cols;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalRows) {
-		this.totalPage=(totalRows/rows)+(((totalRows%rows)>0)?1:0);
-		this.createCursors();
-	}
-
+	
+	//cur위치 반환
 	public int getCur() {
 		return cur;
 	}
-
-	public void setCur(int cur) {
-		this.cur = cur;
+	
+	//범위 반환
+	public List<Integer> getNums() {
+		return nums;
 	}
-
-	public int getSearchRow() {
-		return searchRow;
+	//rowBound 시작 index
+	public int getCurColumn() {
+		return curColumn;
 	}
-
-	public void setSearchRow(int searchRow) {
-		this.searchRow = searchRow;
+	
+	
+	//검색 범위
+	public int getRows() {
+		return rows;
 	}
-
 	@Override
 	public String toString() {
-		return "CreatePaging [initCursor=" + initCursor + ", endCourser=" + endCourser + ", curors=" + curors
-				+ ", rows=" + rows + ", cols=" + cols + ", totalPage=" + totalPage + ", cur=" + cur + ", searchRow="
-				+ searchRow + "]";
+		return "CreatePaging [startCur=" + startCur + ", endCur=" + endCur + ", cur=" + cur + ", rows=" + rows
+				+ ", cols=" + cols + ", nums=" + nums + ", maxPage=" + maxPage + ", curColumn=" + curColumn + "]";
 	}
 	
 	

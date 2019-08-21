@@ -44,8 +44,9 @@ public class SearchStockServlet extends HttpServlet {
 		String stylemid = request.getParameter("stylemid");
 		String stylebot = request.getParameter("stylebot");
 		String searchDate = request.getParameter("searchDate");
-		String cursor = request.getParameter("cursor");
-		
+		int cur = Integer.parseInt(request.getParameter("cur"));
+		int startCur = Integer.parseInt(request.getParameter("startCur"));
+		int endCur = Integer.parseInt(request.getParameter("endCur"));
 		//날짜 계산용 mod 오늘 15일 1개월 3개월 1년 구분용
 		int mod=99;
 		
@@ -99,16 +100,21 @@ public class SearchStockServlet extends HttpServlet {
 			map.put("stylebot", stylebot);
 			
 		}
-		int totalRows = service.searchCount(map);
-		CreatePaging paging = new CreatePaging(Integer.parseInt(cursor));
-		//paging 객체 생성
-		paging.setTotalPage(totalRows);
-		int searchRow = paging.getSearchRow();
-		int rows = paging.getRows();
-		System.out.println(paging);
+		int maxColumn = service.searchCount(map);
+		CreatePaging page = new CreatePaging(5, 5, maxColumn);
+		page.setCur(cur, startCur, endCur);
+		//rowbound 객체의 시작 인덱스 
+		String offset = String.valueOf(page.getCurColumn());
+		//roubound offset 
+		String limit = String.valueOf(page.getRows());
 		
-		List<StockJoinProductDTO> list = service.searchStock(map,searchRow,rows);
+		//map 객체에 값 전달
+		map.put("offset", offset);
+		map.put("limit", limit);
+		System.out.println(page);
+		List<StockJoinProductDTO> list = service.searchStock(map);
 		request.setAttribute("orders", list);
+		request.setAttribute("page", page);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Content/admin/searchStock.jsp");
 		dispatcher.forward(request, response);
 		list.stream().forEach(System.out::println);
