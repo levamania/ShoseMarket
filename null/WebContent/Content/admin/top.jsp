@@ -22,6 +22,11 @@
 
 <div style="display: inline; position: fixed; right: 0; top: 70px;">
 	<a>係員のページ&nbsp;&nbsp;&nbsp;</a>
+</div>
+
+
+
+</div>
 
 
 
@@ -53,11 +58,6 @@
 
 
 
-</div>
-
-
-
-</div>
 
 </body>
 </html>

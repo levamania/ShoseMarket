@@ -31,8 +31,14 @@ section{
 	display:flex;
 	flex-direction: column;
 	flex-grow: 12;
-	border-left: 1px solid red;
+	border-left: 1px solid lightgray;
 }
+hr{
+        background-color: white;
+        border-color : lightgray;
+        border-style :ridge;
+        height:1px;
+      }
 </style>
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -47,14 +53,27 @@ section{
 		<jsp:include page="left.jsp"/>
 	</nav>
 	<section>
-	<div align="center" style="background-color: #edebeb">
-		<table>
-		<caption>
-		관리자님 환영합니다</caption>
-<tr >
-<td width="300" height="300">asd</td>
-<td width="300" height="300">asd</td>
-<td width="300" height="300">asd</td>
+	<div align="center" style="background-color: white">
+		<br>
+		<br>
+		<b style="font-size: 30px">관리자님 환영합니다</b>
+		<br>
+		<br>
+		<br>
+		<hr>
+		<br>
+		<br>
+		<table style="background-color: #edebeb">
+		
+<tr style="background-color: white">
+<td width="300" height="200"><a href="null/Content/admin/inputStock.jsp"><button style="width: 300px;height: 200px;background-color: #edebeb;"><b style="font-size:20px ">주문건수</b></button> </a></td>
+<td width="300" height="200"><a href="null/Content/admin/inputStock.jsp"><button style="width: 300px;height: 200px;background-color: #edebeb;"><b style="font-size:20px ">판매건수</b></button> </a></td>
+<td width="300" height="200"></td>
+</tr>	
+<tr style="background-color: white">
+<td width="300" height="200">asd</td>
+<td width="300" height="200">asd</td>
+<td width="300" height="200">asd</td>
 </tr>		
 	
 		</table>

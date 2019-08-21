@@ -45,7 +45,7 @@ public class ManagerLoginServlet extends HttpServlet {
 			nextPage = "LoginUIServlet";
 
 		} else {
-			nextPage = "/null/Content/admin/inputStock.jsp";
+			nextPage = "/null/Content/admin/adminMain.jsp";
 			
 			  HttpSession session = request.getSession(); session.setAttribute("login", dto);
 			  session.setMaxInactiveInterval(60);
