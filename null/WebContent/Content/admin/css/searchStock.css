@@ -222,7 +222,10 @@ input[type=submti]{
 }
 #group_a{
 	display: flex;
-	background-color: red;
 	height: 30px;
 	justify-content: center;
+}
+#group_a>a{
+	font-size: 20px;
+	font-weight: bold;
 }

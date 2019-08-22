@@ -2,7 +2,7 @@
  * 
  */
 
-//select 태그 초기화
+// select 태그 초기화
 function initSelector(selector,options){
 	selector.append($("<option >select</option>"));
 	for(var optionObj of options){
@@ -12,15 +12,34 @@ function initSelector(selector,options){
 	}
 }
 
-//select 태그 삭제
+// select 태그 삭제
 function selectEmpt(selector){
 	selector.empty();
 	selector.append($("<option>select</option>"));
 }
 
-//페이지 로딩시 실행 함수 
-//ajax로 상품이름을 가져옴
-//상품명 입력시 자동으로 키워드 검색
+
+// css background red 값 제거
+function dateValueRemoveCss(){
+	$(".dateValue").each(function(idx,button){
+		$(this).css("background-color","");
+	});
+}
+
+// 특정 값에 맞는 selector option 설정
+function selectfunc(selectors,msg){
+		selectors.each(function(){
+		if($(this).text()==msg){
+			$(this).prop("selected",true);
+		}else{
+			$(this).prop("selected",false);
+		}
+	});
+}
+
+// 페이지 로딩시 실행 함수
+// ajax로 상품이름을 가져옴
+// 상품명 입력시 자동으로 키워드 검색
 $(document).ready(function(){
 	var keywords = [];
 	var keyupflag = false;
@@ -34,29 +53,72 @@ $(document).ready(function(){
 	
 	var submitbtn = $("input[type=submit]");
 	
-	//정규식 객체
+	// 정규식 객체
 	var pnameReg =/^[가-힝A-Za-z0-9]{1,20}$/;
 	
-	
+	// 검색 조전 유지용
+	var isSearchOption = $("#isSearchOption");
+	console.log(isSearchOption.val());
 	function searchInitSelector(){
 		$.ajax({
 			type: "get",
 			url: "/null/GetInitSearchStockServlet",
 			dataType: "json",
 			success: function(data,status,xhr){
-				initSelector(styletop,data.styletops);
-				initSelector(stylemid,data.stylemids);
-				initSelector(stylebot,data.stylebots);
-				for(var value of data.keywords){
-					keywords.push(value.keyword);
-				}
 				
-				$(function(){
-					$("#pname").autocomplete({
-						source:keywords
+					initSelector(styletop,data.styletops);
+					initSelector(stylemid,data.stylemids);
+					initSelector(stylebot,data.stylebots);
+					for(var value of data.keywords){
+						keywords.push(value.keyword);
+					}
+					
+					$(function(){
+						$("#pname").autocomplete({
+							source:keywords
+						});
 					});
-				});
-				
+					//조회 후 페이지를 로딩한 것이면?
+					if(isSearchOption.val()==1){
+						 var hpcode = $("#hpcode");
+						 var hpname = $("#hpname");
+						 var hstyletop = $("#hstyletop");
+						 var hstylemid = $("#hstylemid");
+						 var hstylebot = $("#hstylebot");
+						 var hsearchDate = $("#hsearchDate");
+						 //상품명으로 찾는것인지?
+						 if(hpcode.val().length!=0){
+							 selectEmpt(styletop);
+							 selectEmpt(stylemid);
+							 selectEmpt(stylebot);
+						 }else{
+							 //style selector
+							 console.log(hstylebot.val());
+							 selectfunc($("#styletop>option"),hstyletop.val());
+							 selectfunc($("#stylemid>option"),hstylemid.val());
+							 selectfunc($("#stylebot>option"),hstylebot.val());
+						 }
+						 
+						 $("#searchDate").val(hsearchDate.val());
+						 //날짜 선택 
+						 if(hsearchDate.val().length>=15){
+							 //input date 설정
+							 var d1 = hsearchDate.val().substring(0, 10);
+							 var d2 = hsearchDate.val().substring(10);
+							 $("#date1").val(d1);
+							 $("#date2").val(d2);
+						 }else{
+							 //날짜 버튼 설정 
+							 $(".dateValue").each(function(idx,btn){
+								 if($(btn).text()==hsearchDate.val()){
+									 $(this).css("background-color","red");
+								 }else{
+									 $(this).css("background-color","");
+								 }
+							 });
+						 }
+						 
+					}
 			},
 			error: function(xhr,status,e){
 				console.log("error: ",e);
@@ -66,8 +128,8 @@ $(document).ready(function(){
 	}
 	
 	searchInitSelector();
-	//pnanme keyup event
-	//keyup 이벤트 후 입력된 값있으면 외부 변수(keyupflag)설정 
+	// pnanme keyup event
+	// keyup 이벤트 후 입력된 값있으면 외부 변수(keyupflag)설정
 	pname.on("keyup",function(){
 		if(pname.val().length!=0){
 			
@@ -77,7 +139,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	//input tag 초기화
+	// input tag 초기화
 	function initInput(){
 		keywords=[];
 		styletop.empty();
@@ -88,12 +150,12 @@ $(document).ready(function(){
 		searchInitSelector();
 		keyupflag=false;
 	}
-	//pname blur event
-	//외부 변수에 따라 ajax. 호출 
+	// pname blur event
+	// 외부 변수에 따라 ajax. 호출
 	pname.on("blur",function(){
 		if(keyupflag){
 			
-			//ajax json 응답 처리 
+			// ajax json 응답 처리
 			$.ajax({
 				type: "get",
 				url: "/null/GetInitSearchStockServlet",
@@ -123,18 +185,12 @@ $(document).ready(function(){
 });
 
 
-//css background red 값 제거 
-function dateValueRemoveCss(){
-	$(".dateValue").each(function(idx,button){
-		$(this).css("background-color","");
-	});
-}
 
-//날짜 버튼 클릭시 css 설정 
+
+// 날짜 버튼 클릭시 css 설정
 // dateValue 설정
 $(document).ready(function() {
-var pname = $("#pname");
-	
+	var pname = $("#pname");
 	var pcode = $("#pcode");
 	var styletop = $("#styletop");
 	var stylemid = $("#stylemid");
@@ -146,7 +202,7 @@ var pname = $("#pname");
 	var date2 = $("#date2");
 	searchDate.val("");
 	
-	//날짜 입력 버튼 클릭
+	// 날짜 입력 버튼 클릭
 	$(".dateValue").each(function(idx,button) {
 		$(this).on("click",function(){
 			dateValueRemoveCss();
@@ -158,7 +214,7 @@ var pname = $("#pname");
 		});
 	});
 	
-	//날짜 date input 태그 유효성
+	// 날짜 date input 태그 유효성
 	date1.on("change",function(){
 		dateValueRemoveCss();
 		if(searchDate.val()){
@@ -174,7 +230,7 @@ var pname = $("#pname");
 			searchDate.val(date1.val()+date2.val());
 		}
 	});
-	//날짜 date input 태그 유효성
+	// 날짜 date input 태그 유효성
 	date2.on("change",function(){
 		dateValueRemoveCss();
 		if(searchDate.val()){
@@ -190,17 +246,9 @@ var pname = $("#pname");
 			searchDate.val(date1.val()+date2.val());
 		}
 	});
-	
-	/*$("form").on("submit",function(){
-		if(!searchDate.val()){
-			alert("등록일 검색 옵션을 선택하세요.");
-			return false;
-		}
-	});*/
-	
 });
 
-//입력 태그 value값 확인
+// 입력 태그 value값 확인
 function sumValue(...tags){
 	var sum="";
 	for(var tag of tags){
@@ -209,8 +257,8 @@ function sumValue(...tags){
 	return sum;
 }
 
-//submit 유효성 검
-//searchDate, pname, styletop,stylemid, sytlebot중 하나라도 없다면
+// submit 유효성 검
+// searchDate, pname, styletop,stylemid, sytlebot중 하나라도 없다면
 $(document).ready(function(){
 	var pname = $("#pname");
 	var pcode = $("#pcode");
@@ -220,7 +268,7 @@ $(document).ready(function(){
 	var pregitdate = $("#pregitdate");
 	var searchDate = $("#searchDate");
 	
-	//submit event 검사
+	// submit event 검사
 	$("form").on("submit",function(){
 		var outdata=sumValue(pname,styletop,stylemid,stylebot,searchDate);
 		if(outdata=='selectselectselect'){
@@ -231,12 +279,28 @@ $(document).ready(function(){
 	
 });
 
-//page 처리
+// page 처리
 $(document).ready(function(){
 	var cur = $("#cur");
 	var startCur = $("#startCur");
 	var endCur= $("#endCur");
-	
+	var atags = $("#group_a>a");
+	// 번호 a태그 설정
+	// 현재 페이지는 a 태그 비 활성
+	atags.each(function(idx,a){
+		if($(a).text()==cur.val()){
+			$(this).removeAttr("href");
+		}else{
+			// 태그 클릭시
+			// click atag의 값을 cur에 할당
+			$(this).on("click",function(event){
+				event.preventDefault();
+				cur.val($(this).text());
+				$("form").submit();
+			});
+		}
+		
+	});
 	console.log(cur.val(),startCur.val(),endCur.val());
 });
 

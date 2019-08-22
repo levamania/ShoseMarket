@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=10" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=1" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -60,6 +60,21 @@
 				<input class="input_date" type="date" id="date2" >
 				<input type="hidden" id="searchDate" name="searchDate" value="">
 				<c:choose>
+					<c:when test="${empty searchoption}">
+						<input type="hidden" id="isSearchOption" name="isSearchOption" value="0">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="isSearchOption" name="isSearchOption" value="1">
+						<input type="hidden" id="hpcode"  name="hpcode" value="${searchoption.pcode}">
+						<input type="hidden" id="hpname"  name="hpname" value="${searchoption.pname}">
+						<input type="hidden" id="hstyletop"  name="hstyletop" value="${searchoption.styletop}">
+						<input type="hidden" id="hstylemid"  name="hstylemid" value="${searchoption.stylemid}">
+						<input type="hidden" id="hstylebot"  name="hstylebot" value="${searchoption.stylebot}">
+						<input type="hidden" id="hsearchDate"  name="hsearchDate" value="${searchoption.searchDate}">
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
 				<c:when test="${empty page}">
 					<input type="hidden" id="cur" name="cur" value="1">
 					<input type="hidden" id="startCur" name="startCur" value="1">
@@ -102,7 +117,7 @@
 		<c:if test="${!empty page}">
 			<div id="group_a">
 				<c:forEach items="${page.nums}" var="num">
-					<a href="#">${num}&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<a>${num}</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 		</c:if>
@@ -110,6 +125,6 @@
 </div>
 
 </form>
-<script src="/null/Content/admin/js/searchStock.js?ver=1"></script>
+<script src="/null/Content/admin/js/searchStock.js?ver=5"></script>
 </body>
 </html>

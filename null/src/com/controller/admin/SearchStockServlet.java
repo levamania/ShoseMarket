@@ -38,7 +38,6 @@ public class SearchStockServlet extends HttpServlet {
 		AdminService service = new AdminService();
 		
 		String pname=request.getParameter("pname");
-		System.out.println(pname);
 		String pcode=request.getParameter("pcode");
 		String styletop = request.getParameter("styletop");
 		String stylemid = request.getParameter("stylemid");
@@ -50,6 +49,17 @@ public class SearchStockServlet extends HttpServlet {
 		//날짜 계산용 mod 오늘 15일 1개월 3개월 1년 구분용
 		int mod=99;
 		
+		//searchoption
+		//이전 페이지에 설정한 옵션을 그대로 다시 설정 
+		HashMap<String, String> searchoption = new HashMap<String, String>();
+		searchoption.put("pname", pname);
+		searchoption.put("pcode", pcode);
+		searchoption.put("styletop", styletop);
+		searchoption.put("stylemid", stylemid);
+		searchoption.put("stylebot", stylebot);
+		searchoption.put("searchDate", searchDate);
+		
+		request.setAttribute("searchoption", searchoption);
 		//날짜 확인
 		if(!searchDate.equals("")) {
 			if(searchDate.length()>15) {
@@ -113,8 +123,12 @@ public class SearchStockServlet extends HttpServlet {
 		map.put("limit", limit);
 		System.out.println(page);
 		List<StockJoinProductDTO> list = service.searchStock(map);
+		//검색 리스트 
 		request.setAttribute("orders", list);
+		//페이지 정보 
 		request.setAttribute("page", page);
+		//검색 옵션
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Content/admin/searchStock.jsp");
 		dispatcher.forward(request, response);
 		list.stream().forEach(System.out::println);
