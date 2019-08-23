@@ -106,7 +106,7 @@ select{
 	flex-shrink: 0;
 }
 /* submit 버튼 css*/
-input[type=submit]{
+#submitbtn{
 	font-size: 20px;
 	height: 30pt;
 	width: 60pt;

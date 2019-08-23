@@ -111,7 +111,7 @@ public class SearchStockServlet extends HttpServlet {
 			
 		}
 		int maxColumn = service.searchCount(map);
-		CreatePaging page = new CreatePaging(5, 5, maxColumn);
+		CreatePaging page = new CreatePaging(3, 4, maxColumn);
 		page.setCur(cur, startCur, endCur);
 		//rowbound 객체의 시작 인덱스 
 		String offset = String.valueOf(page.getCurColumn());

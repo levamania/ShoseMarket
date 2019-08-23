@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자페이지</title>
-<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=1" >
+<link rel="stylesheet" type="text/css" href="/null/Content/admin/css/searchStock.css?ver=4" >
 <link rel="stylesheet" href="/null/Content/api/jquery/jquery-ui/jquery-ui.css">
 </head>
 <script src="/null/Content/api/jquery/jquery-3.4.1.js"></script>
@@ -29,7 +29,7 @@
 		<div id="input_pname">
 			<div>상품명<input id="pname" name="pname"></div>
 			<div>상품코드<input id="pcode" name="pcode" type="text" readonly="readonly"></div>
-			<div><input type="submit" value="조회" id="submitbtn"></div>
+			<div><input type="button" value="조회" id="submitbtn"></div>
 		</div>
 		<div id="selections">
 			<div>대분류
@@ -117,7 +117,7 @@
 		<c:if test="${!empty page}">
 			<div id="group_a">
 				<c:forEach items="${page.nums}" var="num">
-					<a>${num}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="">${num}</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 		</c:if>

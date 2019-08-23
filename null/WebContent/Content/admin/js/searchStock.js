@@ -257,7 +257,18 @@ function sumValue(...tags){
 	return sum;
 }
 
-// submit 유효성 검
+//submit button event
+$(document).ready(function() {
+	var submitbtn = $("#submitbtn");
+	submitbtn.on("click",function(){
+		$("#cur").val("1");
+		$("#startCur").val("1");
+		$("#endCur").val("0");
+		$("form").submit();
+	});
+});
+
+// submit 유효성 검사
 // searchDate, pname, styletop,stylemid, sytlebot중 하나라도 없다면
 $(document).ready(function(){
 	var pname = $("#pname");
@@ -285,6 +296,7 @@ $(document).ready(function(){
 	var startCur = $("#startCur");
 	var endCur= $("#endCur");
 	var atags = $("#group_a>a");
+	
 	// 번호 a태그 설정
 	// 현재 페이지는 a 태그 비 활성
 	atags.each(function(idx,a){
@@ -301,7 +313,6 @@ $(document).ready(function(){
 		}
 		
 	});
-	console.log(cur.val(),startCur.val(),endCur.val());
 });
 
 

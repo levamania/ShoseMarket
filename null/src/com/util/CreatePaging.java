@@ -35,18 +35,21 @@ public class CreatePaging {
 	
 	//cur위치가 양옆인 경우 범위 변경
 	public void setNums() {
-		if(startCur==1) {
+		if(cur==1) {
 			this.endCur=cols;
 			creatRangeNum();
 		}else {
 			if(cur==startCur) {
-				this.startCur-=(cols-1);
 				this.endCur=startCur;
+				this.startCur-=(cols-1);
 			}else if(cur==endCur) {
 				this.startCur=endCur;
 				this.endCur+=(cols-1);
 			}
+			//num 범위 생성 
 			creatRangeNum();
+			System.out.println(startCur);
+			System.out.println(this.nums);
 		}
 	}
 	
