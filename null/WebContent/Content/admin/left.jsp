@@ -28,8 +28,8 @@
 		<summary>
 			상품관리
 		</summary>
-			<div class="left_content"><a href="" id="addstock">재고등록</a></div>
 			<div class="left_content"><a href="" id="searchproduct">상품검색</a></div>
-			<div class="left_content"><a href="" id="">상품등록</a></div>
+			<div class="left_content"><a href="inputProduct.jsp" id="inputProduct">상품등록</a></div>
+			<div class="left_content"><a href="" id="addstock">재고등록</a></div>
 	</details>	
 </div>

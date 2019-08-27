@@ -94,7 +94,6 @@ $(document).ready(function(){
 <div align="center"><jsp:include page="top.jsp"/></div>
 <br>
 <br>
-<hr>
 <br>
 <br>
 <form action="">
@@ -104,6 +103,7 @@ $(document).ready(function(){
 <br>
 <br>
 <div align="center" style="background-color: #f5f5f5">
+<hr>
 <table  style="background-color: white;">
 <tr align="center" style="background-color: #dedede;width: 650px;height: 60px"><td colspan="4" ><a style="font-size: 120%" >기본 정보</a></td></tr>
 <tr >
@@ -174,7 +174,7 @@ $(document).ready(function(){
 
 <br>
 <br>
-
+<hr>
 <table  style="background-color: white;">
 <tr align="center" style="background-color: #dedede;width: 650px;height: 60px"><td colspan="4" ><a style="font-size: 120%" >상세 정보</a></td></tr>
 
